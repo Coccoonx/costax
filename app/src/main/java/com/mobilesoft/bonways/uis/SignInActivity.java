@@ -1,12 +1,12 @@
 /**
  * Copyright Google Inc. All Rights Reserved.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,9 +15,14 @@
  */
 package com.mobilesoft.bonways.uis;
 
+import android.annotation.TargetApi;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -49,6 +54,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.mobilesoft.bonways.R;
+import com.mobilesoft.bonways.utils.CoreUtils;
+
+import static com.mobilesoft.bonways.utils.CoreUtils.ALL_PERMISSIONS_REQUEST;
 
 public class SignInActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
@@ -132,10 +140,10 @@ public class SignInActivity extends AppCompatActivity implements
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    finish();
+                    if (CoreUtils.checkAllPermissions(SignInActivity.this))
+                        startApp();
+                    else
+                        CoreUtils.alertAndRequestPermission(SignInActivity.this);
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -184,7 +192,7 @@ public class SignInActivity extends AppCompatActivity implements
                 // Google Sign In failed
                 Log.e(TAG, "Google Sign In failed.");
             }
-        }else
+        } else
             mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -205,13 +213,91 @@ public class SignInActivity extends AppCompatActivity implements
                             Toast.makeText(SignInActivity.this, "Authentication failed google.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
-                            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);startActivity(new Intent(SignInActivity.this, MainActivity.class));
-                            finish();
+
+//                            if (CoreUtils.checkAllPermissions(SignInActivity.this))
+//                                startApp();
+//                            else
+//                                CoreUtils.alertAndRequestPermission(SignInActivity.this);
+
                         }
                     }
                 });
+    }
+
+    private void startApp() {
+        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case ALL_PERMISSIONS_REQUEST: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[1] == PackageManager.PERMISSION_GRANTED
+                        /*&& grantResults[2] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[3] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[4] == PackageManager.PERMISSION_GRANTED*/) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    //use standard intent to capture an image
+
+//                    Intent intent = new Intent(LoginActivity.this, PhoneContactService.class);
+//                    startService(intent);
+                    startApp();
+
+
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+                    alertBuilder.setCancelable(true);
+                    alertBuilder.setTitle(getResources().getString(R.string.permission_denied));
+                    alertBuilder.setMessage(getResources().getString(R.string.permission_not_all_allowed_explanation));
+                    alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                        @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+                        public void onClick(DialogInterface dialog, int which) {
+//                            if (progressBar != null && submitButton != null && loginChoices != null) {
+//                                progressBar.setVisibility(View.GONE);
+//                                submitButton.setVisibility(View.VISIBLE);
+//                                loginChoices.setVisibility(View.VISIBLE);
+//                            }
+//                            finish();
+                        }
+                    });
+
+                    final AlertDialog alert = alertBuilder.create();
+
+
+//                    alert.setOnShowListener(new DialogInterface.OnShowListener() {
+//                        @Override
+//                        public void onShow(DialogInterface arg0) {
+//                            alert.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+//                        }
+//                    });
+
+
+                    alert.show();
+                    alert.getButton(alert.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+//                    dialog.getButton(dialog.BUTTON_POSITIVE).setTextColor(neededColor);
+
+                }
+//                Intent intent = new Intent(LoginActivity.this, PhoneContactService.class);
+//                startService(intent);
+//                startApp();
+                return;
+            }
+
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
     private void handleFacebookAccessToken(AccessToken token) {

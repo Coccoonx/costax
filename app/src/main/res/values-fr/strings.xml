@@ -12,6 +12,10 @@
     <string name="tab_favorite">Favoris</string>
     <string name="facebook_app_id">1701860226772831</string>
     <string name="welcome">Bienvenue</string>
+    <string name="permission_necessary">Permission requise</string>
+    <string name="permission_explanation">Nous avons besoins d\'autorisations &lt;b>obligatoires&lt;/b> pour vous fournir une meilleure expérience. Veuillez autoriser les requêtes qui vont suivre.</string>
+    <string name="permission_denied">Permission Refusée</string>
+    <string name="permission_not_all_allowed_explanation">Vous devez autoriser toutes les permissions</string>
 
 
 </resources>

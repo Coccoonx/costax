@@ -12,4 +12,8 @@
     <string name="tab_hot">Hot</string>
     <string name="tab_favorite">Favorite</string>
     <string name="welcome">Welcome</string>
+    <string name="permission_necessary">Permission necessary</string>
+    <string name="permission_explanation">We need some &lt;b>mandatories&lt;/b> permissions to provide you with a great experience. Please accept all following requests.</string>
+    <string name="permission_denied">Permission Denied</string>
+    <string name="permission_not_all_allowed_explanation">You have to allow all the requested permissions</string>
 </resources>
