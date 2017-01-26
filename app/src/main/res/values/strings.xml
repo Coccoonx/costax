@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">BonWays</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="sign_in">Login</string>
+
+    <string name="facebook_app_id">1701860226772831</string>
+    <string name="tab_map">Map</string>
+    <string name="tab_hot">Hot</string>
+    <string name="tab_favorite">Favorite</string>
+    <string name="welcome">Welcome</string>
+</resources>

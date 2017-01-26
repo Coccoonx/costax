@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="@dimen/margin_middle_standard"
+    android:paddingBottom="@dimen/margin_middle_standard"
+    android:paddingLeft="@dimen/margin_middle_standard"
+    android:paddingStart="@dimen/margin_middle_standard"
+    android:paddingRight="@dimen/margin_middle_standard"
+    android:paddingEnd="@dimen/margin_middle_standard">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:weightSum="100">
+
+        <ImageView
+            android:id="@+id/product_image"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="50"
+            android:scaleType="centerCrop"
+            android:src="@drawable/product_picture" />
+
+        <RelativeLayout
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:padding="@dimen/margin_middle_standard"
+            android:layout_height="0dp"
+            android:layout_weight="50">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true">
+
+                <ImageView
+                    android:id="@+id/comment_icon"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_comments" />
+
+                <TextView
+                    android:id="@+id/comment_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/comment_icon"
+                    android:layout_toRightOf="@+id/comment_icon"
+                    android:text="4" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:lines="3"
+                android:text="Morceau de bois decoratif pour table." />
+
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true">
+
+                <TextView
+                    android:id="@+id/timeleft_label"
+                    android:layout_width="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_height="wrap_content"
+                    android:text="Plus que " />
+
+                <TextView
+                    android:id="@+id/timeleft"
+                    android:layout_toEndOf="@+id/timeleft_label"
+                    android:layout_toRightOf="@id/timeleft_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/holo_red_light"
+                    android:text="13:02" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/shop_logo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:src="@drawable/logo_carrefour"
+        app:civ_border_color="#EEEEEE"
+        app:civ_border_width="0dp"
+        app:civ_shadow="true"
+        app:civ_shadow_radius="10"
+        app:civ_shadow_color="#afafaf"
+        />
+
+</FrameLayout>

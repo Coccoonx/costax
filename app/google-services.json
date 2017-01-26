@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "640361479627",
+    "firebase_url": "https://communication-44917.firebaseio.com",
+    "project_id": "communication-44917",
+    "storage_bucket": "communication-44917.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:640361479627:android:ea3426dee3570432",
+        "android_client_info": {
+          "package_name": "com.mobilesoft.bonways"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "640361479627-s9p01omiams9lkiaionk57n09ujd16sh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mobilesoft.bonways",
+            "certificate_hash": "6D902A85D7352CA64646484AC1BA6AA289135F4F"
+          }
+        },
+        {
+          "client_id": "640361479627-i35eg91nc6kta6bgcui35uigjbudsj45.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIEc6ivqGAvfvgrYm11adIyX0ONI18wyw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "640361479627-i35eg91nc6kta6bgcui35uigjbudsj45.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

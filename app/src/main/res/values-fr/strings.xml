@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BonWays</string>
+
+    <string name="navigation_drawer_open">Ouvrir le volet</string>
+    <string name="navigation_drawer_close">Fermer le volet</string>
+
+    <string name="action_settings">Paramêtre</string>
+    <string name="sign_in">Connexion</string>
+    <string name="tab_map">Carte</string>
+    <string name="tab_hot">Hot</string>
+    <string name="tab_favorite">Favoris</string>
+    <string name="facebook_app_id">1701860226772831</string>
+    <string name="welcome">Bienvenue</string>
+
+
+</resources>
