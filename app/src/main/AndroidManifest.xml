@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mobilesoft.bonways">
 
+    <permission
+        android:name="com.mobilesoft.bonways.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
     <application
         android:allowBackup="true"
         android:name=".BonWaysApplication"
@@ -11,6 +15,10 @@
         android:theme="@style/AppTheme">
 
         <uses-permission android:name="android.permission.INTERNET"/>
+        <uses-permission android:name="com.mobilesoft.bonways.permission.MAPS_RECEIVE" />
+
+        <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+        <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
         <activity
             android:name=".uis.MainActivity"
@@ -30,6 +38,9 @@
         </activity>
 
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyDO3fLkBeDUv4Y_RwgeqTqZdbyswGdB4IU" />
     </application>
 
 </manifest>
