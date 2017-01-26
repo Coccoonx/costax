@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingTop="@dimen/margin_middle_standard"
-    android:paddingBottom="@dimen/margin_middle_standard"
-    android:paddingLeft="@dimen/margin_middle_standard"
-    android:paddingStart="@dimen/margin_middle_standard"
-    android:paddingRight="@dimen/margin_middle_standard"
-    android:paddingEnd="@dimen/margin_middle_standard">
+    android:paddingBottom="@dimen/margin_middle_short"
+    android:paddingEnd="@dimen/margin_middle_short"
+    android:paddingLeft="@dimen/margin_middle_short"
+    android:paddingRight="@dimen/margin_middle_short"
+    android:paddingStart="@dimen/margin_middle_short"
+    android:paddingTop="@dimen/margin_middle_short">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,11 +25,15 @@
             android:src="@drawable/product_picture" />
 
         <RelativeLayout
-            android:background="@android:color/white"
             android:layout_width="match_parent"
-            android:padding="@dimen/margin_middle_standard"
             android:layout_height="0dp"
-            android:layout_weight="50">
+            android:layout_weight="50"
+            android:background="@android:color/white"
+            android:paddingTop="@dimen/margin_middle_short"
+            android:paddingBottom="@dimen/margin_middle_short"
+            android:paddingLeft="@dimen/margin_middle_standard"
+            android:paddingRight="@dimen/margin_middle_standard"
+            >
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -39,8 +43,8 @@
 
                 <ImageView
                     android:id="@+id/comment_icon"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:src="@drawable/ic_comments" />
 
                 <TextView
@@ -50,7 +54,8 @@
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@+id/comment_icon"
                     android:layout_toRightOf="@+id/comment_icon"
-                    android:text="4" />
+                    android:text="4"
+                    android:textSize="11sp" />
             </RelativeLayout>
 
             <TextView
@@ -58,8 +63,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:lines="3"
-                android:text="Morceau de bois decoratif pour table." />
-
+                android:ellipsize="end"
+                android:text="Morceau de bois decoratif pour table. Adequat pour les table de terasses, ou encore pour des pièces ouvertes à la lumière naturel." />
 
 
             <RelativeLayout
@@ -72,19 +77,19 @@
                 <TextView
                     android:id="@+id/timeleft_label"
                     android:layout_width="wrap_content"
-                    android:textSize="12sp"
                     android:layout_height="wrap_content"
-                    android:text="Plus que " />
+                    android:text="Plus que "
+                    android:textSize="11sp" />
 
                 <TextView
                     android:id="@+id/timeleft"
-                    android:layout_toEndOf="@+id/timeleft_label"
-                    android:layout_toRightOf="@id/timeleft_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
+                    android:layout_toEndOf="@+id/timeleft_label"
+                    android:layout_toRightOf="@id/timeleft_label"
+                    android:text="13:02"
                     android:textColor="@android:color/holo_red_light"
-                    android:text="13:02" />
+                    android:textSize="11sp" />
             </RelativeLayout>
 
         </RelativeLayout>
@@ -98,14 +103,13 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/padding_shop_logo"
+        android:layout_marginStart="@dimen/padding_shop_logo"
         android:src="@drawable/logo_carrefour"
         app:civ_border_color="#EEEEEE"
         app:civ_border_width="0dp"
         app:civ_shadow="true"
-        app:civ_shadow_radius="10"
         app:civ_shadow_color="#afafaf"
-        />
+        app:civ_shadow_radius="10" />
 
 </FrameLayout>
