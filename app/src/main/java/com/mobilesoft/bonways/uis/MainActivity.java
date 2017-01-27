@@ -1,18 +1,18 @@
 package com.mobilesoft.bonways.uis;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
-import android.util.Base64;
+import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -30,9 +30,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.uis.adapters.MainAdapter;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
@@ -177,17 +174,39 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_shop) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        }  else if (id == R.id.nav_trader) {
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+            alertBuilder.setCancelable(true);
+            alertBuilder.setTitle(getResources().getString(R.string.trader_request_title));
+            alertBuilder.setMessage(Html.fromHtml(getResources().getString(R.string.trader_request_explanation)));
+            alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
-        } else if (id == R.id.nav_slideshow) {
+                @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+                public void onClick(DialogInterface dialog, int which) {
+                    //// TODO: 27/01/2017 Launch Trader Wizard
+                }
+            });
+            alertBuilder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
 
-        } else if (id == R.id.nav_manage) {
+                @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+                public void onClick(DialogInterface dialog, int which) {
+                    //// nothing to do
+                }
+            });
+
+            final AlertDialog alert = alertBuilder.create();
+
+            alert.show();
+            alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+            alert.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+
+        } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_logout) {
             mFirebaseAuth.signOut();
             Auth.GoogleSignInApi.signOut(mGoogleApiClient);
             mUsername = ANONYMOUS;

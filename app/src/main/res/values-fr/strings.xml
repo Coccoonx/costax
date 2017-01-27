@@ -5,7 +5,7 @@
     <string name="navigation_drawer_open">Ouvrir le volet</string>
     <string name="navigation_drawer_close">Fermer le volet</string>
 
-    <string name="action_settings">Paramêtre</string>
+    <string name="action_settings">Paramêtres</string>
     <string name="sign_in">Connexion</string>
     <string name="tab_map">Carte</string>
     <string name="tab_hot">Hot</string>
@@ -16,6 +16,15 @@
     <string name="permission_explanation">Nous avons besoins d\'autorisations &lt;b>obligatoires&lt;/b> pour vous fournir une meilleure expérience. Veuillez autoriser les requêtes qui vont suivre.</string>
     <string name="permission_denied">Permission Refusée</string>
     <string name="permission_not_all_allowed_explanation">Vous devez autoriser toutes les permissions</string>
+    <string name="nav_option">Options</string>
+    <string name="nav_logout">Deconnexion</string>
+    <string name="nav_trader">Commercant ?</string>
+    <string name="nav_share">Partager</string>
+    <string name="nav_shop">Boutiques</string>
+    <string name="trader_request_title">Devenir Commercant</string>
+    <string name="trader_request_explanation">Voulez-vous devenir commercant ?</string>
+    <string name="menu_find">Recherche</string>
+    <string name="app_slogan">Trouvez le meilleur près de vous!</string>
 
 
 </resources>
