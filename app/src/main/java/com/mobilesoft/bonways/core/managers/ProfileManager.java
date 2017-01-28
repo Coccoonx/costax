@@ -8,8 +8,6 @@ import com.mobilesoft.bonways.core.models.Profile;
 import com.mobilesoft.bonways.storage.BonWaysSettingsUtils;
 
 
-
-
 public class ProfileManager {
 
     private static final String TAG = "ProfileManager";
@@ -22,12 +20,12 @@ public class ProfileManager {
         return mProfile;
     }
 
-    public static Profile saveProfile(final Profile profile) {
+    private static Profile saveProfile(final Profile profile) {
         boolean isOk = fileManager.save(profile);
         if (isOk) {
             mProfile = profile;
             BonWaysSettingsUtils.setAccountAlreadyConfigured(true);
-            Log.d(TAG, "saveProfile completed");
+            Log.d(TAG, "saveProfile completed:" + mProfile);
             return profile;
         } else {
             return null;
@@ -39,7 +37,7 @@ public class ProfileManager {
     }
 
 
-    public static class SaveProfile extends AsyncTask<Profile,Void,Profile>{
+    public static class SaveProfile extends AsyncTask<Profile, Void, Profile> {
 
         @Override
         protected Profile doInBackground(Profile... params) {

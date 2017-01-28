@@ -83,13 +83,16 @@ public class SignInActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-        Window window = getWindow();
 
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
 
-        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        }
         // Assign fields
         mSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
 
@@ -239,7 +242,7 @@ public class SignInActivity extends AppCompatActivity implements
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         Profile profile = new Profile();
         profile.setUser(appUser);
-        ProfileManager.saveProfile(profile);
+        new ProfileManager.SaveProfile().execute(profile);
         startActivity(intent);
         finish();
     }

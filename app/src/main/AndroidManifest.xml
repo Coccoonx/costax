@@ -37,7 +37,7 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
-        <activity android:name=".uis.AddShopWizardActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".uis.AddShopWizardActivity" android:theme="@style/WizardTheme"/>
 
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
         <meta-data
