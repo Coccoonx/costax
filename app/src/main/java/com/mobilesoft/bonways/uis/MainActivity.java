@@ -21,6 +21,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -28,8 +30,12 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.mikhaellopez.circularimageview.CircularImageView;
 import com.mobilesoft.bonways.R;
+import com.mobilesoft.bonways.core.managers.ProfileManager;
+import com.mobilesoft.bonways.core.models.User;
 import com.mobilesoft.bonways.uis.adapters.MainAdapter;
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
@@ -95,7 +101,6 @@ public class MainActivity extends AppCompatActivity
                 .build();
 
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -104,6 +109,18 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+//        View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        View headerView = navigationView.getHeaderView(0);
+        CircularImageView userPic = (CircularImageView) headerView.findViewById(R.id.imageView);
+
+        User currentUser = ProfileManager.getCurrentUserProfile().getUser();
+        if (currentUser != null && currentUser.getImageUrl() != null) {
+            userPic.setVisibility(View.VISIBLE);
+            Picasso.with(this).load(currentUser.getImageUrl()).into(userPic);
+        }
+
 
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -176,7 +193,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_shop) {
             // Handle the camera action
-        }  else if (id == R.id.nav_trader) {
+        } else if (id == R.id.nav_trader) {
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
             alertBuilder.setCancelable(true);
             alertBuilder.setTitle(getResources().getString(R.string.trader_request_title));
@@ -186,6 +203,8 @@ public class MainActivity extends AppCompatActivity
                 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
                 public void onClick(DialogInterface dialog, int which) {
                     //// TODO: 27/01/2017 Launch Trader Wizard
+                    Intent intent = new Intent(MainActivity.this, AddShopWizardActivity.class);
+                    startActivityForResult(intent, 1);
                 }
             });
             alertBuilder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -218,6 +237,17 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (data != null && data.getExtras() != null)
+            for (String key : data.getExtras().keySet())
+                Toast.makeText(this, key + " : " + data.getExtras().get(key).toString(), Toast.LENGTH_SHORT).show();
+
+        super.onActivityResult(requestCode, resultCode, data);
+
     }
 
     @Override

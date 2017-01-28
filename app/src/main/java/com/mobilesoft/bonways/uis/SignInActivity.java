@@ -54,6 +54,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.mobilesoft.bonways.R;
+import com.mobilesoft.bonways.core.managers.ProfileManager;
+import com.mobilesoft.bonways.core.models.Profile;
+import com.mobilesoft.bonways.core.models.User;
 import com.mobilesoft.bonways.utils.CoreUtils;
 
 import static com.mobilesoft.bonways.utils.CoreUtils.ALL_PERMISSIONS_REQUEST;
@@ -67,6 +70,8 @@ public class SignInActivity extends AppCompatActivity implements
     private SignInButton mSignInButton;
 
     private GoogleApiClient mGoogleApiClient;
+    User appUser;
+
 
     // Firebase instance variables
     private FirebaseAuth mFirebaseAuth;
@@ -80,13 +85,10 @@ public class SignInActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_sign_in);
         Window window = getWindow();
 
-// clear FLAG_TRANSLUCENT_STATUS flag:
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
-// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
-// finally change the color
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         // Assign fields
         mSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
@@ -139,10 +141,18 @@ public class SignInActivity extends AppCompatActivity implements
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
+                    appUser = new User();
+                    appUser.setEmail(user.getEmail());
+                    appUser.setDisplayName(user.getDisplayName());
+                    appUser.setImageUrl(user.getPhotoUrl() != null ? user.getPhotoUrl().toString() : null);
+                    appUser.setTrader(false);
+                    Log.d(TAG, "URI: " + user.getPhotoUrl());
+
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    if (CoreUtils.checkAllPermissions(SignInActivity.this))
+                    if (CoreUtils.checkAllPermissions(SignInActivity.this)) {
+
                         startApp();
-                    else
+                    } else
                         CoreUtils.alertAndRequestPermission(SignInActivity.this);
                 } else {
                     // User is signed out
@@ -227,6 +237,9 @@ public class SignInActivity extends AppCompatActivity implements
     private void startApp() {
         Intent intent = new Intent(SignInActivity.this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Profile profile = new Profile();
+        profile.setUser(appUser);
+        ProfileManager.saveProfile(profile);
         startActivity(intent);
         finish();
     }
@@ -240,8 +253,8 @@ public class SignInActivity extends AppCompatActivity implements
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED
                         && grantResults[1] == PackageManager.PERMISSION_GRANTED
-                        /*&& grantResults[2] == PackageManager.PERMISSION_GRANTED
-                        && grantResults[3] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[2] == PackageManager.PERMISSION_GRANTED
+                        /*&& grantResults[3] == PackageManager.PERMISSION_GRANTED
                         && grantResults[4] == PackageManager.PERMISSION_GRANTED*/) {
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
@@ -249,6 +262,9 @@ public class SignInActivity extends AppCompatActivity implements
 
 //                    Intent intent = new Intent(LoginActivity.this, PhoneContactService.class);
 //                    startService(intent);
+
+//                    new ProfileManager.SaveProfile().execute(profile);
+
                     startApp();
 
 

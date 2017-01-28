@@ -25,4 +25,5 @@
     <string name="trader_request_explanation">Would you want to be a trader ?</string>
     <string name="menu_find">Find</string>
     <string name="app_slogan">Find the best near you !</string>
+    <string name="wizard_add_shop_title">Add Shop</string>
 </resources>
