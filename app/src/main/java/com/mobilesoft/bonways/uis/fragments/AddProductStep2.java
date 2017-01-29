@@ -15,11 +15,9 @@ import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.mobilesoft.bonways.BonWaysApplication;
 import com.mobilesoft.bonways.BuildConfig;
 import com.mobilesoft.bonways.R;
-import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.uis.AddShopWizardActivity;
 import com.mvc.imagepicker.ImagePicker;
-import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -28,9 +26,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 
-public class AddShopStep1 extends AbstractStep {
+public class AddProductStep2 extends AbstractStep {
 
-    private static final String TAG = "AddShopStep1";
+    private static final String TAG = "AddProductStep2";
     private int i = 1;
     Trade mTrade;
     protected static File OUTPUT_DIR = BonWaysApplication.getInstance().getDir(BuildConfig.APPLICATION_ID + BuildConfig.VERSION_CODE, Context.MODE_PRIVATE);

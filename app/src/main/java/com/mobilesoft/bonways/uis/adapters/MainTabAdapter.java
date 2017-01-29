@@ -12,10 +12,10 @@ import com.mobilesoft.bonways.uis.fragments.MapFragment;
  * Created by Lyonnel Dzotang on 24/01/2017.
  */
 
-public class MainAdapter extends FragmentStatePagerAdapter {
+public class MainTabAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
 
-    public MainAdapter(FragmentManager fm, int NumOfTabs) {
+    public MainTabAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
     }

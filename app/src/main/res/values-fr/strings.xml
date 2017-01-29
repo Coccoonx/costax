@@ -25,7 +25,9 @@
     <string name="trader_request_explanation">Voulez-vous devenir commercant ?</string>
     <string name="menu_find">Recherche</string>
     <string name="app_slogan">Trouvez le meilleur près de vous!</string>
-    <string name="wizard_add_shop_title">Add Shop</string>
+    <string name="wizard_add_shop_title">Ajouter une boutique</string>
+    <string name="shop">Boutiques</string>
+    <string name="nav_home">Accueil</string>
 
 
 </resources>

@@ -17,7 +17,11 @@ import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.mobilesoft.bonways.R;
+import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.storage.BonWaysSettingsUtils;
 import com.mobilesoft.bonways.uis.AddShopWizardActivity;
@@ -46,21 +50,16 @@ public class AddShopStep2 extends AbstractStep implements OnMapReadyCallback {
         nearestShop = (EditText)v.findViewById(R.id.shopNearestShop);
         address = (EditText)v.findViewById(R.id.shopAddress);
 
-        map = (MapView) v.findViewById(R.id.mapView);
-        map.onCreate(savedInstanceState);
+        map = (MapView) v.findViewById(R.id.mapViewLocation);
+        try {
+            // Temporary fix for crash issue
+            map.onCreate(savedInstanceState);
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
         if (map != null) {
             map.getMapAsync(this);
         }
-
-        if (savedInstanceState != null) {
-           Trade mTrade = savedInstanceState.getParcelable(TRADE);
-            Log.d(TAG, ""+mTrade);
-
-        }
-
-
-
-
 
         return v;
     }
@@ -84,7 +83,20 @@ public class AddShopStep2 extends AbstractStep implements OnMapReadyCallback {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-//        mGoogleMap.setMyLocationEnabled(true);
+        mGoogleMap.setMyLocationEnabled(true);
+        mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+
+                mGoogleMap.clear();
+                Marker marker = mGoogleMap.addMarker(new MarkerOptions()
+                        .position(latLng)
+                        .title("Shop")
+                        .snippet(trade.getName()));
+                trade.setLongitude(latLng.longitude);
+                trade.setLatitude(latLng.latitude);
+            }
+        });
 //        centerMapToUserLocation();
     }
 
@@ -114,9 +126,35 @@ public class AddShopStep2 extends AbstractStep implements OnMapReadyCallback {
         System.out.println("onNext");
         trade.setAddress(address.getText().toString());
         trade.setNearestShopName(nearestShop.getText().toString());
+        trade.setUser(ProfileManager.getCurrentUserProfile().getUser());
+
         //// TODO: 28/01/2017 Get Shop Location
 
         AddShopWizardActivity.mTrade = trade;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        map.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        map.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        map.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        map.onLowMemory();
     }
 
     @Override

@@ -6,17 +6,18 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
-import android.text.Html;
-import android.util.Log;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,15 +32,19 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Profile;
+import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.core.models.User;
-import com.mobilesoft.bonways.uis.adapters.MainTabAdapter;
+import com.mobilesoft.bonways.uis.adapters.MainItemAdapter;
+import com.mobilesoft.bonways.uis.adapters.ShopItemAdapter;
 import com.squareup.picasso.Picasso;
 
-public class MainActivity extends AppCompatActivity
+import java.util.ArrayList;
+
+public class ShopActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
 
     private static final String ANONYMOUS = "Anonymous";
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "ShopActivity";
     // Firebase instance variables
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
@@ -52,7 +57,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_shop);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -120,33 +125,25 @@ public class MainActivity extends AppCompatActivity
             Picasso.with(this).load(currentUser.getImageUrl()).into(userPic);
         }
 
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerShop);
+        RecyclerView.LayoutManager lm = new GridLayoutManager(this,1);
+        recyclerView.setLayoutManager(lm);
+        recyclerView.setHasFixedSize(true);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_map)));
-        tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_hot)));
-        tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_favorite)));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        ArrayList<Trade> dataSet = new ArrayList<>();
+        Profile profile = ProfileManager.getCurrentUserProfile();
+        for (Trade trade : profile.getTrades()) {
+            dataSet.add(trade);
+        }
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final MainTabAdapter adapter = new MainTabAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        viewPager.setCurrentItem(1);
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        ShopItemAdapter mi = new ShopItemAdapter(this, dataSet);
+        recyclerView.setAdapter(mi);
+
+        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
+            public void onClick(View view) {
+                startActivity(new Intent(ShopActivity.this, AddShopWizardActivity.class));
             }
         });
     }
@@ -200,10 +197,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-//            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
         } else if (id == R.id.nav_shop) {
-            startActivity(new Intent(this, ShopActivity.class));
-
+//            startActivity(new Intent(this, ShopActivity.class));
         } else if (id == R.id.nav_trader) {
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
             alertBuilder.setCancelable(true);
@@ -214,7 +210,7 @@ public class MainActivity extends AppCompatActivity
                 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
                 public void onClick(DialogInterface dialog, int which) {
                     //// TODO: 27/01/2017 Launch Trader Wizard
-                    Intent intent = new Intent(MainActivity.this, AddShopWizardActivity.class);
+                    Intent intent = new Intent(ShopActivity.this, AddShopWizardActivity.class);
                     startActivityForResult(intent, 1);
                 }
             });

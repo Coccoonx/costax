@@ -26,4 +26,6 @@
     <string name="menu_find">Find</string>
     <string name="app_slogan">Find the best near you !</string>
     <string name="wizard_add_shop_title">Add Shop</string>
+    <string name="shop">Shops</string>
+    <string name="nav_home">Home</string>
 </resources>
