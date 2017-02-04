@@ -52,8 +52,8 @@ public class ShopActivity extends AppCompatActivity
     private String mPhotoUrl;
 
     private GoogleApiClient mGoogleApiClient;
-
-
+    RecyclerView recyclerView;
+    ShopItemAdapter mi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,7 +125,7 @@ public class ShopActivity extends AppCompatActivity
             Picasso.with(this).load(currentUser.getImageUrl()).into(userPic);
         }
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerShop);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerShop);
         RecyclerView.LayoutManager lm = new GridLayoutManager(this,1);
         recyclerView.setLayoutManager(lm);
         recyclerView.setHasFixedSize(true);
@@ -136,7 +136,7 @@ public class ShopActivity extends AppCompatActivity
             dataSet.add(trade);
         }
 
-        ShopItemAdapter mi = new ShopItemAdapter(this, dataSet);
+        mi = new ShopItemAdapter(this, dataSet);
         recyclerView.setAdapter(mi);
 
         FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
@@ -156,6 +156,8 @@ public class ShopActivity extends AppCompatActivity
         if (profile != null && profile.getUser() != null && profile.getUser().isTrader()) {
             navigationView.getMenu().findItem(R.id.nav_trader).setVisible(false);
         }
+        mi.notifyDataSetChanged();
+
     }
 
     @Override

@@ -104,19 +104,19 @@
                 android:id="@+id/shopLogoLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
-                android:layout_marginTop="@dimen/margin_middle_standard"
                 android:layout_marginLeft="4dp"
                 android:layout_marginStart="4dp"
+                android:layout_marginTop="@dimen/margin_middle_standard"
                 android:text="Shop Logo"
-                />
+                android:textColor="@color/colorAccent" />
 
             <ImageView
                 android:id="@+id/shopLogo"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/logo_carrefour" />
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:src="@drawable/your_logo" />
 
 
         </LinearLayout>

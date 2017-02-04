@@ -38,6 +38,7 @@
 
         </activity>
         <activity android:name=".uis.AddShopWizardActivity" android:theme="@style/WizardTheme"/>
+        <activity android:name=".uis.AddProductWizardActivity" android:theme="@style/WizardTheme"/>
 
         <activity android:name=".uis.ShopActivity" android:label="@string/shop" android:theme="@style/AppTheme.NoActionBar"/>
 

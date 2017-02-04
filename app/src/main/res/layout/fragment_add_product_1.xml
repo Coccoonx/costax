@@ -25,98 +25,151 @@
 
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/shopNameWrapper"
+                android:id="@+id/productNameWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/TextLabel">
 
                 <EditText
-                    android:id="@+id/shopName"
+                    android:id="@+id/productName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Shop Name"
+                    android:hint="Product Name"
                     android:inputType="text" />
 
             </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/shopPhoneWrapper"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/TextLabel">
-
-                <EditText
-                    android:id="@+id/shopPhone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Phone"
-                    android:inputType="phone" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/shopWebsiteWrapper"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/TextLabel">
-
-                <EditText
-                    android:id="@+id/shopWebsite"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Website"
-                    android:inputType="textWebEmailAddress" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/shopRepresenterWrapper"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/TextLabel">
-
-                <EditText
-                    android:id="@+id/shopRepresenter"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Representant"
-                    android:inputType="text" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/shopEmailWrapper"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/TextLabel">
-
-                <EditText
-                    android:id="@+id/shopEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Email"
-                    android:inputType="textEmailAddress" />
-
-            </android.support.design.widget.TextInputLayout>
-
 
             <TextView
-                android:id="@+id/shopLogoLabel"
+                android:id="@+id/productImageLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
-                android:layout_marginTop="@dimen/margin_middle_standard"
                 android:layout_marginLeft="4dp"
                 android:layout_marginStart="4dp"
-                android:text="Shop Logo"
-                />
+                android:layout_marginTop="@dimen/margin_middle_standard"
+                android:layout_marginBottom="@dimen/margin_middle_standard"
+                android:text="Product Image"
+                android:textColor="@color/colorAccent" />
 
             <ImageView
-                android:id="@+id/shopLogo"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:id="@+id/productImage"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:background="@drawable/border"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/logo_carrefour" />
+                android:paddingEnd="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_vertical_margin"
+                android:paddingRight="@dimen/activity_vertical_margin"
+                android:paddingStart="@dimen/activity_vertical_margin"
+                android:paddingTop="@dimen/margin_middle_standard"
+                android:paddingBottom="@dimen/margin_middle_standard"
+                android:src="@drawable/insert_image" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="100"
+                android:orientation="horizontal">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/productNormalPriceWrapper"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:layout_marginEnd="@dimen/margin_middle_standard"
+                    android:layout_marginRight="@dimen/margin_middle_standard"
+                    android:theme="@style/TextLabel">
+
+                    <EditText
+                        android:id="@+id/productNormalPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Normal Price"
+                        android:inputType="numberDecimal" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/productQuantityWrapper"
+                    android:layout_width="0dp"
+                    android:layout_weight="50"
+                    android:layout_marginStart="@dimen/margin_middle_standard"
+                    android:layout_marginLeft="@dimen/margin_middle_standard"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/TextLabel">
+
+                    <EditText
+                        android:id="@+id/productQuantity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Quantity"
+                        android:inputType="numberDecimal" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/productTimeOffWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextLabel">
+
+                <EditText
+                    android:id="@+id/productTimeOff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Promo end on"
+                    android:inputType="datetime" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/productPromoPriceWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextLabel">
+
+                <EditText
+                    android:id="@+id/productPromoPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Promo Price"
+                    android:inputType="numberDecimal" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/productCategoryWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextLabel">
+
+                <EditText
+                    android:id="@+id/productCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Category"
+                    android:inputType="text" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/productShopWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextLabel">
+
+                <EditText
+                    android:id="@+id/productShop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Shop"
+                    android:inputType="text" />
+
+            </android.support.design.widget.TextInputLayout>
 
 
         </LinearLayout>

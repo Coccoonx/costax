@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity
             alert.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
 
         } else if (id == R.id.nav_settings) {
-
+            startActivity(new Intent(MainActivity.this, AddProductWizardActivity.class));
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_logout) {

@@ -112,6 +112,14 @@ public class AddShopStep1 extends AbstractStep {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (mTrade == null) {
+            mTrade = new Trade();
+        }
+    }
+
+    @Override
     public void onNext() {
         System.out.println("onNext");
 

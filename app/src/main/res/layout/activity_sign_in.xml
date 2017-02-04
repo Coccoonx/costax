@@ -10,20 +10,20 @@
         android:id="@+id/splashLogo"
         android:layout_width="200dp"
         android:layout_height="180dp"
-        android:layout_marginTop="@dimen/splash_logo_margin"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/splash_logo_margin"
         android:src="@drawable/splash_logo_mini" />
 
     <TextView
         android:id="@+id/welcomeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/splash_label_margin"
-        android:layout_centerHorizontal="true"
-        android:text="@string/welcome"
         android:layout_below="@id/splashLogo"
-        android:textColor="@color/colorAccent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/splash_label_margin"
+        android:text="@string/welcome"
         android:textAllCaps="true"
+        android:textColor="@color/colorAccent"
         android:textSize="30sp"
         android:textStyle="bold" />
 
@@ -31,10 +31,10 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:gravity="center"
         android:layout_below="@id/welcomeLabel"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
         android:orientation="vertical">
 
         <com.google.android.gms.common.SignInButton
@@ -52,10 +52,6 @@
             android:layout_marginTop="@dimen/activity_horizontal_margin" />
 
     </LinearLayout>
-
-
-
-
 
 
 </RelativeLayout>
