@@ -54,10 +54,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.mobilesoft.bonways.R;
+import com.mobilesoft.bonways.backend.BackEndService;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Profile;
 import com.mobilesoft.bonways.core.models.User;
+import com.mobilesoft.bonways.uis.adapters.MainItemAdapter;
 import com.mobilesoft.bonways.utils.CoreUtils;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.mobilesoft.bonways.utils.CoreUtils.ALL_PERMISSIONS_REQUEST;
 
@@ -78,6 +86,7 @@ public class SignInActivity extends AppCompatActivity implements
     private LoginButton mLoginButton;
     private CallbackManager mCallbackManager;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private BackEndService backEndService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -238,13 +247,50 @@ public class SignInActivity extends AppCompatActivity implements
     }
 
     private void startApp() {
-        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        Profile profile = new Profile();
-        profile.setUser(appUser);
-        new ProfileManager.SaveProfile().execute(profile);
-        startActivity(intent);
-        finish();
+
+        createUserOnline(appUser);
+
+    }
+
+    private void createUserOnline(User appUser) {
+        backEndService = BackEndService.retrofit.create(BackEndService.class);
+
+        Call<User> callParish = backEndService.createUser(appUser);
+        callParish.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.body() != null) {
+                    User savedUser = response.body();
+                    Log.d(TAG, "savedUser = " + savedUser);
+
+//                    progressBar.setVisibility(View.GONE);
+
+                    if (savedUser != null) {
+                        Profile profile = new Profile();
+                        profile.setUser(savedUser);
+                        new ProfileManager.SaveProfile().execute(profile);
+
+                    } else
+                        //// TODO: 02/02/2017 Handle internationalization and message display
+                        Toast.makeText(SignInActivity.this, "Nothing to display", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                } else {
+                    Toast.makeText(SignInActivity.this, response.message() + "", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, response.message());
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.d(TAG, Log.getStackTraceString(t));
+
+            }
+        });
     }
 
     @Override
