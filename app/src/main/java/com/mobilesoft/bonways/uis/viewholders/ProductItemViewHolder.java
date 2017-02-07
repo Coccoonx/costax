@@ -7,20 +7,17 @@ import android.widget.TextView;
 
 import com.mobilesoft.bonways.R;
 
-/**
- * Created by Lyonnel Dzotang on 25/01/2017.
- */
 
-public class MainItemViewHolder extends RecyclerView.ViewHolder {
+public class ProductItemViewHolder extends RecyclerView.ViewHolder {
 
-    public ImageView productImage;
-    public ImageView shopLogo;
     public TextView commentCount;
     public TextView description;
     public TextView title;
     public TextView timeOff;
+    public ImageView shopLogo;
+    public ImageView productImage;
 
-    public MainItemViewHolder(View itemView) {
+    public ProductItemViewHolder(View itemView) {
         super(itemView);
         commentCount = (TextView) itemView.findViewById(R.id.comment_count);
         description = (TextView) itemView.findViewById(R.id.item_description);

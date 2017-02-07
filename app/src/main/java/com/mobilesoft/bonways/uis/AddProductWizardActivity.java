@@ -12,11 +12,7 @@ import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Profile;
-import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.uis.fragments.AddProductStep1;
-import com.mobilesoft.bonways.uis.fragments.AddProductStep2;
-import com.mobilesoft.bonways.uis.fragments.AddShopStep1;
-import com.mobilesoft.bonways.uis.fragments.AddShopStep2;
 
 public class AddProductWizardActivity extends ProgressStepper {
 
@@ -29,6 +25,9 @@ public class AddProductWizardActivity extends ProgressStepper {
 
 
         super.onComplete();
+        Profile profile = ProfileManager.getCurrentUserProfile();
+        profile.getMyProducts().add(mProduct);
+        new ProfileManager.SaveProfile().execute(profile);
         Log.d(TAG, ""+mProduct);
         finish();
     }

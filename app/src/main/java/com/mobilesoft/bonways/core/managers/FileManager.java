@@ -62,6 +62,7 @@ public class FileManager {
             return profile;
         } catch (Exception e) {
             Log.d(TAG, "Problem reading file : " + e.getMessage());
+            Log.d(TAG, Log.getStackTraceString(e));
             return null;
         }
     }

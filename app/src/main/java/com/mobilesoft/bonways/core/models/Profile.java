@@ -12,5 +12,7 @@ public class Profile implements Serializable {
 
     User user = new User();
     List<Trade> trades = new ArrayList();
+    List<Product> myProducts = new ArrayList();
+    List<Product> products = new ArrayList();
 
 }

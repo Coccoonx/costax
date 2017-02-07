@@ -54,6 +54,7 @@ public class ShopActivity extends AppCompatActivity
     private GoogleApiClient mGoogleApiClient;
     RecyclerView recyclerView;
     ShopItemAdapter mi;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,21 +126,8 @@ public class ShopActivity extends AppCompatActivity
             Picasso.with(this).load(currentUser.getImageUrl()).into(userPic);
         }
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerShop);
-        RecyclerView.LayoutManager lm = new GridLayoutManager(this,1);
-        recyclerView.setLayoutManager(lm);
-        recyclerView.setHasFixedSize(true);
 
-        ArrayList<Trade> dataSet = new ArrayList<>();
-        Profile profile = ProfileManager.getCurrentUserProfile();
-        for (Trade trade : profile.getTrades()) {
-            dataSet.add(trade);
-        }
-
-        mi = new ShopItemAdapter(this, dataSet);
-        recyclerView.setAdapter(mi);
-
-        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -156,7 +144,19 @@ public class ShopActivity extends AppCompatActivity
         if (profile != null && profile.getUser() != null && profile.getUser().isTrader()) {
             navigationView.getMenu().findItem(R.id.nav_trader).setVisible(false);
         }
-        mi.notifyDataSetChanged();
+
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerShop);
+        RecyclerView.LayoutManager lm = new GridLayoutManager(this, 1);
+        recyclerView.setLayoutManager(lm);
+        recyclerView.setHasFixedSize(true);
+
+        ArrayList<Trade> dataSet = new ArrayList<>();
+        for (Trade trade : profile.getTrades()) {
+            dataSet.add(trade);
+        }
+
+        mi = new ShopItemAdapter(this, dataSet);
+        recyclerView.setAdapter(mi);
 
     }
 
@@ -199,9 +199,15 @@ public class ShopActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            startActivity(new Intent(this, MainActivity.class));
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         } else if (id == R.id.nav_shop) {
 //            startActivity(new Intent(this, ShopActivity.class));
+
+        } else if (id == R.id.nav_product) {
+            startActivity(new Intent(this, ProductActivity.class));
+
         } else if (id == R.id.nav_trader) {
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
             alertBuilder.setCancelable(true);

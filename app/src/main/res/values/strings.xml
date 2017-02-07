@@ -29,4 +29,6 @@
     <string name="shop">Shops</string>
     <string name="nav_home">Home</string>
     <string name="wizard_add_product_title">Add Product</string>
+    <string name="nav_product">Products</string>
+    <string name="products">My Products</string>
 </resources>

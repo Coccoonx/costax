@@ -70,7 +70,7 @@ public class Trade implements Serializable, Parcelable {
         dest.writeSerializable(this.user);
         dest.writeString(this.logoUrl);
         Bundle b = new Bundle();
-        b.putSerializable("products", (Serializable) productslist);
+        b.putSerializable("myProducts", (Serializable) productslist);
         dest.writeBundle(b);
     }
 
@@ -88,7 +88,7 @@ public class Trade implements Serializable, Parcelable {
         this.user = (User) in.readSerializable();
         this.logoUrl = in.readString();
         Bundle b = in.readBundle();
-        productslist = (Set<Product>) b.getSerializable("products");
+        productslist = (Set<Product>) b.getSerializable("myProducts");
     }
 
     public static final Parcelable.Creator<Trade> CREATOR = new Parcelable.Creator<Trade>() {

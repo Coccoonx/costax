@@ -1,5 +1,6 @@
 package com.mobilesoft.bonways.uis.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,7 +8,9 @@ import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 
 import com.mobilesoft.bonways.R;
+import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.uis.viewholders.MainItemViewHolder;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,17 +21,32 @@ import java.util.List;
 
 public class MainItemAdapter extends RecyclerView.Adapter<MainItemViewHolder> {
 
-    ArrayList<Integer> mDataSet ;
+    ArrayList<Product> mDataSet;
+    Context mContext;
 
-    public MainItemAdapter(ArrayList arrayList) {
+    public MainItemAdapter(Context context, ArrayList arrayList) {
         super();
         mDataSet = arrayList;
+        mContext = context;
     }
 
     @Override
     public void onBindViewHolder(MainItemViewHolder holder, int position) {
 
-        holder.commentCount.setText(mDataSet.get(position).toString());
+        Product product = mDataSet.get(position);
+        holder.title.setText(product.getDesignation());
+        holder.description.setText(product.getDescription());
+        holder.commentCount.setText("" + position);
+        holder.timeOff.setText(product.getDateTimeOff());
+        if (product.getTrade().getLogoUrl().contains("http") || product.getTrade().getLogoUrl().contains("cdn"))
+            Picasso.with(mContext).load(product.getTrade().getLogoUrl()).into(holder.shopLogo);
+        else
+            Picasso.with(mContext).load("file://" + product.getTrade().getLogoUrl()).into(holder.shopLogo);
+
+        if (product.getImageUrl().contains("http") || product.getImageUrl().contains("cdn"))
+            Picasso.with(mContext).load(product.getImageUrl()).into(holder.productImage);
+        else
+            Picasso.with(mContext).load("file://" + product.getImageUrl()).into(holder.productImage);
 
     }
 
@@ -46,10 +64,6 @@ public class MainItemAdapter extends RecyclerView.Adapter<MainItemViewHolder> {
         MainItemViewHolder vh = new MainItemViewHolder(v);
         return vh;
     }
-
-
-
-
 
 
 }

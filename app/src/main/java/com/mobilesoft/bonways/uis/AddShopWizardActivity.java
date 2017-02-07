@@ -1,5 +1,6 @@
 package com.mobilesoft.bonways.uis;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,6 +33,9 @@ public class AddShopWizardActivity extends ProgressStepper {
         }
         profile.getTrades().add(mTrade);
         new ProfileManager.SaveProfile().execute(profile);
+        Intent intent = new Intent(AddShopWizardActivity.this, ShopActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
         finish();
     }
 

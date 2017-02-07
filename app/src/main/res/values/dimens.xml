@@ -12,4 +12,5 @@
     <dimen name="text_margin">16dp</dimen>
     <dimen name="margin_middle_standard">8dp</dimen>
     <dimen name="margin_middle_short">4dp</dimen>
+    <dimen name="margin_short">8dp</dimen>
 </resources>

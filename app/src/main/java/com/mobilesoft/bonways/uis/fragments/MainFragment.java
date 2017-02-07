@@ -11,6 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mobilesoft.bonways.R;
+import com.mobilesoft.bonways.backend.DummyServer;
+import com.mobilesoft.bonways.core.managers.ProfileManager;
+import com.mobilesoft.bonways.core.models.Product;
+import com.mobilesoft.bonways.core.models.Profile;
 import com.mobilesoft.bonways.uis.adapters.MainItemAdapter;
 
 import java.util.ArrayList;
@@ -31,12 +35,18 @@ public class MainFragment extends Fragment {
         recyclerView.setLayoutManager(lm);
         recyclerView.setHasFixedSize(true);
 
-        ArrayList<Integer> dataSet = new ArrayList<>();
-        for (int i=0; i<15; i++) {
-            dataSet.add(i);
+        Profile profile = ProfileManager.getCurrentUserProfile();
+        ArrayList<Product> dataSet = new ArrayList<>();
+        if (profile != null) {
+            dataSet.addAll(profile.getMyProducts());
+            dataSet.addAll(profile.getProducts());
         }
+        //Dummy Data
+        dataSet.addAll(DummyServer.getAvailableProduct());
 
-        MainItemAdapter mi = new MainItemAdapter( dataSet);
+
+
+        MainItemAdapter mi = new MainItemAdapter(getActivity(), dataSet);
         recyclerView.setAdapter(mi);
 //        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {

@@ -6,17 +6,18 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
-import android.text.Html;
-import android.util.Log;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,14 +34,16 @@ import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Profile;
 import com.mobilesoft.bonways.core.models.User;
-import com.mobilesoft.bonways.uis.adapters.MainTabAdapter;
+import com.mobilesoft.bonways.uis.adapters.ProductItemAdapter;
 import com.squareup.picasso.Picasso;
 
-public class MainActivity extends AppCompatActivity
+import java.util.ArrayList;
+
+public class ProductActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
 
     private static final String ANONYMOUS = "Anonymous";
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "ProductActivity";
     // Firebase instance variables
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
@@ -48,12 +51,13 @@ public class MainActivity extends AppCompatActivity
     private String mPhotoUrl;
 
     private GoogleApiClient mGoogleApiClient;
-
+    RecyclerView recyclerView;
+    ProductItemAdapter mi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_shop);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -74,25 +78,6 @@ public class MainActivity extends AppCompatActivity
                 mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
             }
         }
-
-//        PackageInfo info;
-//        try {
-//            info = getPackageManager().getPackageInfo("com.mobilesoft.bonways", PackageManager.GET_SIGNATURES);
-//            for (Signature signature : info.signatures) {
-//                MessageDigest md;
-//                md = MessageDigest.getInstance("SHA");
-//                md.update(signature.toByteArray());
-//                String something = new String(Base64.encode(md.digest(), 0));
-//                //String something = new String(Base64.encodeBytes(md.digest()));
-//                Log.e("hash key", something);
-//            }
-//        } catch (PackageManager.NameNotFoundException e1) {
-//            Log.e("name not found", e1.toString());
-//        } catch (NoSuchAlgorithmException e) {
-//            Log.e("no such an algorithm", e.toString());
-//        } catch (Exception e) {
-//            Log.e("exception", e.toString());
-//        }
 
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -115,40 +100,18 @@ public class MainActivity extends AppCompatActivity
         View headerView = navigationView.getHeaderView(0);
         CircularImageView userPic = (CircularImageView) headerView.findViewById(R.id.imageView);
 
-        Profile profile = ProfileManager.getCurrentUserProfile();
-        User currentUser = profile.getUser();
+        User currentUser = ProfileManager.getCurrentUserProfile().getUser();
         if (currentUser != null && currentUser.getImageUrl() != null) {
             userPic.setVisibility(View.VISIBLE);
             Picasso.with(this).load(currentUser.getImageUrl()).into(userPic);
         }
 
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_map)));
-        tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_hot)));
-        tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_favorite)));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final MainTabAdapter adapter = new MainTabAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        viewPager.setCurrentItem(1);
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
+            public void onClick(View view) {
+                startActivity(new Intent(ProductActivity.this, AddProductWizardActivity.class));
             }
         });
     }
@@ -158,16 +121,22 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         Profile profile = ProfileManager.getCurrentUserProfile();
-        if (profile != null && profile.getUser() != null) {
-            if (profile.getUser().isTrader()) {
-                navigationView.getMenu().findItem(R.id.nav_trader).setVisible(false);
-            } else {
-                navigationView.getMenu().findItem(R.id.nav_shop).setVisible(false);
-                navigationView.getMenu().findItem(R.id.nav_product).setVisible(false);
-
-            }
-
+        if (profile != null && profile.getUser() != null && profile.getUser().isTrader()) {
+            navigationView.getMenu().findItem(R.id.nav_trader).setVisible(false);
         }
+
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerShop);
+        RecyclerView.LayoutManager lm = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(lm);
+        recyclerView.setHasFixedSize(true);
+
+        ArrayList<Product> dataSet = new ArrayList<>();
+        dataSet.addAll(profile.getMyProducts());
+
+        mi = new ProductItemAdapter(this, dataSet);
+        recyclerView.setAdapter(mi);
+        mi.notifyDataSetChanged();
+
     }
 
     @Override
@@ -209,12 +178,14 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-//            startActivity(new Intent(this, MainActivity.class));
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         } else if (id == R.id.nav_shop) {
             startActivity(new Intent(this, ShopActivity.class));
 
         } else if (id == R.id.nav_product) {
-            startActivity(new Intent(this, ProductActivity.class));
+//            startActivity(new Intent(this, ProductActivity.class));
 
         } else if (id == R.id.nav_trader) {
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
@@ -226,7 +197,7 @@ public class MainActivity extends AppCompatActivity
                 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
                 public void onClick(DialogInterface dialog, int which) {
                     //// TODO: 27/01/2017 Launch Trader Wizard
-                    Intent intent = new Intent(MainActivity.this, AddShopWizardActivity.class);
+                    Intent intent = new Intent(ProductActivity.this, AddShopWizardActivity.class);
                     startActivityForResult(intent, 1);
                 }
             });
@@ -245,7 +216,7 @@ public class MainActivity extends AppCompatActivity
             alert.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
 
         } else if (id == R.id.nav_settings) {
-            startActivity(new Intent(MainActivity.this, AddProductWizardActivity.class));
+
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_logout) {

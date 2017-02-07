@@ -1,6 +1,5 @@
 package com.mobilesoft.bonways.uis.fragments;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,24 +8,31 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.mobilesoft.bonways.BonWaysApplication;
 import com.mobilesoft.bonways.BuildConfig;
 import com.mobilesoft.bonways.R;
+import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Trade;
+import com.mobilesoft.bonways.core.models.TradeItem;
 import com.mobilesoft.bonways.uis.AddProductWizardActivity;
-import com.mobilesoft.bonways.uis.AddShopWizardActivity;
+import com.mobilesoft.bonways.uis.adapters.ShopSpinnerAdapter;
 import com.mvc.imagepicker.ImagePicker;
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class AddProductStep1 extends AbstractStep {
@@ -39,8 +45,9 @@ public class AddProductStep1 extends AbstractStep {
     EditText productQuantity;
     EditText productTimeOff;
     EditText productCategory;
-    EditText productShop;
+    EditText productDescription;
     ImageView productImage;
+    SearchableSpinner shopItems;
 
     Product mProduct;
 
@@ -54,7 +61,7 @@ public class AddProductStep1 extends AbstractStep {
         productQuantity = (EditText) v.findViewById(R.id.productQuantity);
         productTimeOff = (EditText) v.findViewById(R.id.productTimeOff);
         productCategory = (EditText) v.findViewById(R.id.productCategory);
-        productShop = (EditText) v.findViewById(R.id.productShop);
+        productDescription = (EditText) v.findViewById(R.id.productDescription);
         productImage = (ImageView) v.findViewById(R.id.productImage);
 
         productImage.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +72,41 @@ public class AddProductStep1 extends AbstractStep {
         });
 
         ImagePicker.setMinQuality(250, 200);
+
+        shopItems = (SearchableSpinner) v.findViewById(R.id.available_shops);
+
+        shopItems.setTitle("Select Shop");
+        shopItems.setPositiveButton("OK");
+
+
+        final List<Trade> shops = ProfileManager.getCurrentUserProfile().getTrades();
+        ArrayList<String> shopsList = new ArrayList<>();
+        for (Trade trade : shops) {
+            shopsList.add(trade.getName());
+
+        }
+
+
+        ShopSpinnerAdapter shopSpinnerAdapter = new ShopSpinnerAdapter(getActivity(), R.layout.spinner_shop_layout, R.id.text_title, shopsList);
+
+        shopItems.setAdapter(shopSpinnerAdapter);
+
+        shopItems.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                TextView textView = ((TextView) view.findViewById(R.id.text_subtitle));
+                textView.setText(shops.get(position).getAddress());
+
+                if (mProduct != null) {
+                    mProduct.setTrade(shops.get(position));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
         if (savedInstanceState != null) {
@@ -116,6 +158,7 @@ public class AddProductStep1 extends AbstractStep {
     public void onNext() {
 
         mProduct.setDesignation(productName.getText().toString());
+        mProduct.setDescription(productDescription.getText().toString());
         mProduct.setPrice(Double.valueOf(productNormalPrice.getText().toString()));
         mProduct.setUnitQuantity(Long.valueOf(productQuantity.getText().toString()));
 //       // TODO: 29/01/2017 mProduct.setCategory();

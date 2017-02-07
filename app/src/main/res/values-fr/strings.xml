@@ -28,7 +28,9 @@
     <string name="wizard_add_shop_title">Ajouter une boutique</string>
     <string name="shop">Boutiques</string>
     <string name="nav_home">Accueil</string>
-    <string name="wizard_add_product_title">Add Product</string>
+    <string name="wizard_add_product_title">Ajouter Produit</string>
+    <string name="nav_product">Produits</string>
+    <string name="products">Mes Produits</string>
 
 
 </resources>

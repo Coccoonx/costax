@@ -27,6 +27,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mobilesoft.bonways.R;
+import com.mobilesoft.bonways.backend.DummyServer;
+import com.mobilesoft.bonways.core.models.Trade;
 
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
@@ -87,6 +89,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
         mGoogleMap.setMyLocationEnabled(true);
         centerMapToUserLocation();
+        loadShop();
+    }
+
+    private void loadShop() {
+        MarkerOptions options = new MarkerOptions();
+
+        for (Trade trade : DummyServer.getTrade()) {
+            options.snippet(trade.getName());
+            options.draggable(false);
+            options.position(new LatLng(trade.getLatitude(), trade.getLongitude()));
+            options.icon(BitmapDescriptorFactory.fromResource(R.drawable.bon_ways_shop));
+            mGoogleMap.addMarker(options);
+        }
     }
 
     private void centerMapToUserLocation() {
@@ -104,8 +119,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             return;
         }
         Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
-        if (location != null)
-        {
+        if (location != null) {
             mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13));
 
             CameraPosition cameraPosition = new CameraPosition.Builder()

@@ -247,8 +247,17 @@ public class SignInActivity extends AppCompatActivity implements
     }
 
     private void startApp() {
+        //Online Mode
+//        createUserOnline(appUser);
 
-        createUserOnline(appUser);
+        //Offline Mode
+        Profile profile = new Profile();
+        profile.setUser(appUser);
+        new ProfileManager.SaveProfile().execute(profile);
+        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
     }
 

@@ -1,0 +1,192 @@
+package com.mobilesoft.bonways.backend;
+
+import com.mobilesoft.bonways.core.models.Product;
+import com.mobilesoft.bonways.core.models.Trade;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Lyonnel Dzotang on 07/02/2017.
+ */
+
+public class DummyServer {
+
+    public static List<Product> getAvailableProduct() {
+        ArrayList<Product> products = new ArrayList<>();
+
+        Product product = new Product();
+        product.setDesignation("Jeu de Carte");
+        product.setDescription("Jeu de carte qui vous permettra de vous de detendre en famille");
+        product.setUnitQuantity((long) 12);
+        product.setDateTimeOff("12/03/2017");
+        product.setPrice(2000l);
+        product.setDiscount(1200l);
+        product.setImageUrl("http://magicien.ch/magasin-magie/images/jeux-cartes-bicycle-pack-bridge.jpg");
+        product.setTrade(getTrade().get(0));
+
+        products.add(product);
+
+        product = new Product();
+        product.setDesignation("BabyFoot");
+        product.setDescription("Relaxez vous en famille ou entre collègue avec une partie de Babyfoot ");
+        product.setUnitQuantity((long) 12);
+        product.setDateTimeOff("11/04/2017");
+        product.setPrice(8000l);
+        product.setDiscount(5500l);
+        product.setImageUrl("http://www.renaud-bray.com/ImagesEditeurs/PG/1446/1446905-gf.jpg");
+        product.setTrade(getTrade().get(0));
+
+        products.add(product);
+
+
+        product = new Product();
+        product.setDesignation("Table Basse");
+        product.setDescription("Donnez vie à votre salon avec cette magnifique table basse");
+        product.setUnitQuantity((long) 12);
+        product.setDateTimeOff("12/02/2017");
+        product.setPrice(25500l);
+        product.setDiscount(14500l);
+        product.setImageUrl("https://img1.dlmcdn.fr/a/1254/MSA1254399-0403-0300-p00-table-basse-rectangulaire-chene-massif-aboute-huile-l115xl100xh73cm-hawke.jpg");
+        product.setTrade(getTrade().get(1));
+
+        products.add(product);
+
+
+        product = new Product();
+        product.setDesignation("Television Samsung 52'");
+        product.setDescription("La télévision en très haute dimension ");
+        product.setUnitQuantity((long) 12);
+        product.setDateTimeOff("15/06/2017");
+        product.setPrice(322000l);
+        product.setDiscount(150000l);
+        product.setImageUrl("http://cdn.villatech.fr/media/catalog/product/cache/4/image/580x/9df78eab33525d08d6e5fb8d27136e95/1/0/1000040967_UE_55_F_6100-2.jpg");
+        product.setTrade(getTrade().get(2));
+
+        products.add(product);
+
+
+        product = new Product();
+        product.setDesignation("Rallonge Legrand 7 entrées");
+        product.setDescription("Branchez plus d'equipement dans votre salon grace à cette equipement discret et resistant.");
+        product.setUnitQuantity((long) 12);
+        product.setDateTimeOff("12/03/2017");
+        product.setPrice(2000l);
+        product.setDiscount(1200l);
+        product.setImageUrl("http://www.castorama.fr/images/products/i/i_571530.jpg");
+        product.setTrade(getTrade().get(4));
+
+        products.add(product);
+
+
+        product = new Product();
+        product.setDesignation("HP ProBook");
+        product.setDescription("Core i5, 8GB Ram, 1To DD. \nLa puissance au bout des doigts");
+        product.setUnitQuantity((long) 12);
+        product.setDateTimeOff("25/04/2017");
+        product.setPrice(212000l);
+        product.setDiscount(111200l);
+        product.setImageUrl("http://www.notebookcheck.biz/uploads/tx_nbc2/978509.jpg");
+        product.setTrade(getTrade().get(1));
+
+        products.add(product);
+
+
+        product = new Product();
+        product.setDesignation("Rolex Revolution");
+        product.setDescription("Montre de luxe, Pour un homme qui se respecte.");
+        product.setUnitQuantity((long) 12);
+        product.setDateTimeOff("30/08/2017");
+        product.setPrice(22000l);
+        product.setDiscount(12200l);
+        product.setImageUrl("https://content.rolex.com/is/image/Rolex/?src=is%7BRolex%2Fshadow_oyster_perpetual_39%3Flayer%3D1%26src%3D50683%26layer%3D2%26src%3D50684_g_39%26layer%3D3%26src%3D50682%7D&$rv55-watch-grid$");
+        product.setTrade(getTrade().get(3));
+
+        products.add(product);
+
+        return products;
+
+
+    }
+
+    public static List<Trade> getTrade() {
+        List<Trade> trades = new ArrayList<>();
+
+        Trade trade = new Trade();
+        trade.setName("Santa Lucia");
+        trade.setRepresenterName("Moussa");
+        trade.setAddress("Ange Raphael, Douala");
+        trade.setNearestShopName("Le Bourget");
+        trade.setEmail("info@santalucia.com");
+        trade.setWebsite("santalucia.org");
+        trade.setPhone("677998866");
+        trade.setLogoUrl("http://hotel.complexesantalucia.com/wp-content/uploads/sites/16/2012/09/itl-300x179.png");
+        trade.setLatitude(4.051782);
+        trade.setLongitude(9.737898);
+
+        trades.add(trade);
+
+
+        trade = new Trade();
+        trade.setName("Super U");
+        trade.setRepresenterName("Jacob");
+        trade.setAddress("Bali, Douala");
+        trade.setNearestShopName("Total");
+        trade.setEmail("info@superu.com");
+        trade.setWebsite("superu.org");
+        trade.setPhone("677998866");
+        trade.setLogoUrl("https://www.labresse.net/medias/images/prestataires/super-u-la-bresse-795.jpg");
+        trade.setLatitude(4.035187);
+        trade.setLongitude(9.691819);
+
+        trades.add(trade);
+
+
+        trade = new Trade();
+        trade.setName("Dovv");
+        trade.setRepresenterName("Aboubakar");
+        trade.setAddress("Bonapriso, Douala");
+        trade.setNearestShopName("Oil Lybia");
+        trade.setEmail("info@Dovv.com");
+        trade.setWebsite("Dovv.org");
+        trade.setPhone("677998866");
+        trade.setLogoUrl("http://www.wasamundi.com/farm/access/var/watermark/wtmk_5460cc1a6d02614156298501397903_821082011257158_5658290838562498125_o.jpg");
+        trade.setLatitude(4.028123);
+        trade.setLongitude(9.698278);
+
+        trades.add(trade);
+
+
+        trade = new Trade();
+        trade.setName("Zara");
+        trade.setRepresenterName("Felix");
+        trade.setAddress("Akwa, Douala");
+        trade.setNearestShopName("Orange");
+        trade.setEmail("info@Zara.com");
+        trade.setWebsite("Zara.org");
+        trade.setPhone("677998866");
+        trade.setLogoUrl("https://lh4.ggpht.com/a-C0pps0yjA4gp7TeEg2mFaDAef13cPHDGJtd2Tigbln-EeFCA6KlMySqNXgEt2J38E=w300");
+        trade.setLatitude(4.049218);
+        trade.setLongitude(9.694730);
+
+        trades.add(trade);
+
+
+        trade = new Trade();
+        trade.setName("Castorama");
+        trade.setRepresenterName("Frederic");
+        trade.setAddress("Akwa, Douala");
+        trade.setNearestShopName("MTN Shop");
+        trade.setEmail("info@Castorama.com");
+        trade.setWebsite("santalucia.org");
+        trade.setPhone("677998866");
+        trade.setLogoUrl("http://www.services-reclamation.com/wp-content/uploads/2016/04/reclamation-castorama.png");
+        trade.setLatitude(4.052715);
+        trade.setLongitude(9.697073);
+
+        trades.add(trade);
+
+        return trades;
+
+    }
+}

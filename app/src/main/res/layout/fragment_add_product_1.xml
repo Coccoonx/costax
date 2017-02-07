@@ -64,6 +64,24 @@
                 android:paddingBottom="@dimen/margin_middle_standard"
                 android:src="@drawable/insert_image" />
 
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/productDescriptionWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_middle_standard"
+                android:layout_marginRight="@dimen/margin_middle_standard"
+                android:theme="@style/TextLabel">
+
+                <EditText
+                    android:id="@+id/productDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="5"
+                    android:hint="Description"
+                    android:inputType="text" />
+
+            </android.support.design.widget.TextInputLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -156,20 +174,24 @@
             </android.support.design.widget.TextInputLayout>
 
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/productShopWrapper"
-                android:layout_width="match_parent"
+
+
+
+            <TextView
+                android:id="@+id/productShopLabel"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:theme="@style/TextLabel">
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="@dimen/margin_middle_standard"
+                android:layout_marginBottom="@dimen/margin_middle_standard"
+                android:text="Choose Shop"
+                android:textColor="@color/colorAccent" />
 
-                <EditText
-                    android:id="@+id/productShop"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Shop"
-                    android:inputType="text" />
-
-            </android.support.design.widget.TextInputLayout>
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/available_shops"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
 
         </LinearLayout>

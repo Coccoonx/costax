@@ -48,6 +48,7 @@
                 android:textSize="12sp" />
 
             <RelativeLayout
+                android:id="@+id/layout_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -69,15 +70,6 @@
                     android:text="4"
                     android:textSize="11sp" />
             </RelativeLayout>
-
-            <TextView
-                android:id="@+id/item_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:lines="3"
-                android:ellipsize="end"
-                android:text="Morceau de bois decoratif pour table. Adequat pour les table de terasses, ou encore pour des pièces ouvertes à la lumière naturel." />
 
 
             <RelativeLayout
@@ -104,6 +96,17 @@
                     android:textColor="@android:color/holo_red_light"
                     android:textSize="11sp" />
             </RelativeLayout>
+
+            <TextView
+                android:id="@+id/item_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="3"
+                android:ellipsize="end"
+                android:text="Morceau de bois decoratif pour table. Adequat pour les table de terasses, ou encore pour des pièces ouvertes à la lumière naturel."
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
         </RelativeLayout>
 
