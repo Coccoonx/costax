@@ -34,7 +34,7 @@
                     android:id="@+id/shopNearestShop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nearest Shop Name"
+                    android:hint="@string/wzs_trade_nearest_shop"
                     android:inputType="text" />
 
             </android.support.design.widget.TextInputLayout>
@@ -49,7 +49,7 @@
                     android:id="@+id/shopAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Address"
+                    android:hint="@string/wzs_trade_address"
                     android:inputType="textPostalAddress" />
 
             </android.support.design.widget.TextInputLayout>
@@ -62,7 +62,7 @@
                 android:layout_marginLeft="4dp"
                 android:layout_marginStart="4dp"
                 android:textColor="@color/colorAccent"
-                android:text="Pick your location on Map" />
+                android:text="@string/wzs_trade_pick_location" />
 
             <com.google.android.gms.maps.MapView
                 android:id="@+id/mapViewLocation"

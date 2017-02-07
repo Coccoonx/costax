@@ -34,7 +34,7 @@
                     android:id="@+id/productName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Product Name"
+                    android:hint="@string/wzp_product_name"
                     android:inputType="text" />
 
             </android.support.design.widget.TextInputLayout>
@@ -47,7 +47,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="@dimen/margin_middle_standard"
                 android:layout_marginBottom="@dimen/margin_middle_standard"
-                android:text="Product Image"
+                android:text="@string/wzp_product_image"
                 android:textColor="@color/colorAccent" />
 
             <ImageView
@@ -77,7 +77,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:lines="5"
-                    android:hint="Description"
+                    android:hint="@string/wzp_product_description"
                     android:inputType="text" />
 
             </android.support.design.widget.TextInputLayout>
@@ -102,7 +102,7 @@
                         android:id="@+id/productNormalPrice"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Normal Price"
+                        android:hint="@string/wzp_product_normal_price"
                         android:inputType="numberDecimal" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -120,7 +120,7 @@
                         android:id="@+id/productQuantity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Quantity"
+                        android:hint="@string/wzp_product_quantity"
                         android:inputType="numberDecimal" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -138,7 +138,7 @@
                     android:id="@+id/productTimeOff"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Promo end on"
+                    android:hint="@string/wzp_product_end_on"
                     android:inputType="datetime" />
 
             </android.support.design.widget.TextInputLayout>
@@ -153,7 +153,7 @@
                     android:id="@+id/productPromoPrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Promo Price"
+                    android:hint="@string/wzp_product_promo_price"
                     android:inputType="numberDecimal" />
 
             </android.support.design.widget.TextInputLayout>
@@ -168,7 +168,7 @@
                     android:id="@+id/productCategory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Category"
+                    android:hint="@string/wzp_product_category"
                     android:inputType="text" />
 
             </android.support.design.widget.TextInputLayout>
@@ -185,7 +185,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="@dimen/margin_middle_standard"
                 android:layout_marginBottom="@dimen/margin_middle_standard"
-                android:text="Choose Shop"
+                android:text="@string/wzp_product_shop"
                 android:textColor="@color/colorAccent" />
 
             <com.toptoche.searchablespinnerlibrary.SearchableSpinner

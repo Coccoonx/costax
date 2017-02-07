@@ -31,6 +31,25 @@
     <string name="wizard_add_product_title">Ajouter Produit</string>
     <string name="nav_product">Produits</string>
     <string name="products">Mes Produits</string>
+    <string name="connectionvia">Connexion Via</string>
+    <string name="wzp_product_name">Nom Produit</string>
+    <string name="wzp_product_image">Image Produit</string>
+    <string name="wzp_product_description">Description</string>
+    <string name="wzp_product_normal_price">Prix Normal</string>
+    <string name="wzp_product_quantity">Quantité</string>
+    <string name="wzp_product_end_on">Fin Promo</string>
+    <string name="wzp_product_promo_price">Prix Promotionnel</string>
+    <string name="wzp_product_category">Categorie</string>
+    <string name="wzp_product_shop">Selectionner Boutique</string>
+    <string name="wzs_trade_name">Nom Boutique</string>
+    <string name="wzs_trade_phone_number">Téléphone</string>
+    <string name="wzs_trade_website">Site Web</string>
+    <string name="wzs_trade_representant">Representant</string>
+    <string name="wzs_trade_email">Email</string>
+    <string name="wzs_trade_trade_logo">Logo</string>
+    <string name="wzs_trade_nearest_shop">Boutique la plus proche</string>
+    <string name="wzs_trade_address">Adresse</string>
+    <string name="wzs_trade_pick_location">Pointer l\'emplacement geographique</string>
 
 
 </resources>

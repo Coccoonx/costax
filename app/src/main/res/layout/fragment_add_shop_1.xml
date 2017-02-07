@@ -34,7 +34,7 @@
                     android:id="@+id/shopName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Shop Name"
+                    android:hint="@string/wzs_trade_name"
                     android:inputType="text" />
 
             </android.support.design.widget.TextInputLayout>
@@ -49,7 +49,7 @@
                     android:id="@+id/shopPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Phone"
+                    android:hint="@string/wzs_trade_phone_number"
                     android:inputType="phone" />
 
             </android.support.design.widget.TextInputLayout>
@@ -64,7 +64,7 @@
                     android:id="@+id/shopWebsite"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Website"
+                    android:hint="@string/wzs_trade_website"
                     android:inputType="textWebEmailAddress" />
 
             </android.support.design.widget.TextInputLayout>
@@ -79,7 +79,7 @@
                     android:id="@+id/shopRepresenter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Representant"
+                    android:hint="@string/wzs_trade_representant"
                     android:inputType="text" />
 
             </android.support.design.widget.TextInputLayout>
@@ -94,7 +94,7 @@
                     android:id="@+id/shopEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email"
+                    android:hint="@string/wzs_trade_email"
                     android:inputType="textEmailAddress" />
 
             </android.support.design.widget.TextInputLayout>
@@ -107,7 +107,7 @@
                 android:layout_marginLeft="4dp"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="@dimen/margin_middle_standard"
-                android:text="Shop Logo"
+                android:text="@string/wzs_trade_trade_logo"
                 android:textColor="@color/colorAccent" />
 
             <ImageView
