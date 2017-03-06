@@ -50,4 +50,11 @@
     <string name="wzs_trade_nearest_shop">Nearest Shop Name</string>
     <string name="wzs_trade_address">Address</string>
     <string name="wzs_trade_pick_location">Pick shop location</string>
+    <string name="dialog_title">Choose Category</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_details">DetailsActivity</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+
 </resources>

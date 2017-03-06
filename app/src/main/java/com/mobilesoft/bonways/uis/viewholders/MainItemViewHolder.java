@@ -3,6 +3,7 @@ package com.mobilesoft.bonways.uis.viewholders;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mobilesoft.bonways.R;
@@ -13,6 +14,7 @@ import com.mobilesoft.bonways.R;
 
 public class MainItemViewHolder extends RecyclerView.ViewHolder {
 
+    public LinearLayout container;
     public ImageView productImage;
     public ImageView shopLogo;
     public TextView commentCount;
@@ -28,5 +30,6 @@ public class MainItemViewHolder extends RecyclerView.ViewHolder {
         timeOff = (TextView) itemView.findViewById(R.id.timeleft);
         productImage = (ImageView) itemView.findViewById(R.id.product_image);
         shopLogo = (ImageView) itemView.findViewById(R.id.shop_logo);
+        container = (LinearLayout) itemView.findViewById(R.id.item_container);
     }
 }

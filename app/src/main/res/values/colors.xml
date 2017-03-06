@@ -7,4 +7,5 @@
     <color name="textColorGray">#acacac</color>
     <color name="textColorDark">#000</color>
     <color name="whiteOther">#FEFDF0</color>
+    <color name="translucent_black">#CC000000</color>
 </resources>

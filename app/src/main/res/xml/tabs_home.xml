@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/tab_single_person"
+        icon="@drawable/ic_single_person"
+        title="Particulier" />
+    <tab
+        id="@+id/tab_shop"
+        icon="@drawable/ic_shop_w"
+        title="Boutique" />
+    <tab
+        id="@+id/tab_supermarket"
+        icon="@drawable/ic_supermarket"
+        title="SuperMarché" />
+</tabs>

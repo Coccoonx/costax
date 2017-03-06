@@ -1,6 +1,7 @@
 package com.mobilesoft.bonways.uis.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -10,12 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.backend.DummyServer;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Profile;
 import com.mobilesoft.bonways.uis.adapters.MainItemAdapter;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabSelectListener;
 
 import java.util.ArrayList;
 
@@ -25,10 +30,27 @@ import java.util.ArrayList;
 
 public class MainFragment extends Fragment {
 
+    private AdView mAdView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_main, container, false);
+
+        mAdView = (AdView) v.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+//        BottomBar bottomBar = (BottomBar) v.findViewById(R.id.bottomBar);
+//        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+//            @Override
+//            public void onTabSelected(@IdRes int tabId) {
+////                if (tabId == R.id.tab_favorites) {
+////                    // The tab with id R.id.tab_favorites was selected,
+////                    // change your content accordingly.
+////                }
+//            }
+//        });
 
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerMain);
         RecyclerView.LayoutManager lm = new GridLayoutManager(getActivity(), 2);
@@ -60,4 +82,30 @@ public class MainFragment extends Fragment {
         return v;
     }
 
+
+    @Override
+    public void onPause() {
+        if (mAdView != null) {
+            mAdView.pause();
+        }
+        super.onPause();
+    }
+
+    /** Called when returning to the activity */
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mAdView != null) {
+            mAdView.resume();
+        }
+    }
+
+    /** Called before the activity is destroyed */
+    @Override
+    public void onDestroy() {
+        if (mAdView != null) {
+            mAdView.destroy();
+        }
+        super.onDestroy();
+    }
 }

@@ -50,6 +50,7 @@
     <string name="wzs_trade_nearest_shop">Boutique la plus proche</string>
     <string name="wzs_trade_address">Adresse</string>
     <string name="wzs_trade_pick_location">Pointer l\'emplacement geographique</string>
+    <string name="dialog_title">Choississez une categorie</string>
 
 
 </resources>

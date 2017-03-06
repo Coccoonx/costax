@@ -34,7 +34,6 @@ import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Profile;
 import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.core.models.User;
-import com.mobilesoft.bonways.uis.adapters.MainItemAdapter;
 import com.mobilesoft.bonways.uis.adapters.ShopItemAdapter;
 import com.squareup.picasso.Picasso;
 
@@ -185,7 +184,7 @@ public class ShopActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_category) {
             return true;
         }
 

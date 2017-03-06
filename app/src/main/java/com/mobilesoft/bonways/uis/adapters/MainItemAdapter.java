@@ -1,6 +1,8 @@
 package com.mobilesoft.bonways.uis.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.view.animation.Interpolator;
 
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.core.models.Product;
+import com.mobilesoft.bonways.uis.DetailsActivity;
 import com.mobilesoft.bonways.uis.viewholders.MainItemViewHolder;
 import com.squareup.picasso.Picasso;
 
@@ -33,7 +36,7 @@ public class MainItemAdapter extends RecyclerView.Adapter<MainItemViewHolder> {
     @Override
     public void onBindViewHolder(MainItemViewHolder holder, int position) {
 
-        Product product = mDataSet.get(position);
+        final Product product = mDataSet.get(position);
         holder.title.setText(product.getDesignation());
         holder.description.setText(product.getDescription());
         holder.commentCount.setText("" + position);
@@ -47,6 +50,16 @@ public class MainItemAdapter extends RecyclerView.Adapter<MainItemViewHolder> {
             Picasso.with(mContext).load(product.getImageUrl()).into(holder.productImage);
         else
             Picasso.with(mContext).load("file://" + product.getImageUrl()).into(holder.productImage);
+
+        holder.container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, DetailsActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                intent.putExtra("product", (Parcelable) product);
+                mContext.startActivity(intent);
+            }
+        });
 
     }
 

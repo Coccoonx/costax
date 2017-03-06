@@ -1,5 +1,7 @@
 package com.mobilesoft.bonways.backend;
 
+import com.mobilesoft.bonways.R;
+import com.mobilesoft.bonways.core.models.Category;
 import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Trade;
 
@@ -187,6 +189,72 @@ public class DummyServer {
         trades.add(trade);
 
         return trades;
+
+    }
+
+    public static List<Category> getCategory() {
+        List<Category> categories = new ArrayList<>();
+
+        Category category = new Category();
+        category.setTitle("Bakery");
+        category.setIconIntUrl(R.drawable.cat_bakery);
+
+        categories.add(category);
+
+        category = new Category();
+        category.setTitle("Restaurant");
+        category.setIconIntUrl(R.drawable.cat_restaurant);
+
+        categories.add(category);
+
+
+        category = new Category();
+        category.setTitle("Gift");
+        category.setIconIntUrl(R.drawable.cat_gift);
+
+        categories.add(category);
+
+        category = new Category();
+        category.setTitle("Transport");
+        category.setIconIntUrl(R.drawable.cat_transport);
+
+        categories.add(category);
+
+
+        category = new Category();
+        category.setTitle("Bakery");
+        category.setIconIntUrl(R.drawable.cat_bakery);
+
+        categories.add(category);
+
+        category = new Category();
+        category.setTitle("Restaurant");
+        category.setIconIntUrl(R.drawable.cat_restaurant);
+
+        categories.add(category);
+
+
+        category = new Category();
+        category.setTitle("Gift");
+        category.setIconIntUrl(R.drawable.cat_gift);
+
+        categories.add(category);
+
+        category = new Category();
+        category.setTitle("Transport");
+        category.setIconIntUrl(R.drawable.cat_transport);
+
+        categories.add(category);
+
+        category = new Category();
+        category.setTitle("Transport");
+        category.setIconIntUrl(R.drawable.cat_transport);
+
+        categories.add(category);
+
+
+
+        return categories;
 
     }
 }

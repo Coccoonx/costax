@@ -7,8 +7,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
 import android.support.design.widget.NavigationView;
@@ -17,6 +20,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,11 +33,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.mobilesoft.bonways.R;
+import com.mobilesoft.bonways.backend.DummyServer;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
-import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Profile;
 import com.mobilesoft.bonways.core.models.User;
 import com.mobilesoft.bonways.uis.adapters.MainTabAdapter;
+import com.mobilesoft.bonways.uis.adapters.SimpleAdapter;
+import com.mobilesoft.bonways.uis.fragments.HomeFragment;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.GridHolder;
+import com.orhanobut.dialogplus.OnClickListener;
+import com.orhanobut.dialogplus.OnDismissListener;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity
@@ -48,6 +58,41 @@ public class MainActivity extends AppCompatActivity
     private String mPhotoUrl;
 
     private GoogleApiClient mGoogleApiClient;
+
+    public static DialogPlus dialog;
+
+    protected OnClickListener dialogListener = new OnClickListener() {
+        @Override
+        public void onClick(DialogPlus dialog, View view) {
+//            if (view.getId() == R.id.dialog_close) {
+//                dialog.dismiss();
+//            }
+//            if (view.getId() == R.id.dialog_downlaod_artifact) {
+//                try {
+//
+//                    if (ContextCompat.checkSelfPermission(SuperActivity.this,
+//                            Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                            != PackageManager.PERMISSION_GRANTED
+//                            ) {
+//
+//                        Toast.makeText(SuperActivity.this, R.string.permission_alert, Toast.LENGTH_SHORT).show();
+//
+//                        ActivityCompat.requestPermissions(SuperActivity.this,
+//                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+//                                EXTERNAL_STORAGE);
+//
+//                    } else {
+//                        new DownloadArtifact(SuperActivity.this, "Artifact-" + Math.random()).execute(artifactUrl);
+//                    }
+//
+//
+//                } catch (ActivityNotFoundException anfe) {
+//                    //display an error message
+//                    Toast.makeText(SuperActivity.this, getResources().getString(R.string.errorMessage_capture_image), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+        }
+    };
 
 
     @Override
@@ -111,7 +156,6 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-//        View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         View headerView = navigationView.getHeaderView(0);
         CircularImageView userPic = (CircularImageView) headerView.findViewById(R.id.imageView);
 
@@ -151,6 +195,25 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
+//        // Create fragment and give it an argument specifying the article it should show
+//        HomeFragment newFragment = new HomeFragment();
+////        Bundle args = new Bundle();
+////        args.putInt(ArticleFragment.ARG_POSITION, position);
+////        newFragment.setArguments(args);
+//
+//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//
+//// Replace whatever is in the fragment_container view with this fragment,
+//// and add the transaction to the back stack so the user can navigate back
+//        transaction.replace(R.id.fragment_home, newFragment);
+//        transaction.addToBackStack(null);
+//
+//// Commit the transaction
+//        transaction.commit();
+
+
+        showCategory();
     }
 
     @Override
@@ -195,7 +258,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_category) {
+            showCategory();
             return true;
         }
 
@@ -279,5 +343,26 @@ public class MainActivity extends AppCompatActivity
         // be available.
         Log.d(TAG, "onConnectionFailed:" + connectionResult);
         Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
+    }
+
+    void showCategory() {
+
+        SimpleAdapter sa = new SimpleAdapter(this, DummyServer.getCategory());
+
+         dialog = DialogPlus.newDialog(this)
+                .setContentHolder(new GridHolder(3))
+                .setOnClickListener(dialogListener)
+                .setHeader(R.layout.dialog_header)
+                .setAdapter(sa)
+                .setCancelable(true)
+                .setExpanded(true)
+                .setOnDismissListener(new OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogPlus dialog) {
+
+                    }
+                })
+                .create();
+        dialog.show();
     }
 }
