@@ -22,8 +22,10 @@ public class DummyServer {
         product.setDescription("Jeu de carte qui vous permettra de vous de detendre en famille");
         product.setUnitQuantity((long) 12);
         product.setDateTimeOff("12/03/2017");
-        product.setPrice(2000l);
-        product.setDiscount(1200l);
+        product.setPrice(2000L);
+        product.setDiscountPercentage(20L);
+        product.setWatched(32);
+        product.setLiked(11);
         product.setImageUrl("http://magicien.ch/magasin-magie/images/jeux-cartes-bicycle-pack-bridge.jpg");
         product.setTrade(getTrade().get(0));
 
@@ -34,8 +36,10 @@ public class DummyServer {
         product.setDescription("Relaxez vous en famille ou entre collègue avec une partie de Babyfoot ");
         product.setUnitQuantity((long) 12);
         product.setDateTimeOff("11/04/2017");
-        product.setPrice(8000l);
-        product.setDiscount(5500l);
+        product.setPrice(8000L);
+        product.setDiscountPercentage(32L);
+        product.setWatched(44);
+        product.setLiked(9);
         product.setImageUrl("http://www.renaud-bray.com/ImagesEditeurs/PG/1446/1446905-gf.jpg");
         product.setTrade(getTrade().get(0));
 
@@ -47,8 +51,10 @@ public class DummyServer {
         product.setDescription("Donnez vie à votre salon avec cette magnifique table basse");
         product.setUnitQuantity((long) 12);
         product.setDateTimeOff("12/02/2017");
-        product.setPrice(25500l);
-        product.setDiscount(14500l);
+        product.setPrice(25500L);
+        product.setDiscountPercentage(45L);
+        product.setWatched(39);
+        product.setLiked(6);
         product.setImageUrl("https://img1.dlmcdn.fr/a/1254/MSA1254399-0403-0300-p00-table-basse-rectangulaire-chene-massif-aboute-huile-l115xl100xh73cm-hawke.jpg");
         product.setTrade(getTrade().get(1));
 
@@ -61,7 +67,9 @@ public class DummyServer {
         product.setUnitQuantity((long) 12);
         product.setDateTimeOff("15/06/2017");
         product.setPrice(322000l);
-        product.setDiscount(150000l);
+        product.setDiscountPercentage(12L);
+        product.setWatched(98);
+        product.setLiked(43);
         product.setImageUrl("http://cdn.villatech.fr/media/catalog/product/cache/4/image/580x/9df78eab33525d08d6e5fb8d27136e95/1/0/1000040967_UE_55_F_6100-2.jpg");
         product.setTrade(getTrade().get(2));
 
@@ -74,7 +82,9 @@ public class DummyServer {
         product.setUnitQuantity((long) 12);
         product.setDateTimeOff("12/03/2017");
         product.setPrice(2000l);
-        product.setDiscount(1200l);
+        product.setDiscountPercentage(33L);
+        product.setWatched(26);
+        product.setLiked(11);
         product.setImageUrl("http://www.castorama.fr/images/products/i/i_571530.jpg");
         product.setTrade(getTrade().get(4));
 
@@ -87,7 +97,9 @@ public class DummyServer {
         product.setUnitQuantity((long) 12);
         product.setDateTimeOff("25/04/2017");
         product.setPrice(212000l);
-        product.setDiscount(111200l);
+        product.setDiscountPercentage(5.5);
+        product.setWatched(78);
+        product.setLiked(34);
         product.setImageUrl("http://www.notebookcheck.biz/uploads/tx_nbc2/978509.jpg");
         product.setTrade(getTrade().get(1));
 
@@ -99,8 +111,10 @@ public class DummyServer {
         product.setDescription("Montre de luxe, Pour un homme qui se respecte.");
         product.setUnitQuantity((long) 12);
         product.setDateTimeOff("30/08/2017");
-        product.setPrice(22000l);
-        product.setDiscount(12200l);
+        product.setPrice(22000L);
+        product.setDiscountPercentage(21.0);
+        product.setWatched(89);
+        product.setLiked(33);
         product.setImageUrl("https://content.rolex.com/is/image/Rolex/?src=is%7BRolex%2Fshadow_oyster_perpetual_39%3Flayer%3D1%26src%3D50683%26layer%3D2%26src%3D50684_g_39%26layer%3D3%26src%3D50682%7D&$rv55-watch-grid$");
         product.setTrade(getTrade().get(3));
 

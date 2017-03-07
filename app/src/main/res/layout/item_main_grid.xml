@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
 
-    android:paddingBottom="@dimen/margin_middle_short"
-    android:paddingEnd="@dimen/margin_middle_short"
-    android:paddingLeft="@dimen/margin_middle_short"
-    android:paddingRight="@dimen/margin_middle_short"
-    android:paddingStart="@dimen/margin_middle_short"
-    android:paddingTop="@dimen/margin_middle_short">
+    android:paddingBottom="@dimen/margin_middle_short_mini"
+    android:paddingEnd="@dimen/margin_middle_short_mini"
+    android:paddingLeft="@dimen/margin_middle_short_mini"
+    android:paddingRight="@dimen/margin_middle_short_mini"
+    android:paddingStart="@dimen/margin_middle_short_mini"
+    android:paddingTop="@dimen/margin_middle_short_mini">
 
     <LinearLayout
         android:id="@+id/item_container"
@@ -18,114 +18,215 @@
         android:orientation="vertical"
         android:weightSum="100">
 
-        <ImageView
-            android:id="@+id/product_image"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="50"
-            android:scaleType="centerCrop"
-            android:src="@drawable/product_picture" />
+            android:layout_weight="70">
+
+            <ImageView
+                android:id="@+id/product_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/product_picture" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_header_item"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_middle_short">
+
+                <TextView
+                    android:id="@+id/shop_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Santa Lucia"
+                    android:textSize="@dimen/item_text_standard"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_compass" />
+
+                    <TextView
+                        android:id="@+id/shop_distance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="13 Km"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/item_text_small" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </FrameLayout>
+
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="50"
+            android:layout_weight="30"
             android:background="@color/whiteOther"
-            android:paddingTop="@dimen/margin_middle_short"
             android:paddingBottom="@dimen/margin_middle_short"
-            android:paddingLeft="@dimen/margin_middle_standard"
-            android:paddingRight="@dimen/margin_middle_standard"
-            >
+            android:paddingLeft="@dimen/margin_middle_short"
+            android:paddingRight="@dimen/margin_middle_short"
+            android:paddingTop="@dimen/margin_middle_short">
 
             <TextView
                 android:id="@+id/item_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_alignTop="@+id/layout_comment"
-                android:textStyle="bold"
-                android:visibility="invisible"
-                android:textColor="@color/textColorDark"
-                android:text="Bois Decoratif"
-                android:textSize="12sp" />
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true">
-
-                <ImageView
-                    android:id="@+id/comment_icon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_comments" />
-
-                <TextView
-                    android:id="@+id/comment_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/comment_icon"
-                    android:layout_toRightOf="@+id/comment_icon"
-                    android:text="4"
-                    android:textSize="11sp" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/item_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:lines="3"
                 android:ellipsize="end"
-                android:text="Morceau de bois decoratif pour table. Adequat pour les table de terasses, ou encore pour des pièces ouvertes à la lumière naturel." />
-
+                android:maxLines="1"
+                android:text="Bois Decoratif"
+                android:textColor="@color/textColorDark"
+                android:textSize="@dimen/item_title"
+                android:textStyle="normal" />
 
             <RelativeLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/container_details"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true">
+                android:layout_below="@+id/item_title">
 
-                <TextView
-                    android:id="@+id/timeleft_label"
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Jusqu'au "
-                    android:textSize="11sp" />
+                    android:layout_centerVertical="true">
 
-                <TextView
-                    android:id="@+id/timeleft"
+                    <ImageView
+                        android:id="@+id/timeleft_label"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_timeli"
+                        android:tint="@color/textColorGray" />
+
+                    <TextView
+                        android:id="@+id/timeleft"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/timeleft_label"
+                        android:layout_toRightOf="@id/timeleft_label"
+                        android:text="41 min"
+                        android:textColor="@color/textColorGray"
+                        android:textSize="@dimen/item_text_small" />
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/timeleft_label"
-                    android:layout_toRightOf="@id/timeleft_label"
-                    android:text="13:02"
-                    android:textColor="@android:color/holo_red_light"
-                    android:textSize="11sp" />
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true">
+
+
+                    <TextView
+                        android:id="@+id/percentage_discount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/margin_middle_short"
+                        android:layout_marginRight="@dimen/margin_middle_short"
+                        android:text="-60%"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_percentage_item" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/percentage_discount"
+                        android:layout_toRightOf="@+id/percentage_discount"
+                        android:gravity="end"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/normal_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="19,000 F CFA"
+                            android:textColor="@color/translucent_black"
+                            android:textSize="@dimen/item_text_smallest" />
+
+                        <TextView
+                            android:id="@+id/promo_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="8,600 F CFA"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/item_text_smallest"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
             </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/container_details"
+                android:weightSum="60">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="30"
+                    android:gravity="center|center_horizontal">
+
+                    <ImageView
+                        android:layout_width="19dp"
+                        android:layout_height="19dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_watch_count"
+                        android:tint="@color/blue" />
+
+                    <TextView
+                        android:id="@+id/item_watched"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_middle_short"
+                        android:layout_marginStart="@dimen/margin_middle_short"
+                        android:text="344"
+                        android:textSize="@dimen/item_text_small" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="30"
+                    android:gravity="center|center_horizontal">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/ic_liked"
+                        android:tint="@android:color/holo_red_light" />
+
+                    <TextView
+                        android:id="@+id/item_liked"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_middle_short"
+                        android:layout_marginStart="@dimen/margin_middle_short"
+                        android:text="143"
+                        android:textSize="@dimen/item_text_small" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
 
         </RelativeLayout>
 
-
     </LinearLayout>
-
-
-    <com.mikhaellopez.circularimageview.CircularImageView
-        android:id="@+id/shop_logo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:visibility="gone"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="@dimen/padding_shop_logo"
-        android:layout_marginStart="@dimen/padding_shop_logo"
-        android:src="@drawable/logo_carrefour"
-        app:civ_border_color="#EEEEEE"
-        app:civ_border_width="0dp"
-        app:civ_shadow="true"
-        app:civ_shadow_color="#afafaf"
-        app:civ_shadow_radius="10" />
 
 </FrameLayout>

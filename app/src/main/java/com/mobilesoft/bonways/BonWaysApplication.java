@@ -6,6 +6,8 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.mobilesoft.bonways.storage.PreferencesStorage;
 
+import net.danlew.android.joda.JodaTimeAndroid;
+
 
 public class BonWaysApplication extends Application {
 
@@ -17,6 +19,7 @@ public class BonWaysApplication extends Application {
         super.onCreate();
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
+        JodaTimeAndroid.init(this);
         instance=this;
         preferencesStorageInterface = new PreferencesStorage(this);
     }

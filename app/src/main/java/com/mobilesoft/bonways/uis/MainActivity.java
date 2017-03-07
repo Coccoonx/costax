@@ -1,12 +1,19 @@
 package com.mobilesoft.bonways.uis;
 
+import android.Manifest;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -56,6 +63,8 @@ public class MainActivity extends AppCompatActivity
     private FirebaseUser mFirebaseUser;
     private String mUsername;
     private String mPhotoUrl;
+    public static Location mUserLocation;
+
 
     private GoogleApiClient mGoogleApiClient;
 
@@ -231,6 +240,22 @@ public class MainActivity extends AppCompatActivity
             }
 
         }
+
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mUserLocation = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
+        int i=0;
     }
 
     @Override
@@ -349,7 +374,7 @@ public class MainActivity extends AppCompatActivity
 
         SimpleAdapter sa = new SimpleAdapter(this, DummyServer.getCategory());
 
-         dialog = DialogPlus.newDialog(this)
+        dialog = DialogPlus.newDialog(this)
                 .setContentHolder(new GridHolder(3))
                 .setOnClickListener(dialogListener)
                 .setHeader(R.layout.dialog_header)

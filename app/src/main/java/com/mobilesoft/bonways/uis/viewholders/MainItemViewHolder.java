@@ -16,20 +16,28 @@ public class MainItemViewHolder extends RecyclerView.ViewHolder {
 
     public LinearLayout container;
     public ImageView productImage;
-    public ImageView shopLogo;
-    public TextView commentCount;
-    public TextView description;
+    public TextView normalPrice;
+    public TextView promoPrice;
+    public TextView shopName;
+    public TextView shopDistance;
+    public TextView percentageDiscount;
     public TextView title;
     public TextView timeOff;
+    public TextView liked;
+    public TextView watched;
 
     public MainItemViewHolder(View itemView) {
         super(itemView);
-        commentCount = (TextView) itemView.findViewById(R.id.comment_count);
-        description = (TextView) itemView.findViewById(R.id.item_description);
+        normalPrice = (TextView) itemView.findViewById(R.id.normal_price);
+        promoPrice = (TextView) itemView.findViewById(R.id.promo_price);
+        percentageDiscount = (TextView) itemView.findViewById(R.id.percentage_discount);
         title = (TextView) itemView.findViewById(R.id.item_title);
+        liked = (TextView) itemView.findViewById(R.id.item_liked);
+        watched = (TextView) itemView.findViewById(R.id.item_watched);
         timeOff = (TextView) itemView.findViewById(R.id.timeleft);
+        shopName = (TextView) itemView.findViewById(R.id.shop_name);
+        shopDistance = (TextView) itemView.findViewById(R.id.shop_distance);
         productImage = (ImageView) itemView.findViewById(R.id.product_image);
-        shopLogo = (ImageView) itemView.findViewById(R.id.shop_logo);
         container = (LinearLayout) itemView.findViewById(R.id.item_container);
     }
 }

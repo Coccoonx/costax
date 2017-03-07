@@ -23,9 +23,13 @@ public class Product implements Serializable, Parcelable {
 
     private double price;
 
-    private double discount;
+    private double discountPercentage;
 
     private String description;
+
+    private int liked;
+
+    private int watched;
 
     private Long unitQuantity;
 
@@ -56,7 +60,7 @@ public class Product implements Serializable, Parcelable {
         dest.writeLong(this.unit);
         dest.writeLong(this.packing);
         dest.writeDouble(this.price);
-        dest.writeDouble(this.discount);
+        dest.writeDouble(this.discountPercentage);
         dest.writeString(this.description);
         dest.writeValue(this.unitQuantity);
         dest.writeString(this.imageUrl);
@@ -73,7 +77,7 @@ public class Product implements Serializable, Parcelable {
         this.unit = in.readLong();
         this.packing = in.readLong();
         this.price = in.readDouble();
-        this.discount = in.readDouble();
+        this.discountPercentage = in.readDouble();
         this.description = in.readString();
         this.unitQuantity = (Long) in.readValue(Long.class.getClassLoader());
         this.imageUrl = in.readString();

@@ -12,5 +12,19 @@
     <dimen name="text_margin">16dp</dimen>
     <dimen name="margin_middle_standard">8dp</dimen>
     <dimen name="margin_middle_short">4dp</dimen>
+    <dimen name="margin_middle_short_mini">2dp</dimen>
     <dimen name="margin_short">8dp</dimen>
+    <dimen name="text_normal_size">15sp</dimen>
+    <dimen name="text_small_size">13sp</dimen>
+    <dimen name="text_smallest_size">11sp</dimen>
+
+
+    <dimen name="item_title">13sp</dimen>
+    <dimen name="item_text_standard">10sp</dimen>
+    <dimen name="item_text_small">9sp</dimen>
+    <dimen name="item_text_smallest">8sp</dimen>
+
+
+
+    <dimen name="text_percentage_item">12sp</dimen>
 </resources>

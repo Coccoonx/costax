@@ -88,6 +88,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             return;
         }
         mGoogleMap.setMyLocationEnabled(true);
+        mGoogleMap.getUiSettings().setZoomControlsEnabled(false);
         centerMapToUserLocation();
         loadShop();
     }
