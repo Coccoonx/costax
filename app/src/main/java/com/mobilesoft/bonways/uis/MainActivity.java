@@ -42,6 +42,7 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.backend.DummyServer;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
+import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Profile;
 import com.mobilesoft.bonways.core.models.User;
 import com.mobilesoft.bonways.uis.adapters.MainTabAdapter;
@@ -52,6 +53,10 @@ import com.orhanobut.dialogplus.GridHolder;
 import com.orhanobut.dialogplus.OnClickListener;
 import com.orhanobut.dialogplus.OnDismissListener;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
@@ -64,7 +69,7 @@ public class MainActivity extends AppCompatActivity
     private String mUsername;
     private String mPhotoUrl;
     public static Location mUserLocation;
-
+    public static Set<Product> mProducts;
 
     private GoogleApiClient mGoogleApiClient;
 
@@ -148,6 +153,8 @@ public class MainActivity extends AppCompatActivity
 //            Log.e("exception", e.toString());
 //        }
 
+        mProducts = new HashSet<>();
+        mProducts.addAll(DummyServer.getAvailableProduct());
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)

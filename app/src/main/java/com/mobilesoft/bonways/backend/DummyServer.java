@@ -24,8 +24,16 @@ public class DummyServer {
         product.setDateTimeOff("12/03/2017");
         product.setPrice(2000L);
         product.setDiscountPercentage(20L);
-        product.setWatched(32);
-        product.setLiked(11);
+        for (int i = 1; i <= 32; i++) {
+            String n = ""+i;
+            product.getWatchers().add(n);
+
+        }
+        for (int i = 1; i <= 11; i++) {
+            String n = ""+i;
+            product.getLikers().add(n);
+
+        }
         product.setImageUrl("http://magicien.ch/magasin-magie/images/jeux-cartes-bicycle-pack-bridge.jpg");
         product.setTrade(getTrade().get(0));
 
@@ -38,8 +46,16 @@ public class DummyServer {
         product.setDateTimeOff("11/04/2017");
         product.setPrice(8000L);
         product.setDiscountPercentage(32L);
-        product.setWatched(44);
-        product.setLiked(9);
+        for (int i = 1; i <= 44; i++) {
+            String n = ""+i;
+            product.getWatchers().add(n);
+
+        }
+        for (int i = 1; i <= 9; i++) {
+            String n = ""+i;
+            product.getLikers().add(n);
+
+        }
         product.setImageUrl("http://www.renaud-bray.com/ImagesEditeurs/PG/1446/1446905-gf.jpg");
         product.setTrade(getTrade().get(0));
 
@@ -53,8 +69,16 @@ public class DummyServer {
         product.setDateTimeOff("12/02/2017");
         product.setPrice(25500L);
         product.setDiscountPercentage(45L);
-        product.setWatched(39);
-        product.setLiked(6);
+        for (int i = 1; i <= 39; i++) {
+            String n = ""+i;
+            product.getWatchers().add(n);
+
+        }
+        for (int i = 1; i <= 6; i++) {
+            String n = ""+i;
+            product.getLikers().add(n);
+
+        }
         product.setImageUrl("https://img1.dlmcdn.fr/a/1254/MSA1254399-0403-0300-p00-table-basse-rectangulaire-chene-massif-aboute-huile-l115xl100xh73cm-hawke.jpg");
         product.setTrade(getTrade().get(1));
 
@@ -68,8 +92,16 @@ public class DummyServer {
         product.setDateTimeOff("15/06/2017");
         product.setPrice(322000l);
         product.setDiscountPercentage(12L);
-        product.setWatched(98);
-        product.setLiked(43);
+        for (int i = 1; i <= 89; i++) {
+            String n = ""+i;
+            product.getWatchers().add(n);
+
+        }
+        for (int i = 1; i <= 43; i++) {
+            String n = ""+i;
+            product.getLikers().add(n);
+
+        }
         product.setImageUrl("http://cdn.villatech.fr/media/catalog/product/cache/4/image/580x/9df78eab33525d08d6e5fb8d27136e95/1/0/1000040967_UE_55_F_6100-2.jpg");
         product.setTrade(getTrade().get(2));
 
@@ -83,9 +115,17 @@ public class DummyServer {
         product.setDateTimeOff("12/03/2017");
         product.setPrice(2000l);
         product.setDiscountPercentage(33L);
-        product.setWatched(26);
-        product.setLiked(11);
-        product.setImageUrl("http://www.castorama.fr/images/products/i/i_571530.jpg");
+        for (int i = 1; i <= 26; i++) {
+            String n = ""+i;
+            product.getWatchers().add(n);
+
+        }
+        for (int i = 1; i <= 11; i++) {
+            String n = ""+i;
+            product.getLikers().add(n);
+
+        }
+        product.setImageUrl("http://i2.cdscdn.com/pdt2/6/2/7/1/700x700/leg3245060500627/rw/legrand-rallonge-multiprise-electrique-std-6-prise.jpg");
         product.setTrade(getTrade().get(4));
 
         products.add(product);
@@ -98,8 +138,16 @@ public class DummyServer {
         product.setDateTimeOff("25/04/2017");
         product.setPrice(212000l);
         product.setDiscountPercentage(5.5);
-        product.setWatched(78);
-        product.setLiked(34);
+        for (int i = 1; i <= 78; i++) {
+            String n = ""+i;
+            product.getWatchers().add(n);
+
+        }
+        for (int i = 1; i <= 34; i++) {
+            String n = ""+i;
+            product.getLikers().add(n);
+
+        }
         product.setImageUrl("http://www.notebookcheck.biz/uploads/tx_nbc2/978509.jpg");
         product.setTrade(getTrade().get(1));
 
@@ -113,8 +161,16 @@ public class DummyServer {
         product.setDateTimeOff("30/08/2017");
         product.setPrice(22000L);
         product.setDiscountPercentage(21.0);
-        product.setWatched(89);
-        product.setLiked(33);
+        for (int i = 1; i <= 98; i++) {
+            String n = ""+i;
+            product.getWatchers().add(n);
+
+        }
+        for (int i = 1; i <= 34; i++) {
+            String n = ""+i;
+            product.getLikers().add(n);
+
+        }
         product.setImageUrl("https://content.rolex.com/is/image/Rolex/?src=is%7BRolex%2Fshadow_oyster_perpetual_39%3Flayer%3D1%26src%3D50683%26layer%3D2%26src%3D50684_g_39%26layer%3D3%26src%3D50682%7D&$rv55-watch-grid$");
         product.setTrade(getTrade().get(3));
 
@@ -265,7 +321,6 @@ public class DummyServer {
         category.setIconIntUrl(R.drawable.cat_transport);
 
         categories.add(category);
-
 
 
         return categories;

@@ -38,6 +38,7 @@ public class MainItemAdapter extends RecyclerView.Adapter<MainItemViewHolder> {
     @Override
     public void onBindViewHolder(MainItemViewHolder holder, int position) {
         NumberFormat nf = NumberFormat.getNumberInstance();
+        nf.setMaximumFractionDigits(1);
 
         final Product product = mDataSet.get(position);
         holder.title.setText(product.getDesignation());
@@ -47,22 +48,30 @@ public class MainItemAdapter extends RecyclerView.Adapter<MainItemViewHolder> {
             Location tradeLoc = new Location(product.getTrade().getName());
             tradeLoc.setLatitude(product.getTrade().getLatitude());
             tradeLoc.setLongitude(product.getTrade().getLongitude());
-            float distance = MainActivity.mUserLocation.distanceTo(tradeLoc);
-            if (distance > 1000f)
-                holder.shopDistance.setText(nf.format(distance / 1000) + " km");
-            else
+            int distance = (int) MainActivity.mUserLocation.distanceTo(tradeLoc);
+            if (distance < 1000) {
                 holder.shopDistance.setText(nf.format(distance) + " m");
+            } else {
+                double d = distance / 1000.0;
+                holder.shopDistance.setText(nf.format(d) + " km");
+            }
         }
 
         holder.title.setText(product.getDesignation());
         holder.percentageDiscount.setText("-" + nf.format(product.getDiscountPercentage()) + "%");
-        holder.liked.setText(""+product.getLiked());
-        holder.watched.setText(""+product.getWatched());
+        holder.liked.setText(""+product.getLikers().size());
+        holder.watched.setText(""+product.getWatchers().size());
         holder.normalPrice.setText(nf.format(product.getPrice()) + " F CFA");
         holder.normalPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         double promo = product.getPrice() - (product.getPrice() * product.getDiscountPercentage() / 100);
         holder.promoPrice.setText(nf.format(promo) + " F CFA");
         holder.timeOff.setText(product.getDateTimeOff());
+
+        if (product.isLiked()) {
+            holder.iconLiked.setImageResource(R.drawable.ic_like_filled);
+        } else {
+            holder.iconLiked.setImageResource(R.drawable.ic_like);
+        }
 
 
         if (product.getImageUrl().contains("http") || product.getImageUrl().contains("cdn"))

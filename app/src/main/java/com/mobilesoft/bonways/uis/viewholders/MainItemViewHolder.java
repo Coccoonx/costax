@@ -16,6 +16,7 @@ public class MainItemViewHolder extends RecyclerView.ViewHolder {
 
     public LinearLayout container;
     public ImageView productImage;
+    public ImageView iconLiked;
     public TextView normalPrice;
     public TextView promoPrice;
     public TextView shopName;
@@ -38,6 +39,7 @@ public class MainItemViewHolder extends RecyclerView.ViewHolder {
         shopName = (TextView) itemView.findViewById(R.id.shop_name);
         shopDistance = (TextView) itemView.findViewById(R.id.shop_distance);
         productImage = (ImageView) itemView.findViewById(R.id.product_image);
+        iconLiked = (ImageView) itemView.findViewById(R.id.icon_liked);
         container = (LinearLayout) itemView.findViewById(R.id.item_container);
     }
 }

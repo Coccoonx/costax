@@ -2,7 +2,9 @@ package com.mobilesoft.bonways.core.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import lombok.Data;
 
@@ -12,7 +14,7 @@ public class Profile implements Serializable {
 
     User user = new User();
     List<Trade> trades = new ArrayList();
-    List<Product> myProducts = new ArrayList();
-    List<Product> products = new ArrayList();
+    Set<Product> myProducts = new HashSet<>();
+    Set<Product> products = new HashSet<>();
 
 }

@@ -18,6 +18,7 @@ import com.mobilesoft.bonways.backend.DummyServer;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Profile;
+import com.mobilesoft.bonways.uis.MainActivity;
 import com.mobilesoft.bonways.uis.adapters.MainItemAdapter;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -31,6 +32,8 @@ import java.util.ArrayList;
 public class MainFragment extends Fragment {
 
     private AdView mAdView;
+    MainItemAdapter mi;
+    RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,24 +55,33 @@ public class MainFragment extends Fragment {
 //            }
 //        });
 
-        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerMain);
+        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerMain);
         RecyclerView.LayoutManager lm = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(lm);
         recyclerView.setHasFixedSize(true);
 
         Profile profile = ProfileManager.getCurrentUserProfile();
-        ArrayList<Product> dataSet = new ArrayList<>();
-        if (profile != null) {
-            dataSet.addAll(profile.getMyProducts());
-            dataSet.addAll(profile.getProducts());
-        }
+//        if (profile != null) {
+//            if (profile.getProducts().size() == 0) {
+//                profile.getProducts().addAll(DummyServer.getAvailableProduct());
+//            }
+//            dataSet.addAll(profile.getMyProducts());
+//            dataSet.addAll(profile.getProducts());
+//        } else {
+//
+//            dataSet.addAll(DummyServer.getAvailableProduct());
+//        }
         //Dummy Data
-        dataSet.addAll(DummyServer.getAvailableProduct());
 
 
+        ArrayList<Product> dataSet = new ArrayList<>();
+        dataSet.addAll(MainActivity.mProducts);
 
-        MainItemAdapter mi = new MainItemAdapter(getActivity(), dataSet);
+
+        mi = new MainItemAdapter(getActivity(), dataSet);
         recyclerView.setAdapter(mi);
+//        mi = new MainItemAdapter(getActivity(), dataSet);
+//        recyclerView.setAdapter(mi);
 //        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -98,7 +110,15 @@ public class MainFragment extends Fragment {
         if (mAdView != null) {
             mAdView.resume();
         }
+        ArrayList<Product> dataSet = new ArrayList<>();
+        dataSet.addAll(MainActivity.mProducts);
+
+
+        mi = new MainItemAdapter(getActivity(), dataSet);
+        recyclerView.setAdapter(mi);
     }
+
+
 
     /** Called before the activity is destroyed */
     @Override

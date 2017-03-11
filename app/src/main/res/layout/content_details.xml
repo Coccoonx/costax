@@ -11,35 +11,42 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
         <ImageView
+            android:id="@+id/background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:id="@+id/background"
-            android:src="@drawable/background"/>
+            android:src="@drawable/background" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:weightSum="100"
-            >
+            android:weightSum="100">
 
             <ImageView
                 android:id="@+id/productImage"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:scaleType="centerInside"
-                android:layout_weight="65"/>
+                android:layout_weight="55"
+                android:scaleType="fitCenter"
+                android:src="@drawable/splash_logo_mini" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:padding="@dimen/activity_horizontal_margin"
+                android:layout_weight="45"
                 android:background="@color/translucent_black"
-                android:layout_weight="35">
+                android:paddingBottom="@dimen/margin_short"
+                android:paddingLeft="@dimen/activity_vertical_margin"
+                android:paddingRight="@dimen/activity_vertical_margin"
+                android:paddingTop="@dimen/margin_short">
 
                 <com.mikhaellopez.circularimageview.CircularImageView
                     android:id="@+id/shop_logo"
@@ -47,8 +54,8 @@
                     android:layout_height="40dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/padding_shop_logo"
                     android:layout_marginEnd="@dimen/padding_shop_logo"
+                    android:layout_marginRight="@dimen/padding_shop_logo"
                     android:src="@drawable/logo_carrefour"
                     app:civ_border_color="#EEEEEE"
                     app:civ_border_width="0dp"
@@ -56,33 +63,253 @@
                     app:civ_shadow_color="#afafaf"
                     app:civ_shadow_radius="0" />
 
+                <RelativeLayout
+                    android:id="@+id/container_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/product_description"
+                    android:layout_marginBottom="@dimen/margin_middle_short"
+                    android:layout_marginTop="@dimen/margin_middle_short">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true">
+
+                        <ImageView
+                            android:id="@+id/timeleft_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_timeli"
+                            android:tint="@color/textColorGray" />
+
+                        <TextView
+                            android:id="@+id/timeleft"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/margin_middle_short"
+                            android:layout_marginStart="@dimen/margin_middle_short"
+                            android:layout_toEndOf="@+id/timeleft_label"
+                            android:layout_toRightOf="@id/timeleft_label"
+                            android:text="41 min"
+                            android:textColor="@color/textColorGray"
+                            android:textSize="@dimen/text_small_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true">
+
+
+                        <LinearLayout
+                            android:id="@+id/container_prices"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:gravity="end"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/normal_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/margin_middle_short_mini"
+                                android:text="19,000"
+                                android:textColor="@color/white"
+
+                                android:textSize="@dimen/text_small_size" />
+
+                            <TextView
+                                android:id="@+id/promo_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_middle_short_mini"
+                                android:text="8,600"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/currency"
+                            android:layout_toRightOf="@+id/container_prices"
+                            android:layout_toEndOf="@+id/container_prices"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@+id/container_prices"
+                            android:layout_marginLeft="@dimen/margin_middle_short_mini"
+                            android:layout_marginStart="@dimen/margin_middle_short_mini"
+                            android:gravity="center"
+                            android:layout_alignBottom="@+id/container_prices"
+                            android:textColor="@color/colorPrimary"
+                            android:text="F CFA"/>
+
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/percentage_discount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="-60%"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_percentage_item_h" />
+
+                </RelativeLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/container_details"
+                    android:background="@color/colorAccent" />
+
+                <LinearLayout
+                    android:id="@+id/container_social"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/container_details"
+                    android:layout_marginTop="@dimen/margin_middle_short"
+                    android:layout_marginBottom="@dimen/margin_middle_short"
+                    android:weightSum="60">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="30"
+                        android:gravity="center|center_horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_watch_count"
+                            android:tint="@color/blue" />
+
+                        <TextView
+                            android:id="@+id/item_watched"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_middle_short"
+                            android:layout_marginStart="@dimen/margin_middle_short"
+                            android:text="344"
+                            android:textColor="@color/whiteOther"
+                            android:textSize="@dimen/text_normal_size" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/container_social_liked"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="30"
+                        android:gravity="center|center_horizontal">
+
+                        <ImageView
+                            android:id="@+id/icon_liked"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_like"
+                            android:tint="@android:color/holo_red_light" />
+
+                        <TextView
+                            android:id="@+id/item_liked"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_middle_short"
+                            android:layout_marginStart="@dimen/margin_middle_short"
+                            android:text="143"
+                            android:textColor="@color/whiteOther"
+                            android:textSize="@dimen/text_normal_size" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/colorPanel"
+                    android:text="MAP - Go to Shop"
+                    android:textColor="@color/colorPrimary" />
+
                 <TextView
                     android:id="@+id/productTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/shop_logo"
+                    android:layout_toStartOf="@+id/shop_logo"
+                    android:ellipsize="end"
+                    android:text="Rasoir Bic"
                     android:textColor="@color/blue"
-                    android:textStyle="bold"
                     android:textSize="19sp"
-                    android:text="Rasoir Bic"/>
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/productDescription"
+                    android:id="@+id/product_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:lines="5"
-                    android:gravity="center|top"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_normal_size"
-                    android:text="Une brève description pour que nous voyons comment cela se presentera sur les differents terminaux android repandu à travers le monde"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignLeft="@+id/productTitle"
+                    android:layout_alignStart="@+id/productTitle"
+                    android:layout_below="@+id/productTitle"
+                    android:layout_marginTop="@dimen/margin_short"
+                    android:layout_toLeftOf="@+id/shop_logo"
+                    android:layout_toStartOf="@+id/shop_logo"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:text="@string/permission_explanation"
+                    android:textColor="@color/white" />
+
 
             </RelativeLayout>
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_header_item"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_middle_short">
 
+            <TextView
+                android:id="@+id/shop_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/margin_short"
+                android:text="Santa Lucia"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_normal_size"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_compass" />
+
+                <TextView
+                    android:id="@+id/shop_distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="13 Km"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_small_size" />
+            </LinearLayout>
+        </LinearLayout>
 
 
     </FrameLayout>

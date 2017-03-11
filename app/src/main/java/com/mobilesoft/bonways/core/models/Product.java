@@ -1,9 +1,14 @@
 package com.mobilesoft.bonways.core.models;
 
+import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 import lombok.Data;
 
@@ -11,7 +16,7 @@ import lombok.Data;
  * Created by Lyonnel Dzotang on 27/01/2017.
  */
 @Data
-public class Product implements Serializable, Parcelable {
+public class Product implements Serializable, Parcelable, Comparable<Product>, Cloneable {
 
     private String code;
 
@@ -27,9 +32,9 @@ public class Product implements Serializable, Parcelable {
 
     private String description;
 
-    private int liked;
+    private Set<String> likers = new HashSet<>();
 
-    private int watched;
+    private Set<String> watchers = new HashSet<>();
 
     private Long unitQuantity;
 
@@ -45,12 +50,50 @@ public class Product implements Serializable, Parcelable {
 
     private Trade trade;
 
+    private boolean isLiked;
+
+    private boolean isWatched;
+
     public Product() {
+        code = UUID.randomUUID().toString();
+    }
+
+    @Override
+    public int compareTo(Product product) {
+        return this.code.compareTo(product.code);
     }
 
     @Override
     public int describeContents() {
         return 0;
+    }
+
+
+    public Product clone() {
+        Product product;
+        try {
+            product = (Product) super.clone();
+            return product;
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        return !(code != null ? !code.equals(product.code) : product.code != null);
+    }
+
+    @Override
+    public int hashCode() {
+        return code != null ? code.hashCode() : 0;
     }
 
     @Override
@@ -62,6 +105,12 @@ public class Product implements Serializable, Parcelable {
         dest.writeDouble(this.price);
         dest.writeDouble(this.discountPercentage);
         dest.writeString(this.description);
+        Bundle b = new Bundle();
+        b.putSerializable("likers", (Serializable) likers);
+        dest.writeBundle(b);
+        Bundle b2 = new Bundle();
+        b2.putSerializable("watchers", (Serializable) watchers);
+        dest.writeBundle(b2);
         dest.writeValue(this.unitQuantity);
         dest.writeString(this.imageUrl);
         dest.writeString(this.createdDate);
@@ -69,6 +118,8 @@ public class Product implements Serializable, Parcelable {
         dest.writeString(this.dateTimeOff);
         dest.writeSerializable(this.category);
         dest.writeParcelable(this.trade, flags);
+        dest.writeByte(this.isLiked ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.isWatched ? (byte) 1 : (byte) 0);
     }
 
     protected Product(Parcel in) {
@@ -79,6 +130,10 @@ public class Product implements Serializable, Parcelable {
         this.price = in.readDouble();
         this.discountPercentage = in.readDouble();
         this.description = in.readString();
+        Bundle b = in.readBundle();
+        likers = (HashSet<String>) b.getSerializable("likers");
+        Bundle b2 = in.readBundle();
+        watchers = (HashSet<String>) b2.getSerializable("watchers");
         this.unitQuantity = (Long) in.readValue(Long.class.getClassLoader());
         this.imageUrl = in.readString();
         this.createdDate = in.readString();
@@ -86,9 +141,11 @@ public class Product implements Serializable, Parcelable {
         this.dateTimeOff = in.readString();
         this.category = (Category) in.readSerializable();
         this.trade = in.readParcelable(Trade.class.getClassLoader());
+        this.isLiked = in.readByte() != 0;
+        this.isWatched = in.readByte() != 0;
     }
 
-    public static final Parcelable.Creator<Product> CREATOR = new Parcelable.Creator<Product>() {
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
         @Override
         public Product createFromParcel(Parcel source) {
             return new Product(source);
