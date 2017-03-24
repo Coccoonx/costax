@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.core.models.Category;
 import com.mobilesoft.bonways.uis.MainActivity;
+import com.mobilesoft.bonways.uis.fragments.MainFragment;
 
 import java.util.List;
 
@@ -67,7 +68,8 @@ public class SimpleAdapter extends BaseAdapter {
         viewHolder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "Category choosed: " + category.getTitle(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, "Category choosed: " + category.getTitle(), Toast.LENGTH_SHORT).show();
+                MainFragment.instance.process(category);
                 if (MainActivity.dialog !=null)
                     MainActivity.dialog.dismiss();
             }
@@ -81,5 +83,9 @@ public class SimpleAdapter extends BaseAdapter {
         LinearLayout container;
         TextView textView;
         ImageView imageView;
+    }
+
+    public interface FilterByCategory{
+        void process(Category category);
     }
 }

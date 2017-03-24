@@ -66,6 +66,7 @@ public class MainItemAdapter extends RecyclerView.Adapter<MainItemViewHolder> {
         double promo = product.getPrice() - (product.getPrice() * product.getDiscountPercentage() / 100);
         holder.promoPrice.setText(nf.format(promo) + " F CFA");
         holder.timeOff.setText(product.getDateTimeOff());
+        holder.category.setText(product.getCategory().getTitle());
 
         if (product.isLiked()) {
             holder.iconLiked.setImageResource(R.drawable.ic_like_filled);
@@ -85,6 +86,7 @@ public class MainItemAdapter extends RecyclerView.Adapter<MainItemViewHolder> {
                 Intent intent = new Intent(mContext, DetailsActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 intent.putExtra("product", (Parcelable) product);
+                MainActivity.tmpCurrentProduct = product;
                 mContext.startActivity(intent);
             }
         });

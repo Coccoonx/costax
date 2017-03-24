@@ -8,10 +8,12 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Product;
@@ -36,10 +38,13 @@ public class DetailsActivity extends AppCompatActivity {
     TextView timeOff;
     TextView liked;
     TextView watched;
+    TextView category;
     TextView currency;
     Product mProduct;
     Product mClone;
+    Button go;
     private boolean alreadyRemoved;
+    public static DisplayShop instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +75,15 @@ public class DetailsActivity extends AppCompatActivity {
         percentageDiscount = (TextView) findViewById(R.id.percentage_discount);
         liked = (TextView) findViewById(R.id.item_liked);
         watched = (TextView) findViewById(R.id.item_watched);
+        category = (TextView) findViewById(R.id.category);
         timeOff = (TextView) findViewById(R.id.timeleft);
         shopName = (TextView) findViewById(R.id.shop_name);
         shopDistance = (TextView) findViewById(R.id.shop_distance);
         currency = (TextView) findViewById(R.id.currency);
-        currency.setRotation(310);
+//        currency.setRotation(310);
         containerLiked = (LinearLayout) findViewById(R.id.container_social_liked);
+        go = (Button) findViewById(R.id.button_go);
+
 
         Bundle b = getIntent().getExtras();
         if (b != null) {
@@ -86,11 +94,17 @@ public class DetailsActivity extends AppCompatActivity {
             if (mProduct != null) {
                 mClone = mProduct.clone();
                 getSupportActionBar().setTitle(mProduct.getDesignation());
-                Picasso.with(this).load(mProduct.getImageUrl()).into(imageProduct);
+
+                if (mProduct.getImageUrl().contains("http") || mProduct.getImageUrl().contains("cdn"))
+                    Picasso.with(this).load(mProduct.getImageUrl()).into(imageProduct);
+                else
+                    Picasso.with(this).load("file://" + mProduct.getImageUrl()).into(imageProduct);
+
                 Picasso.with(this).load(mProduct.getTrade().getLogoUrl()).into(shopLogo);
                 titleProduct.setText(mProduct.getDesignation());
                 descriptionProduct.setText(mProduct.getDescription());
                 shopName.setText(mProduct.getTrade().getName());
+                category.setText(mProduct.getCategory().getTitle());
 
                 if (MainActivity.mUserLocation != null) {
                     Location tradeLoc = new Location(mProduct.getTrade().getName());
@@ -143,6 +157,14 @@ public class DetailsActivity extends AppCompatActivity {
                         containerLiked.invalidate();
                     }
                 });
+
+                go.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        instance.showShop(new LatLng(mProduct.getTrade().getLatitude(), mProduct.getTrade().getLongitude()));
+                        finish();
+                    }
+                });
             }
         }
 
@@ -165,5 +187,9 @@ public class DetailsActivity extends AppCompatActivity {
         }
         super.onPause();
 
+    }
+
+    public interface DisplayShop {
+        void showShop(LatLng location);
     }
 }

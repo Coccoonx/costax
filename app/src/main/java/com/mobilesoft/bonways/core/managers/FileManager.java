@@ -66,4 +66,9 @@ public class FileManager {
             return null;
         }
     }
+
+    public boolean deleteData(){
+        File data =  new File(OUTPUT_FILE);
+        return data.delete();
+    }
 }

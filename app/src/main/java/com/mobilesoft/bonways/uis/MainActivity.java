@@ -11,6 +11,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
@@ -36,12 +37,14 @@ import android.widget.Toast;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.backend.DummyServer;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
+import com.mobilesoft.bonways.core.models.Category;
 import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Profile;
 import com.mobilesoft.bonways.core.models.User;
@@ -59,10 +62,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, DetailsActivity.DisplayShop {
 
     private static final String ANONYMOUS = "Anonymous";
     private static final String TAG = "MainActivity";
+    public static Product tmpCurrentProduct;
     // Firebase instance variables
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
@@ -74,6 +78,8 @@ public class MainActivity extends AppCompatActivity
     private GoogleApiClient mGoogleApiClient;
 
     public static DialogPlus dialog;
+
+    ViewPager viewPager;
 
     protected OnClickListener dialogListener = new OnClickListener() {
         @Override
@@ -107,6 +113,7 @@ public class MainActivity extends AppCompatActivity
 //            }
         }
     };
+    public static LatLng mShopLocation;
 
 
     @Override
@@ -117,6 +124,8 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         mUsername = ANONYMOUS;
+
+        DetailsActivity.instance = this;
 
 
         // Initialize Firebase Auth
@@ -134,24 +143,6 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-//        PackageInfo info;
-//        try {
-//            info = getPackageManager().getPackageInfo("com.mobilesoft.bonways", PackageManager.GET_SIGNATURES);
-//            for (Signature signature : info.signatures) {
-//                MessageDigest md;
-//                md = MessageDigest.getInstance("SHA");
-//                md.update(signature.toByteArray());
-//                String something = new String(Base64.encode(md.digest(), 0));
-//                //String something = new String(Base64.encodeBytes(md.digest()));
-//                Log.e("hash key", something);
-//            }
-//        } catch (PackageManager.NameNotFoundException e1) {
-//            Log.e("name not found", e1.toString());
-//        } catch (NoSuchAlgorithmException e) {
-//            Log.e("no such an algorithm", e.toString());
-//        } catch (Exception e) {
-//            Log.e("exception", e.toString());
-//        }
 
         mProducts = new HashSet<>();
         mProducts.addAll(DummyServer.getAvailableProduct());
@@ -176,10 +167,18 @@ public class MainActivity extends AppCompatActivity
         CircularImageView userPic = (CircularImageView) headerView.findViewById(R.id.imageView);
 
         Profile profile = ProfileManager.getCurrentUserProfile();
-        User currentUser = profile.getUser();
-        if (currentUser != null && currentUser.getImageUrl() != null) {
-            userPic.setVisibility(View.VISIBLE);
-            Picasso.with(this).load(currentUser.getImageUrl()).into(userPic);
+        try {
+            User currentUser = profile.getUser();
+            if (currentUser != null && currentUser.getImageUrl() != null) {
+                userPic.setVisibility(View.VISIBLE);
+                Picasso.with(this).load(currentUser.getImageUrl()).into(userPic);
+            }
+        } catch (NullPointerException e) {
+            // Not signed in, launch the Sign In activity
+            startActivity(new Intent(this, SignInActivity.class));
+            ProfileManager.delete();
+            finish();
+            return;
         }
 
 
@@ -189,7 +188,7 @@ public class MainActivity extends AppCompatActivity
         tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_favorite)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager = (ViewPager) findViewById(R.id.pager);
         final MainTabAdapter adapter = new MainTabAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
@@ -212,23 +211,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-//        // Create fragment and give it an argument specifying the article it should show
-//        HomeFragment newFragment = new HomeFragment();
-////        Bundle args = new Bundle();
-////        args.putInt(ArticleFragment.ARG_POSITION, position);
-////        newFragment.setArguments(args);
-//
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//
-//// Replace whatever is in the fragment_container view with this fragment,
-//// and add the transaction to the back stack so the user can navigate back
-//        transaction.replace(R.id.fragment_home, newFragment);
-//        transaction.addToBackStack(null);
-//
-//// Commit the transaction
-//        transaction.commit();
-
-
         showCategory();
     }
 
@@ -240,6 +222,8 @@ public class MainActivity extends AppCompatActivity
         if (profile != null && profile.getUser() != null) {
             if (profile.getUser().isTrader()) {
                 navigationView.getMenu().findItem(R.id.nav_trader).setVisible(false);
+//                navigationView.getMenu().findItem(R.id.nav_shop).setVisible(true);
+//                navigationView.getMenu().findItem(R.id.nav_product).setVisible(true);
             } else {
                 navigationView.getMenu().findItem(R.id.nav_shop).setVisible(false);
                 navigationView.getMenu().findItem(R.id.nav_product).setVisible(false);
@@ -262,7 +246,7 @@ public class MainActivity extends AppCompatActivity
             return;
         }
         mUserLocation = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
-        int i=0;
+        int i = 0;
     }
 
     @Override
@@ -271,7 +255,15 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (tmpCurrentProduct != null) {
+                Intent intent = new Intent(this, DetailsActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                intent.putExtra("product", (Parcelable) tmpCurrentProduct);
+                startActivity(intent);
+                MainActivity.tmpCurrentProduct = null;
+
+            } else
+                super.onBackPressed();
         }
     }
 
@@ -341,9 +333,12 @@ public class MainActivity extends AppCompatActivity
             alert.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
 
         } else if (id == R.id.nav_settings) {
-            startActivity(new Intent(MainActivity.this, AddProductWizardActivity.class));
+//            startActivity(new Intent(MainActivity.this, AddProductWizardActivity.class));
         } else if (id == R.id.nav_share) {
-
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.app_name));
+            startActivity(Intent.createChooser(intent, "Share with"));
         } else if (id == R.id.nav_logout) {
             mFirebaseAuth.signOut();
             Auth.GoogleSignInApi.signOut(mGoogleApiClient);
@@ -382,7 +377,7 @@ public class MainActivity extends AppCompatActivity
         SimpleAdapter sa = new SimpleAdapter(this, DummyServer.getCategory());
 
         dialog = DialogPlus.newDialog(this)
-                .setContentHolder(new GridHolder(3))
+                .setContentHolder(new GridHolder(2))
                 .setOnClickListener(dialogListener)
                 .setHeader(R.layout.dialog_header)
                 .setAdapter(sa)
@@ -396,5 +391,17 @@ public class MainActivity extends AppCompatActivity
                 })
                 .create();
         dialog.show();
+    }
+
+
+
+    @Override
+    public void showShop(LatLng location) {
+        if (viewPager != null) {
+            viewPager.setCurrentItem(0);
+            mShopLocation = location;
+
+        }
+
     }
 }

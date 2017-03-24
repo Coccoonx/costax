@@ -16,24 +16,29 @@ import com.google.android.gms.ads.AdView;
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.backend.DummyServer;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
+import com.mobilesoft.bonways.core.models.Category;
 import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Profile;
 import com.mobilesoft.bonways.uis.MainActivity;
 import com.mobilesoft.bonways.uis.adapters.MainItemAdapter;
+import com.mobilesoft.bonways.uis.adapters.SimpleAdapter;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Lyonnel Dzotang on 24/01/2017.
  */
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements SimpleAdapter.FilterByCategory {
 
     private AdView mAdView;
     MainItemAdapter mi;
     RecyclerView recyclerView;
+    public static SimpleAdapter.FilterByCategory instance;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +48,8 @@ public class MainFragment extends Fragment {
         mAdView = (AdView) v.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        instance = this;
 
 //        BottomBar bottomBar = (BottomBar) v.findViewById(R.id.bottomBar);
 //        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
@@ -103,7 +110,9 @@ public class MainFragment extends Fragment {
         super.onPause();
     }
 
-    /** Called when returning to the activity */
+    /**
+     * Called when returning to the activity
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -112,6 +121,7 @@ public class MainFragment extends Fragment {
         }
         ArrayList<Product> dataSet = new ArrayList<>();
         dataSet.addAll(MainActivity.mProducts);
+        dataSet.addAll(ProfileManager.getCurrentUserProfile().getMyProducts());
 
 
         mi = new MainItemAdapter(getActivity(), dataSet);
@@ -119,13 +129,43 @@ public class MainFragment extends Fragment {
     }
 
 
-
-    /** Called before the activity is destroyed */
+    /**
+     * Called before the activity is destroyed
+     */
     @Override
     public void onDestroy() {
         if (mAdView != null) {
             mAdView.destroy();
         }
         super.onDestroy();
+    }
+
+    @Override
+    public void process(Category category) {
+        Set<Product> filteredProduct = new HashSet<>();
+
+        if (category.getTitle().equals("Tout")) {
+            filteredProduct.addAll(MainActivity.mProducts);
+        } else {
+            for (Product product : MainActivity.mProducts) {
+                if (product.getCategory().equals(category)) {
+                    filteredProduct.add(product);
+                }
+
+            }
+            for (Product product : ProfileManager.getCurrentUserProfile().getMyProducts()) {
+                if (product.getCategory().equals(category)) {
+                    filteredProduct.add(product);
+                }
+
+            }
+        }
+//                if (!filteredProduct.isEmpty()) {
+        ArrayList<Product> dataSet = new ArrayList<>();
+        dataSet.addAll(filteredProduct);
+
+        mi = new MainItemAdapter(getActivity(), dataSet);
+        recyclerView.setAdapter(mi);
+//                }
     }
 }

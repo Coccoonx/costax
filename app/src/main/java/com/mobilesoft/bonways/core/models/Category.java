@@ -14,5 +14,16 @@ public class Category implements Serializable {
     int iconIntUrl;
     String iconStringUrl;
 
+    @Override
+    public boolean equals(Object o) {
+
+        if (!(o instanceof Category))
+            return false;
+
+        Category tmp = (Category) o;
+
+        return tmp.getTitle().equals(this.getTitle());
+    }
+
 
 }

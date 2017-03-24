@@ -36,7 +36,7 @@ public class DummyServer {
         }
         product.setImageUrl("http://magicien.ch/magasin-magie/images/jeux-cartes-bicycle-pack-bridge.jpg");
         product.setTrade(getTrade().get(0));
-
+        product.setCategory(getCategory().get(5));
         products.add(product);
 
         product = new Product();
@@ -58,6 +58,7 @@ public class DummyServer {
         }
         product.setImageUrl("http://www.renaud-bray.com/ImagesEditeurs/PG/1446/1446905-gf.jpg");
         product.setTrade(getTrade().get(0));
+        product.setCategory(getCategory().get(5));
 
         products.add(product);
 
@@ -81,6 +82,7 @@ public class DummyServer {
         }
         product.setImageUrl("https://img1.dlmcdn.fr/a/1254/MSA1254399-0403-0300-p00-table-basse-rectangulaire-chene-massif-aboute-huile-l115xl100xh73cm-hawke.jpg");
         product.setTrade(getTrade().get(1));
+        product.setCategory(getCategory().get(2));
 
         products.add(product);
 
@@ -104,6 +106,7 @@ public class DummyServer {
         }
         product.setImageUrl("http://cdn.villatech.fr/media/catalog/product/cache/4/image/580x/9df78eab33525d08d6e5fb8d27136e95/1/0/1000040967_UE_55_F_6100-2.jpg");
         product.setTrade(getTrade().get(2));
+        product.setCategory(getCategory().get(5));
 
         products.add(product);
 
@@ -127,6 +130,7 @@ public class DummyServer {
         }
         product.setImageUrl("http://i2.cdscdn.com/pdt2/6/2/7/1/700x700/leg3245060500627/rw/legrand-rallonge-multiprise-electrique-std-6-prise.jpg");
         product.setTrade(getTrade().get(4));
+        product.setCategory(getCategory().get(2));
 
         products.add(product);
 
@@ -150,6 +154,7 @@ public class DummyServer {
         }
         product.setImageUrl("http://www.notebookcheck.biz/uploads/tx_nbc2/978509.jpg");
         product.setTrade(getTrade().get(1));
+        product.setCategory(getCategory().get(5));
 
         products.add(product);
 
@@ -173,6 +178,7 @@ public class DummyServer {
         }
         product.setImageUrl("https://content.rolex.com/is/image/Rolex/?src=is%7BRolex%2Fshadow_oyster_perpetual_39%3Flayer%3D1%26src%3D50683%26layer%3D2%26src%3D50684_g_39%26layer%3D3%26src%3D50682%7D&$rv55-watch-grid$");
         product.setTrade(getTrade().get(3));
+        product.setCategory(getCategory().get(5));
 
         products.add(product);
 
@@ -195,6 +201,7 @@ public class DummyServer {
         trade.setLogoUrl("http://hotel.complexesantalucia.com/wp-content/uploads/sites/16/2012/09/itl-300x179.png");
         trade.setLatitude(4.051782);
         trade.setLongitude(9.737898);
+        trade.setMainCategory(getCategory().get(5).getTitle());
 
         trades.add(trade);
 
@@ -210,6 +217,7 @@ public class DummyServer {
         trade.setLogoUrl("https://www.labresse.net/medias/images/prestataires/super-u-la-bresse-795.jpg");
         trade.setLatitude(4.035187);
         trade.setLongitude(9.691819);
+        trade.setMainCategory(getCategory().get(5).getTitle());
 
         trades.add(trade);
 
@@ -225,6 +233,7 @@ public class DummyServer {
         trade.setLogoUrl("http://www.wasamundi.com/farm/access/var/watermark/wtmk_5460cc1a6d02614156298501397903_821082011257158_5658290838562498125_o.jpg");
         trade.setLatitude(4.028123);
         trade.setLongitude(9.698278);
+        trade.setMainCategory(getCategory().get(5).getTitle());
 
         trades.add(trade);
 
@@ -240,6 +249,7 @@ public class DummyServer {
         trade.setLogoUrl("https://lh4.ggpht.com/a-C0pps0yjA4gp7TeEg2mFaDAef13cPHDGJtd2Tigbln-EeFCA6KlMySqNXgEt2J38E=w300");
         trade.setLatitude(4.049218);
         trade.setLongitude(9.694730);
+        trade.setMainCategory(getCategory().get(1).getTitle());
 
         trades.add(trade);
 
@@ -255,6 +265,7 @@ public class DummyServer {
         trade.setLogoUrl("http://www.services-reclamation.com/wp-content/uploads/2016/04/reclamation-castorama.png");
         trade.setLatitude(4.052715);
         trade.setLongitude(9.697073);
+        trade.setMainCategory(getCategory().get(2).getTitle());
 
         trades.add(trade);
 
@@ -266,47 +277,28 @@ public class DummyServer {
         List<Category> categories = new ArrayList<>();
 
         Category category = new Category();
-        category.setTitle("Bakery");
-        category.setIconIntUrl(R.drawable.cat_bakery);
-
-        categories.add(category);
-
-        category = new Category();
-        category.setTitle("Restaurant");
-        category.setIconIntUrl(R.drawable.cat_restaurant);
+        category.setTitle("Tout");
+        category.setIconIntUrl(R.drawable.cat_all);
 
         categories.add(category);
 
 
-        category = new Category();
-        category.setTitle("Gift");
-        category.setIconIntUrl(R.drawable.cat_gift);
+         category = new Category();
+        category.setTitle("Beauté");
+        category.setIconIntUrl(R.drawable.cat_beaute);
 
         categories.add(category);
 
         category = new Category();
-        category.setTitle("Transport");
-        category.setIconIntUrl(R.drawable.cat_transport);
+        category.setTitle("Brico/Deco");
+        category.setIconIntUrl(R.drawable.cat_bricolage);
 
         categories.add(category);
 
 
         category = new Category();
-        category.setTitle("Bakery");
-        category.setIconIntUrl(R.drawable.cat_bakery);
-
-        categories.add(category);
-
-        category = new Category();
-        category.setTitle("Restaurant");
-        category.setIconIntUrl(R.drawable.cat_restaurant);
-
-        categories.add(category);
-
-
-        category = new Category();
-        category.setTitle("Gift");
-        category.setIconIntUrl(R.drawable.cat_gift);
+        category.setTitle("Kdo");
+        category.setIconIntUrl(R.drawable.cat_cadeau);
 
         categories.add(category);
 
@@ -316,12 +308,18 @@ public class DummyServer {
 
         categories.add(category);
 
+
         category = new Category();
-        category.setTitle("Transport");
-        category.setIconIntUrl(R.drawable.cat_transport);
+        category.setTitle("Supermarché");
+        category.setIconIntUrl(R.drawable.cat_epicerie);
 
         categories.add(category);
 
+        category = new Category();
+        category.setTitle("Banque/Service");
+        category.setIconIntUrl(R.drawable.cat_service);
+
+        categories.add(category);
 
         return categories;
 

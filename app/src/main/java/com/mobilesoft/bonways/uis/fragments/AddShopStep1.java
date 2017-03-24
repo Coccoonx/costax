@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.BinderThread;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -15,7 +17,9 @@ import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.mobilesoft.bonways.BonWaysApplication;
 import com.mobilesoft.bonways.BuildConfig;
 import com.mobilesoft.bonways.R;
+import com.mobilesoft.bonways.backend.DummyServer;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
+import com.mobilesoft.bonways.core.models.Category;
 import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.uis.AddShopWizardActivity;
 import com.mvc.imagepicker.ImagePicker;
@@ -26,6 +30,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+
+import fr.ganfra.materialspinner.MaterialSpinner;
 
 
 public class AddShopStep1 extends AbstractStep {
@@ -40,10 +47,12 @@ public class AddShopStep1 extends AbstractStep {
     EditText shopWebsite;
     EditText shopRepresenter;
     EditText shopEmail;
+    MaterialSpinner shopCategory;
     ImageView shopLogo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
 
         View v = inflater.inflate(R.layout.fragment_add_shop_1, container, false);
         shopName = (EditText) v.findViewById(R.id.shopName);
@@ -52,6 +61,7 @@ public class AddShopStep1 extends AbstractStep {
         shopRepresenter = (EditText) v.findViewById(R.id.shopRepresenter);
         shopWebsite = (EditText) v.findViewById(R.id.shopWebsite);
         shopLogo = (ImageView) v.findViewById(R.id.shopLogo);
+        shopCategory = (MaterialSpinner) v.findViewById(R.id.shopCategory);
 
         shopLogo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +71,16 @@ public class AddShopStep1 extends AbstractStep {
         });
 
         ImagePicker.setMinQuality(200, 200);
+
+        ArrayList<String> items = new ArrayList<>();
+        for (Category category : DummyServer.getCategory()) {
+            items.add(category.getTitle());
+        }
+        items.remove(0);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, items);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        shopCategory.setAdapter(adapter);
 
         mTrade = new Trade();
 
@@ -129,9 +149,10 @@ public class AddShopStep1 extends AbstractStep {
         mTrade.setPhone(shopPhone.getText().toString());
         mTrade.setRepresenterName(shopRepresenter.getText().toString());
         mTrade.setWebsite(shopWebsite.getText().toString());
-        Log.d(TAG, ""+mTrade);
+        String cat = (String) shopCategory.getSelectedItem();
+        mTrade.setMainCategory(cat);
+        Log.d(TAG, "" + mTrade);
         AddShopWizardActivity.mTrade = mTrade;
-
 
 
     }

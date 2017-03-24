@@ -42,6 +42,7 @@
     <string name="wzp_product_category">Category</string>
     <string name="wzp_product_shop">Choose Shop</string>
     <string name="wzs_trade_name">Shop Name</string>
+    <string name="wzs_trade_category">Shop Category</string>
     <string name="wzs_trade_phone_number">Phone Number</string>
     <string name="wzs_trade_website">Website</string>
     <string name="wzs_trade_representant">Representer</string>

@@ -35,6 +35,13 @@ public class ProfileManager {
     public static Profile getCurrentUserProfile() {
         return retrieveProfile();
     }
+    public static boolean delete() {
+        return deleteProfile();
+    }
+
+    private static boolean deleteProfile() {
+        return fileManager.deleteData();
+    }
 
 
     public static class SaveProfile extends AsyncTask<Profile, Void, Profile> {

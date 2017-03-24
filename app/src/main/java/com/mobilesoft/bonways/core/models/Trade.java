@@ -29,6 +29,8 @@ public class Trade implements Serializable, Parcelable {
 
     private String  phone;
 
+    private String mainCategory;
+
     private String poBox;
 
     private String email;
@@ -62,6 +64,7 @@ public class Trade implements Serializable, Parcelable {
         dest.writeDouble(this.latitude);
         dest.writeDouble(this.longitude);
         dest.writeString(this.phone);
+        dest.writeString(this.mainCategory);
         dest.writeString(this.poBox);
         dest.writeString(this.email);
         dest.writeString(this.representerName);
@@ -80,6 +83,7 @@ public class Trade implements Serializable, Parcelable {
         this.latitude = in.readDouble();
         this.longitude = in.readDouble();
         this.phone = in.readString();
+        this.mainCategory = in.readString();
         this.poBox = in.readString();
         this.email = in.readString();
         this.representerName = in.readString();

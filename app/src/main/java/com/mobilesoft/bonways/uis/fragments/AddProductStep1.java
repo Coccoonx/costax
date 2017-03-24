@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,7 +17,9 @@ import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.mobilesoft.bonways.BonWaysApplication;
 import com.mobilesoft.bonways.BuildConfig;
 import com.mobilesoft.bonways.R;
+import com.mobilesoft.bonways.backend.DummyServer;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
+import com.mobilesoft.bonways.core.models.Category;
 import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.uis.AddProductWizardActivity;
@@ -31,6 +34,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.ganfra.materialspinner.MaterialSpinner;
+
 
 public class AddProductStep1 extends AbstractStep {
 
@@ -41,7 +46,7 @@ public class AddProductStep1 extends AbstractStep {
     EditText productPromoPrice;
     EditText productQuantity;
     EditText productTimeOff;
-    EditText productCategory;
+    MaterialSpinner productCategory;
     EditText productDescription;
     ImageView productImage;
     SearchableSpinner shopItems;
@@ -57,7 +62,7 @@ public class AddProductStep1 extends AbstractStep {
         productPromoPrice = (EditText) v.findViewById(R.id.productPromoPrice);
         productQuantity = (EditText) v.findViewById(R.id.productQuantity);
         productTimeOff = (EditText) v.findViewById(R.id.productTimeOff);
-        productCategory = (EditText) v.findViewById(R.id.productCategory);
+        productCategory = (MaterialSpinner) v.findViewById(R.id.productCategory);
         productDescription = (EditText) v.findViewById(R.id.productDescription);
         productImage = (ImageView) v.findViewById(R.id.productImage);
 
@@ -67,6 +72,18 @@ public class AddProductStep1 extends AbstractStep {
                 onPickImage(productImage);
             }
         });
+
+
+        ArrayList<String> items = new ArrayList<>();
+        for (Category category : DummyServer.getCategory()) {
+            items.add(category.getTitle());
+        }
+        items.remove(0);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, items);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        productCategory.setAdapter(adapter);
+
 
         ImagePicker.setMinQuality(250, 200);
 
@@ -156,12 +173,24 @@ public class AddProductStep1 extends AbstractStep {
 
         mProduct.setDesignation(productName.getText().toString());
         mProduct.setDescription(productDescription.getText().toString());
-        mProduct.setPrice(Double.valueOf(productNormalPrice.getText().toString()));
+        double price = Double.valueOf(productNormalPrice.getText().toString());
+        double promoPrice = Double.valueOf(productPromoPrice.getText().toString());
+        mProduct.setPrice(price);
         mProduct.setUnitQuantity(Long.valueOf(productQuantity.getText().toString()));
-//       // TODO: 29/01/2017 mProduct.setCategory();
-        // // TODO: 29/01/2017  Update product shop mProduct.setTrade();
-        mProduct.setDiscountPercentage(Double.valueOf(productPromoPrice.getText().toString()));
+
+        double discountper = ((price - promoPrice)/ price) * 100;
+        mProduct.setDiscountPercentage(discountper);
         mProduct.setDateTimeOff(productTimeOff.getText().toString());
+
+        String cat = (String) productCategory.getSelectedItem();
+        for (Category category : DummyServer.getCategory()) {
+            if (cat.equals(category.getTitle())) {
+                if (mProduct != null) {
+                    mProduct.setCategory(category);
+                    break;
+                }
+            }
+        }
 
 //        mStepper.getExtras().putParcelable("product", mProduct);
         AddProductWizardActivity.mProduct = mProduct;
