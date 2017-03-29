@@ -5,7 +5,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -56,6 +58,8 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
 
     public Product() {
         code = UUID.randomUUID().toString();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+        createdDate = sdf.format(new Date());
     }
 
     @Override

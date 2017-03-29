@@ -20,7 +20,7 @@ public class DummyServer {
         Product product = new Product();
         product.setDesignation("Jeu de Carte");
         product.setDescription("Jeu de carte qui vous permettra de vous de detendre en famille");
-        product.setUnitQuantity((long) 12);
+        product.setUnitQuantity((long) 78);
         product.setDateTimeOff("12/03/2017");
         product.setPrice(2000L);
         product.setDiscountPercentage(20L);
@@ -42,7 +42,7 @@ public class DummyServer {
         product = new Product();
         product.setDesignation("BabyFoot");
         product.setDescription("Relaxez vous en famille ou entre collègue avec une partie de Babyfoot ");
-        product.setUnitQuantity((long) 12);
+        product.setUnitQuantity((long) 87);
         product.setDateTimeOff("11/04/2017");
         product.setPrice(8000L);
         product.setDiscountPercentage(32L);
@@ -66,7 +66,7 @@ public class DummyServer {
         product = new Product();
         product.setDesignation("Table Basse");
         product.setDescription("Donnez vie à votre salon avec cette magnifique table basse");
-        product.setUnitQuantity((long) 12);
+        product.setUnitQuantity((long) 2);
         product.setDateTimeOff("12/02/2017");
         product.setPrice(25500L);
         product.setDiscountPercentage(45L);
@@ -90,7 +90,7 @@ public class DummyServer {
         product = new Product();
         product.setDesignation("Television Samsung 52'");
         product.setDescription("La télévision en très haute dimension ");
-        product.setUnitQuantity((long) 12);
+        product.setUnitQuantity((long) 6);
         product.setDateTimeOff("15/06/2017");
         product.setPrice(322000l);
         product.setDiscountPercentage(12L);
@@ -114,7 +114,7 @@ public class DummyServer {
         product = new Product();
         product.setDesignation("Rallonge Legrand 7 entrées");
         product.setDescription("Branchez plus d'equipement dans votre salon grace à cette equipement discret et resistant.");
-        product.setUnitQuantity((long) 12);
+        product.setUnitQuantity((long) 11);
         product.setDateTimeOff("12/03/2017");
         product.setPrice(2000l);
         product.setDiscountPercentage(33L);
@@ -138,7 +138,7 @@ public class DummyServer {
         product = new Product();
         product.setDesignation("HP ProBook");
         product.setDescription("Core i5, 8GB Ram, 1To DD. \nLa puissance au bout des doigts");
-        product.setUnitQuantity((long) 12);
+        product.setUnitQuantity((long) 9);
         product.setDateTimeOff("25/04/2017");
         product.setPrice(212000l);
         product.setDiscountPercentage(5.5);
@@ -162,7 +162,7 @@ public class DummyServer {
         product = new Product();
         product.setDesignation("Rolex Revolution");
         product.setDescription("Montre de luxe, Pour un homme qui se respecte.");
-        product.setUnitQuantity((long) 12);
+        product.setUnitQuantity((long) 23);
         product.setDateTimeOff("30/08/2017");
         product.setPrice(22000L);
         product.setDiscountPercentage(21.0);

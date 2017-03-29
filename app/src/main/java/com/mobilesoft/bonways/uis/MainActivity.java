@@ -16,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
@@ -34,6 +35,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -74,6 +77,10 @@ public class MainActivity extends AppCompatActivity
     private String mPhotoUrl;
     public static Location mUserLocation;
     public static Set<Product> mProducts;
+
+    FloatingActionButton addProduct;
+    FloatingActionButton addShop;
+    FloatingActionMenu mainFab;
 
     private GoogleApiClient mGoogleApiClient;
 
@@ -211,6 +218,25 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        mainFab = (FloatingActionMenu) findViewById(R.id.mainFab);
+        addProduct = (FloatingActionButton) findViewById(R.id.fab_add_product);
+        addShop = (FloatingActionButton) findViewById(R.id.fab_add_shop);
+
+        addProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, AddProductWizardActivity.class));
+            }
+        });
+
+        addShop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, AddShopWizardActivity.class));
+            }
+        });
+
+
         showCategory();
     }
 
@@ -222,6 +248,7 @@ public class MainActivity extends AppCompatActivity
         if (profile != null && profile.getUser() != null) {
             if (profile.getUser().isTrader()) {
                 navigationView.getMenu().findItem(R.id.nav_trader).setVisible(false);
+                mainFab.setVisibility(View.VISIBLE);
 //                navigationView.getMenu().findItem(R.id.nav_shop).setVisible(true);
 //                navigationView.getMenu().findItem(R.id.nav_product).setVisible(true);
             } else {
@@ -230,6 +257,12 @@ public class MainActivity extends AppCompatActivity
 
             }
 
+
+
+        }
+
+        if (viewPager != null && tmpCurrentProduct == null) {
+            viewPager.setCurrentItem(1);
         }
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -392,7 +425,6 @@ public class MainActivity extends AppCompatActivity
                 .create();
         dialog.show();
     }
-
 
 
     @Override

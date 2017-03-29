@@ -37,6 +37,7 @@ public class DetailsActivity extends AppCompatActivity {
     TextView percentageDiscount;
     TextView timeOff;
     TextView liked;
+    TextView productLeft;
     TextView watched;
     TextView category;
     TextView currency;
@@ -45,6 +46,7 @@ public class DetailsActivity extends AppCompatActivity {
     Button go;
     private boolean alreadyRemoved;
     public static DisplayShop instance;
+    private TextView timePosted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +78,9 @@ public class DetailsActivity extends AppCompatActivity {
         liked = (TextView) findViewById(R.id.item_liked);
         watched = (TextView) findViewById(R.id.item_watched);
         category = (TextView) findViewById(R.id.category);
+        timePosted = (TextView) findViewById(R.id.timeposted);
         timeOff = (TextView) findViewById(R.id.timeleft);
+        productLeft = (TextView) findViewById(R.id.productleft);
         shopName = (TextView) findViewById(R.id.shop_name);
         shopDistance = (TextView) findViewById(R.id.shop_distance);
         currency = (TextView) findViewById(R.id.currency);
@@ -105,6 +109,8 @@ public class DetailsActivity extends AppCompatActivity {
                 descriptionProduct.setText(mProduct.getDescription());
                 shopName.setText(mProduct.getTrade().getName());
                 category.setText(mProduct.getCategory().getTitle());
+                timePosted.setText(mProduct.getCreatedDate());
+                productLeft.setText("" + mProduct.getUnitQuantity());
 
                 if (MainActivity.mUserLocation != null) {
                     Location tradeLoc = new Location(mProduct.getTrade().getName());

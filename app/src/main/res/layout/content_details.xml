@@ -71,90 +71,133 @@
                     android:layout_marginBottom="@dimen/margin_middle_short"
                     android:layout_marginTop="@dimen/margin_middle_short">
 
-                    <RelativeLayout
+                    <LinearLayout
+                        android:id="@+id/container_timeleft"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true">
+                        android:layout_centerVertical="true"
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/timeleft_label"
+
+                        <TextView
+                            android:id="@+id/timeleftlabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_timeli"
-                            android:tint="@color/textColorGray" />
+                            android:text="Posted"
+                            android:textAllCaps="true"
+                            android:textColor="@color/textColorGray"
+                            android:textSize="@dimen/text_smallest_size" />
+
+                        <TextView
+                            android:id="@+id/timeposted"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="41 min"
+                            android:textColor="@color/textColorGray"
+                            android:textSize="@dimen/text_smallest_size" />
 
                         <TextView
                             android:id="@+id/timeleft"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/margin_middle_short"
-                            android:layout_marginStart="@dimen/margin_middle_short"
-                            android:layout_toEndOf="@+id/timeleft_label"
-                            android:layout_toRightOf="@id/timeleft_label"
                             android:text="41 min"
                             android:textColor="@color/textColorGray"
-                            android:textSize="@dimen/text_small_size" />
-                    </RelativeLayout>
+                            android:textSize="@dimen/item_text_small"
+                            android:visibility="gone" />
+                    </LinearLayout>
 
-                    <RelativeLayout
+                    <LinearLayout
+                        android:id="@+id/container_prices"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true">
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/container_remaining"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/normal_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin_middle_short_mini"
+                            android:text="19,000"
+                            android:textColor="@color/white"
+
+                            android:textSize="@dimen/text_small_size" />
 
 
                         <LinearLayout
-                            android:id="@+id/container_prices"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
-                            android:gravity="end"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/normal_price"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/margin_middle_short_mini"
-                                android:text="19,000"
-                                android:textColor="@color/white"
-
-                                android:textSize="@dimen/text_small_size" />
+                            android:gravity="center_vertical">
 
                             <TextView
                                 android:id="@+id/promo_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/margin_middle_short_mini"
+                                android:gravity="center"
                                 android:text="8,600"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="17sp"
                                 android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/currency"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_middle_short_mini"
+                                android:layout_marginStart="@dimen/margin_middle_short_mini"
+                                android:gravity="center"
+                                android:text="F"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="17sp" />
                         </LinearLayout>
 
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/container_remaining"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
                         <TextView
-                            android:id="@+id/currency"
-                            android:layout_toRightOf="@+id/container_prices"
-                            android:layout_toEndOf="@+id/container_prices"
+                            android:id="@+id/productleft_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignTop="@+id/container_prices"
                             android:layout_marginLeft="@dimen/margin_middle_short_mini"
                             android:layout_marginStart="@dimen/margin_middle_short_mini"
                             android:gravity="center"
-                            android:layout_alignBottom="@+id/container_prices"
-                            android:textColor="@color/colorPrimary"
-                            android:text="F CFA"/>
+                            android:text="PRODUCTS LEFT"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_smallest_size" />
 
 
-                    </RelativeLayout>
+                        <TextView
+                            android:id="@+id/productleft"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_middle_short_mini"
+                            android:layout_marginStart="@dimen/margin_middle_short_mini"
+                            android:gravity="center"
+                            android:text="28"
+                            android:textColor="@color/colorPanel" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/percentage_discount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/container_prices"
+                        android:layout_toRightOf="@+id/container_timeleft"
+                        android:gravity="center"
                         android:text="-60%"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/text_percentage_item_h" />
@@ -173,8 +216,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/container_details"
-                    android:layout_marginTop="@dimen/margin_middle_short"
                     android:layout_marginBottom="@dimen/margin_middle_short"
+                    android:layout_marginTop="@dimen/margin_middle_short"
                     android:weightSum="60">
 
                     <LinearLayout
@@ -280,7 +323,6 @@
             android:background="@drawable/bg_header_item"
             android:orientation="vertical"
             android:padding="@dimen/margin_middle_short">
-
 
 
             <RelativeLayout
