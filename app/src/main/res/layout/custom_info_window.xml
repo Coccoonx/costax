@@ -4,7 +4,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@color/whiteOther"
-    android:padding="@dimen/item_text_smallest"
+    android:paddingLeft="@dimen/item_text_smallest"
+    android:paddingRight="@dimen/item_text_smallest"
     android:orientation="horizontal" >
 
     <ImageView
@@ -20,8 +21,8 @@
         android:id="@+id/container_info"
         android:layout_toRightOf="@+id/badge"
         android:layout_toEndOf="@+id/badge"
-        android:layout_marginLeft="@dimen/margin_middle_standard"
-        android:layout_marginStart="@dimen/margin_middle_standard"
+        android:layout_marginLeft="@dimen/margin_middle_short"
+        android:layout_marginStart="@dimen/margin_middle_short"
         android:layout_centerVertical="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,7 +36,7 @@
             android:singleLine="true"
             android:text="@string/app_name"
             android:textColor="#ff000000"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <TextView
@@ -43,8 +44,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
-            android:textColor="#ff7f7f7f"
-            android:textSize="14dp" />
+            android:textColor="@color/textColorGray"
+            android:textSize="@dimen/text_smallest_size" />
     </LinearLayout>
 
 </RelativeLayout>

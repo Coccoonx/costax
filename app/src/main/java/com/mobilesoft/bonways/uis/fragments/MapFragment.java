@@ -196,7 +196,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         titleUi.setText("");
                     }
 
-                    final String snippet = getActivity().getResources().getString(R.string.info_tel)+" "+trade.getPhone() ;
+                    final String snippet = trade.getAddress() ;
                     final TextView snippetUi = ((TextView) view
                             .findViewById(R.id.snippet));
                     if (snippet != null) {

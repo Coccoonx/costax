@@ -193,7 +193,7 @@ public class DummyServer {
         Trade trade = new Trade();
         trade.setName("Santa Lucia");
         trade.setRepresenterName("Moussa");
-        trade.setAddress("Ange Raphael, Douala");
+        trade.setAddress("33 Marie Salomon, Ange Raphael, Douala");
         trade.setNearestShopName("Le Bourget");
         trade.setEmail("info@santalucia.com");
         trade.setWebsite("santalucia.org");
@@ -209,7 +209,7 @@ public class DummyServer {
         trade = new Trade();
         trade.setName("Super U");
         trade.setRepresenterName("Jacob");
-        trade.setAddress("Bali, Douala");
+        trade.setAddress("1377 Rue Michel Brunet, Bali, Douala");
         trade.setNearestShopName("Total");
         trade.setEmail("info@superu.com");
         trade.setWebsite("superu.org");
@@ -225,7 +225,7 @@ public class DummyServer {
         trade = new Trade();
         trade.setName("Dovv");
         trade.setRepresenterName("Aboubakar");
-        trade.setAddress("Bonapriso, Douala");
+        trade.setAddress("43 Rue Amidou, Bonapriso, Douala");
         trade.setNearestShopName("Oil Lybia");
         trade.setEmail("info@Dovv.com");
         trade.setWebsite("Dovv.org");
@@ -241,7 +241,7 @@ public class DummyServer {
         trade = new Trade();
         trade.setName("Zara");
         trade.setRepresenterName("Felix");
-        trade.setAddress("Akwa, Douala");
+        trade.setAddress("34 Boulevard de la Reunification, Akwa, Douala");
         trade.setNearestShopName("Orange");
         trade.setEmail("info@Zara.com");
         trade.setWebsite("Zara.org");
@@ -257,7 +257,7 @@ public class DummyServer {
         trade = new Trade();
         trade.setName("Castorama");
         trade.setRepresenterName("Frederic");
-        trade.setAddress("Akwa, Douala");
+        trade.setAddress("12 Rue Foch, Akwa, Douala");
         trade.setNearestShopName("MTN Shop");
         trade.setEmail("info@Castorama.com");
         trade.setWebsite("santalucia.org");
