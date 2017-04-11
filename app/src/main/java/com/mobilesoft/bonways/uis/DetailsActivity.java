@@ -42,6 +42,7 @@ public class DetailsActivity extends AppCompatActivity {
     TextView normalPrice;
     TextView promoPrice;
     TextView shopName;
+    TextView tradePhone;
     TextView shopDistance;
     TextView percentageDiscount;
     TextView timeOff;
@@ -94,6 +95,7 @@ public class DetailsActivity extends AppCompatActivity {
         productLeft = (TextView) findViewById(R.id.productleft);
         shopName = (TextView) findViewById(R.id.shop_name);
         shopDistance = (TextView) findViewById(R.id.shop_distance);
+        tradePhone = (TextView) findViewById(R.id.shop_phone);
         currency = (TextView) findViewById(R.id.currency);
 //        currency.setRotation(310);
         containerLiked = (LinearLayout) findViewById(R.id.container_social_liked);
@@ -129,6 +131,7 @@ public class DetailsActivity extends AppCompatActivity {
                 category.setText(mProduct.getCategory().getTitle());
                 timePosted.setText(mProduct.getCreatedDate());
                 productLeft.setText("" + mProduct.getUnitQuantity());
+                tradePhone.setText(mProduct.getTrade().getPhone());
 
                 if (MainActivity.mUserLocation != null) {
                     Location tradeLoc = new Location(mProduct.getTrade().getName());

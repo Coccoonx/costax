@@ -206,9 +206,9 @@
                         android:layout_toRightOf="@+id/container_timeleft"
                         android:gravity="center"
                         android:text="-60%"
-                        android:textStyle="bold"
                         android:textColor="@android:color/holo_red_light"
-                        android:textSize="@dimen/text_percentage_item_h" />
+                        android:textSize="@dimen/text_percentage_item_h"
+                        android:textStyle="bold" />
 
                 </RelativeLayout>
 
@@ -308,8 +308,8 @@
                     android:id="@+id/button_go"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:src="@drawable/direction"
                     app:civ_border_color="#EEEEEE"
                     app:civ_border_width="0dp"
@@ -318,29 +318,29 @@
                     app:civ_shadow_radius="0" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/productTitle"
+                    android:layout_marginEnd="@dimen/margin_short"
+                    android:layout_marginRight="@dimen/margin_short"
                     android:layout_toLeftOf="@+id/button_go"
                     android:layout_toStartOf="@+id/button_go"
-                    android:layout_alignBaseline="@+id/productTitle"
-                    android:layout_marginRight="@dimen/margin_short"
-                    android:layout_marginEnd="@dimen/margin_short"
                     android:gravity="center"
                     android:text="@string/label_goto"
-                    android:textColor="@color/colorPanel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textColor="@color/colorPanel" />
 
 
                 <TextView
                     android:id="@+id/product_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/button_go"
-                    android:gravity="center_horizontal|top"
                     android:layout_above="@+id/container_details"
                     android:layout_alignLeft="@+id/productTitle"
                     android:layout_alignStart="@+id/productTitle"
+                    android:layout_below="@+id/button_go"
                     android:layout_marginTop="@dimen/margin_middle_short_mini"
                     android:ellipsize="end"
+                    android:gravity="center_horizontal|top"
                     android:maxLines="3"
                     android:text="@string/permission_explanation"
                     android:textColor="@color/white" />
@@ -355,9 +355,9 @@
             android:layout_width="140dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:visibility="gone"
             android:src="@drawable/reserved"
-            android:tint="@color/colorPrimary"/>
+            android:tint="@color/colorPrimary"
+            android:visibility="gone" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -401,10 +401,25 @@
 
             </RelativeLayout>
 
+            <TextView
+                android:id="@+id/shop_phone"
+                android:layout_width="wrap_content"
+                android:paddingLeft="@dimen/margin_short"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/container_shop_name"
+                android:layout_alignLeft="@+id/container_shop_name"
+                android:layout_alignStart="@+id/container_shop_name"
+                android:layout_toRightOf="@+id/shop_logo"
+                android:text="@string/info_tel"
+                android:textColor="@color/white" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/container_shop_name"
+                android:layout_below="@+id/shop_phone"
+                android:paddingLeft="@dimen/margin_middle_short_mini"
+                android:layout_alignLeft="@+id/container_shop_name"
+                android:layout_alignStart="@+id/container_shop_name"
                 android:layout_toRightOf="@+id/shop_logo"
                 android:gravity="center_vertical">
 
