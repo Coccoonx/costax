@@ -60,9 +60,9 @@
     <string name="btn_reserve">Reserve</string>
     <string name="label_posted">Posted</string>
     <string name="label_productLeft">Products Left</string>
-    <string name="label_timeleft">Time Left</string>
     <string name="label_timeleft_value">days</string>
     <string name="label_goto">Go to ...</string>
     <string name="info_tel">Phone:</string>
+    <string name="label_timeleft">Time Left</string>
 
 </resources>
