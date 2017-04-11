@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -33,6 +34,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -40,7 +43,9 @@ import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -50,6 +55,7 @@ import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Category;
 import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Profile;
+import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.core.models.User;
 import com.mobilesoft.bonways.uis.adapters.MainTabAdapter;
 import com.mobilesoft.bonways.uis.adapters.SimpleAdapter;
@@ -64,6 +70,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import lombok.core.Main;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, DetailsActivity.DisplayShop {
 
@@ -77,6 +85,7 @@ public class MainActivity extends AppCompatActivity
     private String mPhotoUrl;
     public static Location mUserLocation;
     public static Set<Product> mProducts;
+    public static Set<Trade> mTrade;
 
     FloatingActionButton addProduct;
     FloatingActionButton addShop;
@@ -121,6 +130,7 @@ public class MainActivity extends AppCompatActivity
         }
     };
     public static LatLng mShopLocation;
+    private Marker marker;
 
 
     @Override
@@ -152,6 +162,7 @@ public class MainActivity extends AppCompatActivity
 
 
         mProducts = new HashSet<>();
+        mTrade = new HashSet<>();
         mProducts.addAll(DummyServer.getAvailableProduct());
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -256,7 +267,6 @@ public class MainActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.nav_product).setVisible(false);
 
             }
-
 
 
         }
@@ -436,4 +446,8 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
+
+
+
+
 }

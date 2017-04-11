@@ -58,7 +58,7 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
 
     public Product() {
         code = UUID.randomUUID().toString();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         createdDate = sdf.format(new Date());
     }
 

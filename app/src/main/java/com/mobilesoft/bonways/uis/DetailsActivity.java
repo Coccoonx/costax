@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -14,12 +15,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.mikhaellopez.circularimageview.CircularImageView;
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Product;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
+import java.util.Date;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -43,7 +46,8 @@ public class DetailsActivity extends AppCompatActivity {
     TextView currency;
     Product mProduct;
     Product mClone;
-    Button go;
+    CircularImageView go;
+    Button reserve;
     private boolean alreadyRemoved;
     public static DisplayShop instance;
     private TextView timePosted;
@@ -86,7 +90,8 @@ public class DetailsActivity extends AppCompatActivity {
         currency = (TextView) findViewById(R.id.currency);
 //        currency.setRotation(310);
         containerLiked = (LinearLayout) findViewById(R.id.container_social_liked);
-        go = (Button) findViewById(R.id.button_go);
+        go = (CircularImageView) findViewById(R.id.button_go);
+        reserve = (Button) findViewById(R.id.button_reserve);
 
 
         Bundle b = getIntent().getExtras();
@@ -138,7 +143,56 @@ public class DetailsActivity extends AppCompatActivity {
                 normalPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
                 double promo = mProduct.getPrice() - (mProduct.getPrice() * mProduct.getDiscountPercentage() / 100);
                 promoPrice.setText(nf.format(promo) + "");
-                timeOff.setText(mProduct.getDateTimeOff());
+
+                if (new Date(Date.parse(mProduct.getDateTimeOff())).after(new Date())) {
+                Thread t = new Thread() {
+
+                    @Override
+                    public void run() {
+                        try {
+                            while (!isInterrupted()) {
+                                Thread.sleep(1000);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // update TextView here!
+
+
+                                            long diff = Date.parse(mProduct.getDateTimeOff()) - new Date().getTime();
+                                            Log.d("TIMER", "" + diff);
+                                            int timeInSeconds = (int) diff / 1000;
+                                            int hours, minutes, seconds;
+                                            hours = timeInSeconds / 3600;
+                                        if (hours > 24) {
+                                            int days = hours / 24;
+                                            timeOff.setText(days+ " "+getResources().getString(R.string.label_timeleft_value));
+
+                                        } else {
+                                            timeInSeconds = timeInSeconds - (hours * 3600);
+                                            minutes = timeInSeconds / 60;
+                                            timeInSeconds = timeInSeconds - (minutes * 60);
+                                            seconds = timeInSeconds;
+
+                                            String diffTime = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+                                            timeOff.setText(diffTime);
+                                        }
+
+
+                                    }
+                                });
+                            }
+                        } catch (InterruptedException e) {
+                        }
+                    }
+                };
+
+                t.start();
+
+                } else {
+                    timeOff.setText("OFF");
+                    timeOff.setTextColor(getResources().getColor(R.color.colorPrimary));
+
+                }
 
                 if (mProduct.isLiked()) {
                     iconLiked.setImageResource(R.drawable.ic_like_filled);

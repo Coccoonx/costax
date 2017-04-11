@@ -13,6 +13,8 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -25,12 +27,14 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.backend.DummyServer;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.uis.MainActivity;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -103,8 +107,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+        mGoogleMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
         mGoogleMap.setMyLocationEnabled(true);
-        mGoogleMap.getUiSettings().setZoomControlsEnabled(false);
+        mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
+        mGoogleMap.getUiSettings().setZoomGesturesEnabled(true);
         centerMapToUserLocation();
         loadShop();
     }
@@ -112,12 +118,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private void loadShop() {
         MarkerOptions options = new MarkerOptions();
 
-        Set<Trade> items = new HashSet<>();
-        items.addAll(DummyServer.getTrade());
-        items.addAll(ProfileManager.getCurrentUserProfile().getTrades());
+        MainActivity.mTrade.addAll(DummyServer.getTrade());
+        MainActivity.mTrade.addAll(ProfileManager.getCurrentUserProfile().getTrades());
 
-        for (Trade trade : items) {
-            options.snippet(trade.getName());
+        for (Trade trade : MainActivity.mTrade) {
+            options.title(trade.getId());
             options.draggable(false);
             options.position(new LatLng(trade.getLatitude(), trade.getLongitude()));
             if (trade.getMainCategory().equalsIgnoreCase("Beauté"))
@@ -155,6 +160,56 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         userLocation = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
         if (userLocation != null) {
             mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLocation.getLatitude(), userLocation.getLongitude()), 13));
+        }
+    }
+
+    private class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+
+        private View view;
+
+        public CustomInfoWindowAdapter() {
+            view = getActivity().getLayoutInflater().inflate(R.layout.custom_info_window,
+                    null);
+        }
+
+        @Override
+        public View getInfoContents(Marker marker) {
+
+
+            return null;
+        }
+
+        @Override
+        public View getInfoWindow(final Marker marker) {
+
+
+            for (Trade trade : MainActivity.mTrade) {
+                if (marker.getTitle().equals(trade.getId())) {
+                    final ImageView image = ((ImageView) view.findViewById(R.id.badge));
+                    Picasso.with(getActivity()).load(trade.getLogoUrl()).placeholder(R.mipmap.ic_launcher).into(image);
+
+                    final String title = trade.getName();
+                    final TextView titleUi = ((TextView) view.findViewById(R.id.title));
+                    if (title != null) {
+                        titleUi.setText(title);
+                    } else {
+                        titleUi.setText("");
+                    }
+
+                    final String snippet = getActivity().getResources().getString(R.string.info_tel)+" "+trade.getPhone() ;
+                    final TextView snippetUi = ((TextView) view
+                            .findViewById(R.id.snippet));
+                    if (snippet != null) {
+                        snippetUi.setText(snippet);
+                    } else {
+                        snippetUi.setText("");
+                    }
+                }
+            }
+
+
+
+            return view;
         }
     }
 }

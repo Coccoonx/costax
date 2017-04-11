@@ -59,8 +59,8 @@ public class MainItemAdapter extends RecyclerView.Adapter<MainItemViewHolder> {
 
         holder.title.setText(product.getDesignation());
         holder.percentageDiscount.setText("-" + nf.format(product.getDiscountPercentage()) + "%");
-        holder.liked.setText(""+product.getLikers().size());
-        holder.watched.setText(""+product.getWatchers().size());
+        holder.liked.setText("" + product.getLikers().size());
+        holder.watched.setText("" + product.getWatchers().size());
         holder.normalPrice.setText(nf.format(product.getPrice()));
         holder.normalPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         double promo = product.getPrice() - (product.getPrice() * product.getDiscountPercentage() / 100);
@@ -77,9 +77,9 @@ public class MainItemAdapter extends RecyclerView.Adapter<MainItemViewHolder> {
 
 
         if (product.getImageUrl().contains("http") || product.getImageUrl().contains("cdn"))
-            Picasso.with(mContext).load(product.getImageUrl()).into(holder.productImage);
+            Picasso.with(mContext).load(product.getImageUrl()).placeholder(R.drawable.nopreview).into(holder.productImage);
         else
-            Picasso.with(mContext).load("file://" + product.getImageUrl()).into(holder.productImage);
+            Picasso.with(mContext).load("file://" + product.getImageUrl()).placeholder(R.drawable.nopreview).into(holder.productImage);
 
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -57,5 +57,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_details">DetailsActivity</string>
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="btn_reserve">Reserve</string>
+    <string name="label_posted">Posted</string>
+    <string name="label_productLeft">Products Left</string>
+    <string name="label_timeleft">Time Left</string>
+    <string name="label_timeleft_value">days</string>
+    <string name="info_tel">Phone:</string>
 
 </resources>

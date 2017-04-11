@@ -51,6 +51,13 @@
     <string name="wzs_trade_address">Adresse</string>
     <string name="wzs_trade_pick_location">Pointer l\'emplacement geographique</string>
     <string name="dialog_title">Choississez une categorie</string>
+    <string name="btn_reserve" >Reserver</string>
+    <string name="label_posted">Pulié le</string>
+    <string name="label_productLeft">Produits Restant</string>
+    <string name="label_timeleft">Echeance</string>
+    <string name="label_timeleft_value">jours</string>
+    <string name="wzs_trade_category">Categorie</string>
+    <string name="info_tel">Tel:</string>
 
 
 </resources>

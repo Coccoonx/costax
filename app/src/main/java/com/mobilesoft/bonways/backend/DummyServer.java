@@ -21,7 +21,7 @@ public class DummyServer {
         product.setDesignation("Jeu de Carte");
         product.setDescription("Jeu de carte qui vous permettra de vous de detendre en famille");
         product.setUnitQuantity((long) 78);
-        product.setDateTimeOff("12/03/2017");
+        product.setDateTimeOff("16/04/2017");
         product.setPrice(2000L);
         product.setDiscountPercentage(20L);
         for (int i = 1; i <= 32; i++) {
@@ -67,7 +67,7 @@ public class DummyServer {
         product.setDesignation("Table Basse");
         product.setDescription("Donnez vie à votre salon avec cette magnifique table basse");
         product.setUnitQuantity((long) 2);
-        product.setDateTimeOff("12/02/2017");
+        product.setDateTimeOff("12/05/2017");
         product.setPrice(25500L);
         product.setDiscountPercentage(45L);
         for (int i = 1; i <= 39; i++) {
@@ -115,7 +115,7 @@ public class DummyServer {
         product.setDesignation("Rallonge Legrand 7 entrées");
         product.setDescription("Branchez plus d'equipement dans votre salon grace à cette equipement discret et resistant.");
         product.setUnitQuantity((long) 11);
-        product.setDateTimeOff("12/03/2017");
+        product.setDateTimeOff("12/04/2017");
         product.setPrice(2000l);
         product.setDiscountPercentage(33L);
         for (int i = 1; i <= 26; i++) {
@@ -318,6 +318,12 @@ public class DummyServer {
         category = new Category();
         category.setTitle("Banque/Service");
         category.setIconIntUrl(R.drawable.cat_service);
+
+        categories.add(category);
+
+        category = new Category();
+        category.setTitle("Sortie");
+        category.setIconIntUrl(R.drawable.cat_divertissement);
 
         categories.add(category);
 

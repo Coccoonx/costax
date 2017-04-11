@@ -34,40 +34,26 @@
                 android:id="@+id/productImage"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="55"
+                android:layout_weight="52"
                 android:scaleType="fitCenter"
                 android:src="@drawable/splash_logo_mini" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="45"
+                android:layout_weight="48"
                 android:background="@color/translucent_black"
                 android:paddingBottom="@dimen/margin_short"
                 android:paddingLeft="@dimen/activity_vertical_margin"
                 android:paddingRight="@dimen/activity_vertical_margin"
                 android:paddingTop="@dimen/margin_short">
 
-                <com.mikhaellopez.circularimageview.CircularImageView
-                    android:id="@+id/shop_logo"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginEnd="@dimen/padding_shop_logo"
-                    android:layout_marginRight="@dimen/padding_shop_logo"
-                    android:src="@drawable/logo_carrefour"
-                    app:civ_border_color="#EEEEEE"
-                    app:civ_border_width="0dp"
-                    app:civ_shadow="true"
-                    app:civ_shadow_color="#afafaf"
-                    app:civ_shadow_radius="0" />
 
                 <RelativeLayout
                     android:id="@+id/container_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/product_description"
+                    android:layout_above="@+id/divider"
                     android:layout_marginBottom="@dimen/margin_middle_short"
                     android:layout_marginTop="@dimen/margin_middle_short">
 
@@ -83,8 +69,7 @@
                             android:id="@+id/timeleftlabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Posted"
-                            android:textAllCaps="true"
+                            android:text="@string/label_posted"
                             android:textColor="@color/textColorGray"
                             android:textSize="@dimen/text_smallest_size" />
 
@@ -97,7 +82,7 @@
                             android:textSize="@dimen/text_smallest_size" />
 
                         <TextView
-                            android:id="@+id/timeleft"
+                            android:id="@+id/timeleftval"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="41 min"
@@ -137,7 +122,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="8,600"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="@android:color/holo_red_light"
                                 android:textSize="17sp"
                                 android:textStyle="bold" />
 
@@ -149,7 +134,7 @@
                                 android:layout_marginStart="@dimen/margin_middle_short_mini"
                                 android:gravity="center"
                                 android:text="F"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="@android:color/holo_red_light"
                                 android:textSize="17sp" />
                         </LinearLayout>
 
@@ -174,9 +159,9 @@
                             android:layout_marginLeft="@dimen/margin_middle_short_mini"
                             android:layout_marginStart="@dimen/margin_middle_short_mini"
                             android:gravity="center"
-                            android:text="PRODUCTS LEFT"
+                            android:text="@string/label_productLeft"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/text_smallest_size" />
+                            android:textSize="@dimen/item_text_small" />
 
 
                         <TextView
@@ -187,6 +172,28 @@
                             android:layout_marginStart="@dimen/margin_middle_short_mini"
                             android:gravity="center"
                             android:text="28"
+                            android:textColor="@color/colorPanel" />
+
+                        <TextView
+                            android:id="@+id/timeleft_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_middle_short_mini"
+                            android:layout_marginStart="@dimen/margin_middle_short_mini"
+                            android:gravity="center"
+                            android:text="@string/label_timeleft"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/item_text_small" />
+
+
+                        <TextView
+                            android:id="@+id/timeleft"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_middle_short_mini"
+                            android:layout_marginStart="@dimen/margin_middle_short_mini"
+                            android:gravity="center"
+                            android:text=""
                             android:textColor="@color/colorPanel" />
                     </LinearLayout>
 
@@ -199,23 +206,25 @@
                         android:layout_toRightOf="@+id/container_timeleft"
                         android:gravity="center"
                         android:text="-60%"
-                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/holo_red_light"
                         android:textSize="@dimen/text_percentage_item_h" />
 
                 </RelativeLayout>
 
 
                 <View
+                    android:id="@+id/divider"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_below="@+id/container_details"
+                    android:layout_above="@+id/container_social"
                     android:background="@color/colorAccent" />
 
                 <LinearLayout
                     android:id="@+id/container_social"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/container_details"
+                    android:layout_above="@+id/button_reserve"
                     android:layout_marginBottom="@dimen/margin_middle_short"
                     android:layout_marginTop="@dimen/margin_middle_short"
                     android:weightSum="60">
@@ -274,12 +283,12 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/button_go"
+                    android:id="@+id/button_reserve"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="33dp"
                     android:layout_alignParentBottom="true"
                     android:background="@color/colorPanel"
-                    android:text="MAP - Go to Shop"
+                    android:text="@string/btn_reserve"
                     android:textColor="@color/colorPrimary" />
 
                 <TextView
@@ -289,24 +298,36 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:layout_toLeftOf="@+id/shop_logo"
-                    android:layout_toStartOf="@+id/shop_logo"
                     android:ellipsize="end"
                     android:text="Rasoir Bic"
                     android:textColor="@color/blue"
                     android:textSize="19sp"
                     android:textStyle="bold" />
 
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:id="@+id/button_go"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/direction"
+                    app:civ_border_color="#EEEEEE"
+                    app:civ_border_width="0dp"
+                    app:civ_shadow="false"
+                    app:civ_shadow_color="#afafaf"
+                    app:civ_shadow_radius="0" />
+
+
                 <TextView
                     android:id="@+id/product_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/button_go"
+                    android:gravity="center_horizontal|top"
+                    android:layout_above="@+id/container_details"
                     android:layout_alignLeft="@+id/productTitle"
                     android:layout_alignStart="@+id/productTitle"
-                    android:layout_below="@+id/productTitle"
-                    android:layout_marginTop="@dimen/margin_short"
-                    android:layout_toLeftOf="@+id/shop_logo"
-                    android:layout_toStartOf="@+id/shop_logo"
+                    android:layout_marginTop="@dimen/margin_middle_short_mini"
                     android:ellipsize="end"
                     android:maxLines="3"
                     android:text="@string/permission_explanation"
@@ -317,7 +338,7 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_header_item"
@@ -326,8 +347,11 @@
 
 
             <RelativeLayout
+                android:id="@+id/container_shop_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/shop_logo"
+                android:layout_toRightOf="@+id/shop_logo">
 
                 <TextView
                     android:id="@+id/shop_name"
@@ -346,6 +370,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
+                    android:layout_marginEnd="@dimen/padding_shop_logo"
+                    android:layout_marginRight="@dimen/padding_shop_logo"
                     android:text="N/A"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_normal_size"
@@ -357,11 +383,13 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/container_shop_name"
+                android:layout_toRightOf="@+id/shop_logo"
                 android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_compass" />
 
@@ -373,7 +401,21 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_small_size" />
             </LinearLayout>
-        </LinearLayout>
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/shop_logo"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/logo_carrefour"
+                app:civ_border_color="#EEEEEE"
+                app:civ_border_width="0dp"
+                app:civ_shadow="true"
+                app:civ_shadow_color="#afafaf"
+                app:civ_shadow_radius="0" />
+        </RelativeLayout>
 
 
     </FrameLayout>

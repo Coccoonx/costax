@@ -7,6 +7,7 @@ import android.os.Parcelable;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import lombok.Data;
 
@@ -16,6 +17,8 @@ import lombok.Data;
 
 @Data
 public class Trade implements Serializable, Parcelable {
+
+    private String id;
 
     private String name;
 
@@ -50,6 +53,7 @@ public class Trade implements Serializable, Parcelable {
     private Set<Product> productslist;
 
     public Trade() {
+        id = UUID.randomUUID().toString();
     }
 
     @Override
