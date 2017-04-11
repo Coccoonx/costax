@@ -306,8 +306,8 @@
 
                 <com.mikhaellopez.circularimageview.CircularImageView
                     android:id="@+id/button_go"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/direction"
@@ -316,6 +316,18 @@
                     app:civ_shadow="false"
                     app:civ_shadow_color="#afafaf"
                     app:civ_shadow_radius="0" />
+
+                <TextView
+                    android:layout_toLeftOf="@+id/button_go"
+                    android:layout_toStartOf="@+id/button_go"
+                    android:layout_alignBaseline="@+id/productTitle"
+                    android:layout_marginRight="@dimen/margin_short"
+                    android:layout_marginEnd="@dimen/margin_short"
+                    android:gravity="center"
+                    android:text="@string/label_goto"
+                    android:textColor="@color/colorPanel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
 
                 <TextView
