@@ -350,6 +350,15 @@
 
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/reserved"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:src="@drawable/reserved"
+            android:tint="@color/colorPrimary"/>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

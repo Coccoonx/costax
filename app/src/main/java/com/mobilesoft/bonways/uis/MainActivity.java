@@ -347,6 +347,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_product) {
             startActivity(new Intent(this, ProductActivity.class));
 
+        } else if (id == R.id.nav_reservation) {
+            startActivity(new Intent(this, ReservationsActivity.class));
+
         } else if (id == R.id.nav_trader) {
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
             alertBuilder.setCancelable(true);

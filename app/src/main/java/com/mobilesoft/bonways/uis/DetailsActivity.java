@@ -19,10 +19,15 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Product;
+import com.mobilesoft.bonways.core.models.Reservation;
 import com.squareup.picasso.Picasso;
+
+import org.apache.commons.lang3.RandomStringUtils;
 
 import java.text.NumberFormat;
 import java.util.Date;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -30,6 +35,7 @@ public class DetailsActivity extends AppCompatActivity {
     ImageView imageProduct;
     ImageView shopLogo;
     ImageView iconLiked;
+    ImageView reserved;
     TextView titleProduct;
     TextView descriptionProduct;
     LinearLayout containerLiked;
@@ -48,9 +54,9 @@ public class DetailsActivity extends AppCompatActivity {
     Product mClone;
     CircularImageView go;
     Button reserve;
-    private boolean alreadyRemoved;
     public static DisplayShop instance;
     private TextView timePosted;
+    Thread t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +75,7 @@ public class DetailsActivity extends AppCompatActivity {
         });
 //
 //     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        reserved = (ImageView) findViewById(R.id.reserved);
 
         imageProduct = (ImageView) findViewById(R.id.productImage);
         shopLogo = (ImageView) findViewById(R.id.shop_logo);
@@ -109,6 +116,12 @@ public class DetailsActivity extends AppCompatActivity {
                 else
                     Picasso.with(this).load("file://" + mProduct.getImageUrl()).into(imageProduct);
 
+                for (Reservation reservation : ProfileManager.getCurrentUserProfile().getMyReservations()) {
+                    if (reservation.getObject().getCode().equals(mProduct.getCode())) {
+                        reserved.setVisibility(View.VISIBLE);
+                    }
+                }
+
                 Picasso.with(this).load(mProduct.getTrade().getLogoUrl()).into(shopLogo);
                 titleProduct.setText(mProduct.getDesignation());
                 descriptionProduct.setText(mProduct.getDescription());
@@ -145,7 +158,7 @@ public class DetailsActivity extends AppCompatActivity {
                 promoPrice.setText(nf.format(promo) + "");
 
                 if (new Date(Date.parse(mProduct.getDateTimeOff())).after(new Date())) {
-                Thread t = new Thread() {
+                 t = new Thread() {
 
                     @Override
                     public void run() {
@@ -188,6 +201,8 @@ public class DetailsActivity extends AppCompatActivity {
 
                 t.start();
 
+
+
                 } else {
                     timeOff.setText("OFF");
                     timeOff.setTextColor(getResources().getColor(R.color.colorPrimary));
@@ -225,6 +240,40 @@ public class DetailsActivity extends AppCompatActivity {
                         finish();
                     }
                 });
+
+                reserve.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        new SweetAlertDialog(DetailsActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("Confirm Reservation")
+                                .setContentText("Would you want to reserve this product ?")
+                                .setConfirmText("Yes!")
+                                .setCancelText("No")
+                                .showCancelButton(true)
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        Reservation reservation =  new Reservation();
+                                        reservation.setObject(mProduct);
+                                        ProfileManager.getCurrentUserProfile().getMyReservations().add(reservation);
+                                        new ProfileManager.SaveProfile().execute(ProfileManager.getCurrentUserProfile());
+                                        sDialog.dismiss();
+                                        reserved.setVisibility(View.VISIBLE);
+                                        new SweetAlertDialog(DetailsActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+                                                .setTitleText("Confirm Reservation")
+                                                .setContentText("Confirmed!")
+                                                .show();
+                                    }
+                                })
+                                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        sDialog.dismissWithAnimation();
+                                    }
+                                })
+                                .show();
+                    }
+                });
             }
         }
 
@@ -245,6 +294,7 @@ public class DetailsActivity extends AppCompatActivity {
 
 
         }
+        t.stop();
         super.onPause();
 
     }

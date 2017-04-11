@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -13,7 +12,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -31,19 +32,20 @@ import com.google.firebase.auth.FirebaseUser;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
+import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Profile;
-import com.mobilesoft.bonways.core.models.Trade;
+import com.mobilesoft.bonways.core.models.Reservation;
 import com.mobilesoft.bonways.core.models.User;
-import com.mobilesoft.bonways.uis.adapters.ShopItemAdapter;
+import com.mobilesoft.bonways.uis.adapters.ProductItemAdapter;
+import com.mobilesoft.bonways.uis.adapters.ReservationItemAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class ShopActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
+public class ReservationsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
 
     private static final String ANONYMOUS = "Anonymous";
-    private static final String TAG = "ShopActivity";
+    private static final String TAG = "ProductActivity";
     // Firebase instance variables
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
@@ -52,12 +54,12 @@ public class ShopActivity extends AppCompatActivity
 
     private GoogleApiClient mGoogleApiClient;
     RecyclerView recyclerView;
-    ShopItemAdapter mi;
+    ReservationItemAdapter mi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shop);
+        setContentView(R.layout.activity_reservations);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -78,25 +80,6 @@ public class ShopActivity extends AppCompatActivity
                 mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
             }
         }
-
-//        PackageInfo info;
-//        try {
-//            info = getPackageManager().getPackageInfo("com.mobilesoft.bonways", PackageManager.GET_SIGNATURES);
-//            for (Signature signature : info.signatures) {
-//                MessageDigest md;
-//                md = MessageDigest.getInstance("SHA");
-//                md.update(signature.toByteArray());
-//                String something = new String(Base64.encode(md.digest(), 0));
-//                //String something = new String(Base64.encodeBytes(md.digest()));
-//                Log.e("hash key", something);
-//            }
-//        } catch (PackageManager.NameNotFoundException e1) {
-//            Log.e("name not found", e1.toString());
-//        } catch (NoSuchAlgorithmException e) {
-//            Log.e("no such an algorithm", e.toString());
-//        } catch (Exception e) {
-//            Log.e("exception", e.toString());
-//        }
 
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -125,14 +108,6 @@ public class ShopActivity extends AppCompatActivity
             Picasso.with(this).load(currentUser.getImageUrl()).into(userPic);
         }
 
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ShopActivity.this, AddShopWizardActivity.class));
-            }
-        });
     }
 
     @Override
@@ -140,22 +115,31 @@ public class ShopActivity extends AppCompatActivity
         super.onResume();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         Profile profile = ProfileManager.getCurrentUserProfile();
-        if (profile != null && profile.getUser() != null && profile.getUser().isTrader()) {
-            navigationView.getMenu().findItem(R.id.nav_trader).setVisible(false);
+        if (profile != null && profile.getUser() != null) {
+            if (profile.getUser().isTrader()) {
+                navigationView.getMenu().findItem(R.id.nav_trader).setVisible(false);
+//                navigationView.getMenu().findItem(R.id.nav_shop).setVisible(true);
+//                navigationView.getMenu().findItem(R.id.nav_product).setVisible(true);
+            } else {
+                navigationView.getMenu().findItem(R.id.nav_shop).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_product).setVisible(false);
+
+            }
+
+
         }
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerShop);
-        RecyclerView.LayoutManager lm = new GridLayoutManager(this, 1);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerReservation);
+        RecyclerView.LayoutManager lm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(lm);
         recyclerView.setHasFixedSize(true);
 
-        ArrayList<Trade> dataSet = new ArrayList<>();
-        for (Trade trade : profile.getTrades()) {
-            dataSet.add(trade);
-        }
+        ArrayList<Reservation> dataSet = new ArrayList<>();
+        dataSet.addAll(profile.getMyReservations());
 
-        mi = new ShopItemAdapter(this, dataSet);
+        mi = new ReservationItemAdapter(this, dataSet);
         recyclerView.setAdapter(mi);
+        mi.notifyDataSetChanged();
 
     }
 
@@ -202,13 +186,10 @@ public class ShopActivity extends AppCompatActivity
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         } else if (id == R.id.nav_shop) {
-//            startActivity(new Intent(this, ShopActivity.class));
+            startActivity(new Intent(this, ShopActivity.class));
 
         } else if (id == R.id.nav_product) {
-            startActivity(new Intent(this, ProductActivity.class));
-
-        } else if (id == R.id.nav_reservation) {
-            startActivity(new Intent(this, ReservationsActivity.class));
+//            startActivity(new Intent(this, ProductActivity.class));
 
         } else if (id == R.id.nav_trader) {
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
@@ -220,7 +201,7 @@ public class ShopActivity extends AppCompatActivity
                 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
                 public void onClick(DialogInterface dialog, int which) {
                     //// TODO: 27/01/2017 Launch Trader Wizard
-                    Intent intent = new Intent(ShopActivity.this, AddShopWizardActivity.class);
+                    Intent intent = new Intent(ReservationsActivity.this, AddShopWizardActivity.class);
                     startActivityForResult(intent, 1);
                 }
             });

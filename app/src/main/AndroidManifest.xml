@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.mobilesoft.bonways">
 
     <permission
@@ -17,7 +18,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon">
         <activity
             android:name=".uis.MainActivity"
             android:label="@string/app_name"
@@ -31,7 +33,7 @@
         <activity
             android:name=".uis.SignInActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".uis.AddShopWizardActivity"
             android:theme="@style/WizardTheme" />
@@ -58,6 +60,14 @@
             android:name=".uis.DetailsActivity"
             android:label="@string/title_activity_details"
             android:parentActivityName=".uis.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mobilesoft.bonways.uis.MainActivity" />
+        </activity>
+        <activity android:name=".uis.ReservationsActivity"
+            android:parentActivityName=".uis.MainActivity"
+            android:label="@string/nav_reservation"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -64,5 +64,6 @@
     <string name="label_goto">Go to ...</string>
     <string name="info_tel">Phone:</string>
     <string name="label_timeleft">Time Left</string>
+    <string name="nav_reservation">My Reservations</string>
 
 </resources>

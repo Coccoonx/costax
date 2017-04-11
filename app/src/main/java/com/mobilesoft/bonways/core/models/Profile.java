@@ -16,5 +16,6 @@ public class Profile implements Serializable {
     List<Trade> trades = new ArrayList();
     Set<Product> myProducts = new HashSet<>();
     Set<Product> products = new HashSet<>();
+    Set<Reservation> myReservations = new HashSet<>();
 
 }

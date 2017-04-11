@@ -59,6 +59,7 @@
     <string name="wzs_trade_category">Categorie</string>
     <string name="info_tel">Tel:</string>
     <string name="label_goto">Y aller</string>
+    <string name="nav_reservation">Mes Reservations</string>
 
 
 </resources>

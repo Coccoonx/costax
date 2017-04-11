@@ -159,7 +159,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
         userLocation = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
         if (userLocation != null) {
-            mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLocation.getLatitude(), userLocation.getLongitude()), 13));
+            mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLocation.getLatitude(), userLocation.getLongitude()), 15));
         }
     }
 
