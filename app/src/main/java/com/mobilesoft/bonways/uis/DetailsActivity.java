@@ -54,6 +54,7 @@ public class DetailsActivity extends AppCompatActivity {
     TextView watched;
     TextView category;
     TextView currency;
+    TextView labelGoto;
     Product mProduct;
     Product mClone;
     CircularImageView go;
@@ -69,15 +70,6 @@ public class DetailsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-//
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         reserved = (ImageView) findViewById(R.id.reserved);
 
@@ -86,6 +78,7 @@ public class DetailsActivity extends AppCompatActivity {
         iconLiked = (ImageView) findViewById(R.id.icon_liked);
         titleProduct = (TextView) findViewById(R.id.productTitle);
         descriptionProduct = (TextView) findViewById(R.id.product_description);
+        labelGoto = (TextView) findViewById(R.id.label_goto);
 
         normalPrice = (TextView) findViewById(R.id.normal_price);
         promoPrice = (TextView) findViewById(R.id.promo_price);
@@ -249,6 +242,13 @@ public class DetailsActivity extends AppCompatActivity {
                     }
                 });
 
+                labelGoto.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        instance.showShop(new LatLng(mProduct.getTrade().getLatitude(), mProduct.getTrade().getLongitude()));
+                        finish();
+                    }
+                });
                 go.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

@@ -66,11 +66,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         super.onResume();
         mapView.onResume();
         if (MainActivity.mShopLocation != null && mGoogleMap != null) {
-            mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(MainActivity.mShopLocation, 14));
+            mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(MainActivity.mShopLocation, 16));
 
         }
         if (userLocation != null) {
-            mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLocation.getLatitude(), userLocation.getLongitude()), 13));
+            mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLocation.getLatitude(), userLocation.getLongitude()), 16));
 
         }
     }
