@@ -181,6 +181,7 @@
                             android:layout_marginLeft="@dimen/margin_middle_short_mini"
                             android:layout_marginStart="@dimen/margin_middle_short_mini"
                             android:gravity="center"
+                            android:textSize="@dimen/text_normal_size"
                             android:text="28"
                             android:textColor="@color/colorPanel" />
 
@@ -203,6 +204,7 @@
                             android:layout_marginLeft="@dimen/margin_middle_short_mini"
                             android:layout_marginStart="@dimen/margin_middle_short_mini"
                             android:gravity="center"
+                            android:textSize="@dimen/text_normal_size"
                             android:text=""
                             android:textColor="@color/colorPanel" />
                     </LinearLayout>
@@ -224,8 +226,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/button_reserve"
-                    android:layout_marginBottom="@dimen/margin_middle_short"
-                    android:layout_marginTop="@dimen/margin_middle_short"
+                    android:layout_marginBottom="@dimen/margin_middle_short_mini"
+                    android:layout_marginTop="@dimen/margin_middle_short_mini"
                     android:weightSum="60">
 
                     <LinearLayout
@@ -235,8 +237,8 @@
                         android:gravity="center|center_horizontal">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/item_icon_size"
+                            android:layout_height="@dimen/item_icon_size"
                             android:scaleType="centerCrop"
                             android:src="@drawable/ic_watch_count"
                             android:tint="@color/blue" />
@@ -261,8 +263,8 @@
 
                         <ImageView
                             android:id="@+id/icon_liked"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/item_icon_size"
+                            android:layout_height="@dimen/item_icon_size"
                             android:src="@drawable/ic_like"
                             android:tint="@android:color/holo_red_light" />
 
@@ -284,7 +286,7 @@
                 <Button
                     android:id="@+id/button_reserve"
                     android:layout_width="match_parent"
-                    android:layout_height="33dp"
+                    android:layout_height="@dimen/details_product_reserve_height"
                     android:layout_alignParentBottom="true"
                     android:background="@color/colorPanel"
                     android:text="@string/btn_reserve"
@@ -300,7 +302,7 @@
                     android:ellipsize="end"
                     android:text="Rasoir Bic"
                     android:textColor="@color/blue"
-                    android:textSize="19sp"
+                    android:textSize="@dimen/details_product_title"
                     android:textStyle="bold" />
 
                 <com.mikhaellopez.circularimageview.CircularImageView
@@ -325,6 +327,7 @@
                     android:layout_marginRight="@dimen/margin_short"
                     android:layout_toLeftOf="@+id/button_go"
                     android:layout_toStartOf="@+id/button_go"
+                    android:textSize="@dimen/text_normal_size"
                     android:gravity="center"
                     android:text="@string/label_goto"
                     android:textColor="@color/colorPanel" />
@@ -342,6 +345,7 @@
                     android:ellipsize="end"
                     android:gravity="center_horizontal|top"
                     android:maxLines="3"
+                    android:textSize="@dimen/details_product_description"
                     android:text="@string/permission_explanation"
                     android:textColor="@color/white" />
 

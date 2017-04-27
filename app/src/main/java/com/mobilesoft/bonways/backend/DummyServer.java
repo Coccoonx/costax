@@ -141,7 +141,7 @@ public class DummyServer {
 
         product = new Product();
         product.setDesignation("HP ProBook");
-        product.setDescription("Core i5, 8GB Ram, 1To DD. \nLa puissance au bout des doigts");
+        product.setDescription("Core i5, 8GB Ram, 1To DD. La puissance au bout des doigts");
         product.setUnitQuantity((long) 9);
         product.setDateTimeOff("25/04/2017");
         product.setPrice(212000l);

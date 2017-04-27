@@ -11,27 +11,27 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_margin">16sp</dimen>
     <dimen name="margin_middle_standard">8dp</dimen>
-    <dimen name="margin_middle_short">4dp</dimen>
+    <dimen name="margin_middle_short">2dp</dimen>
     <dimen name="margin_middle_short_mini">2dp</dimen>
     <dimen name="margin_short">8dp</dimen>
-    <dimen name="text_normal_big">18sp</dimen>
-    <dimen name="text_normal_size">15sp</dimen>
-    <dimen name="text_small_size">13sp</dimen>
-    <dimen name="text_smallest_size">11sp</dimen>
+    <dimen name="text_normal_big">16sp</dimen>
+    <dimen name="text_normal_size">11sp</dimen>
+    <dimen name="text_small_size">11sp</dimen>
+    <dimen name="text_smallest_size">9sp</dimen>
 
 
-    <dimen name="item_title">13sp</dimen>
-    <dimen name="item_text_standard">10sp</dimen>
-    <dimen name="item_text_small">9sp</dimen>
-    <dimen name="item_text_smallest">8sp</dimen>
+    <dimen name="item_title">11sp</dimen>
+    <dimen name="item_text_standard">9sp</dimen>
+    <dimen name="item_text_small">8sp</dimen>
+    <dimen name="item_text_smallest">7sp</dimen>
 
 
     <dimen name="text_percentage_item">14sp</dimen>
-    <dimen name="text_percentage_item_h">28sp</dimen>
+    <dimen name="text_percentage_item_h">22sp</dimen>
     <dimen name="account_header_height">96dp</dimen>
-    <dimen name="item_icon_size">40dp</dimen>
-    <dimen name="item_icon_size_mini">22dp</dimen>
-    <dimen name="details_product_title">19sp</dimen>
-    <dimen name="details_product_reserve_height">33dp</dimen>
-    <dimen name="details_product_description">16sp</dimen>
+    <dimen name="item_icon_size">20dp</dimen>
+    <dimen name="item_icon_size_mini">16dp</dimen>
+    <dimen name="details_product_title">14sp</dimen>
+    <dimen name="details_product_reserve_height">23dp</dimen>
+    <dimen name="details_product_description">11sp</dimen>
 </resources>

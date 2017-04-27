@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.uis.DetailsActivity;
@@ -76,10 +77,26 @@ public class MainItemAdapter extends RecyclerView.Adapter<MainItemViewHolder> {
         }
 
 
-        if (product.getImageUrl().contains("http") || product.getImageUrl().contains("cdn"))
-            Picasso.with(mContext).load(product.getImageUrl()).placeholder(R.drawable.nopreview).into(holder.productImage);
-        else
-            Picasso.with(mContext).load("file://" + product.getImageUrl()).placeholder(R.drawable.nopreview).into(holder.productImage);
+        if (product.getImageUrl().contains("http") || product.getImageUrl().contains("cdn")) {
+
+//            Picasso.with(mContext).load(product.getImageUrl()).placeholder(R.drawable.nopreview).into(holder.productImage);
+            Glide
+                    .with(mContext)
+                    .load(product.getImageUrl())
+//                    .centerCrop()
+                    .placeholder(R.drawable.nopreview)
+                    .crossFade()
+                    .into(holder.productImage);
+        } else {
+//            Picasso.with(mContext).load("file://" + product.getImageUrl()).placeholder(R.drawable.nopreview).into(holder.productImage);
+            Glide
+                    .with(mContext)
+                    .load("file://" + product.getImageUrl())
+//                    .centerCrop()
+                    .placeholder(R.drawable.nopreview)
+                    .crossFade()
+                    .into(holder.productImage);
+        }
 
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
