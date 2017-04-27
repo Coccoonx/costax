@@ -175,8 +175,6 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/percentage_discount"
-                        android:layout_toRightOf="@+id/percentage_discount"
                         android:gravity="end"
                         android:orientation="vertical">
 
@@ -186,7 +184,7 @@
                             android:layout_height="wrap_content"
                             android:text="19,000 F CFA"
                             android:textColor="@color/translucent_black"
-                            android:textSize="@dimen/item_text_smallest" />
+                            android:textSize="@dimen/item_text_small" />
 
                         <TextView
                             android:id="@+id/promo_price"
@@ -194,7 +192,7 @@
                             android:layout_height="wrap_content"
                             android:text="8,600 F CFA"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="@dimen/item_text_smallest"
+                            android:textSize="@dimen/item_text_small"
                             android:textStyle="bold" />
                     </LinearLayout>
 

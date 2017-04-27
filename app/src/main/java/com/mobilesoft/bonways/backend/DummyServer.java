@@ -1,8 +1,12 @@
 package com.mobilesoft.bonways.backend;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.core.models.Category;
 import com.mobilesoft.bonways.core.models.Product;
+import com.mobilesoft.bonways.core.models.SubscriptionType;
 import com.mobilesoft.bonways.core.models.Trade;
 
 import java.util.ArrayList;
@@ -270,6 +274,38 @@ public class DummyServer {
         trades.add(trade);
 
         return trades;
+
+    }
+
+
+    public static List<SubscriptionType> getBundle(Context context) {
+        List<SubscriptionType> types = new ArrayList<>();
+
+        SubscriptionType type = new SubscriptionType();
+        type.setName(context.getResources().getString(R.string.bundle_free_title));
+        type.setDescription(context.getResources().getString(R.string.bundle_free_description));
+        type.setCost(Double.parseDouble(context.getResources().getString(R.string.bundle_free_price)));
+        type.setValidity(Integer.parseInt(context.getResources().getString(R.string.bundle_free_validity)));
+        type.setImageInt(R.drawable.bundle_standard);
+        types.add(type);
+
+        type = new SubscriptionType();
+        type.setName(context.getResources().getString(R.string.bundle_light_title));
+        type.setDescription(context.getResources().getString(R.string.bundle_light_description));
+        type.setCost(Double.parseDouble(context.getResources().getString(R.string.bundle_light_price)));
+        type.setValidity(Integer.parseInt(context.getResources().getString(R.string.bundle_light_validity)));
+        type.setImageInt(R.drawable.bundle_light);
+        types.add(type);
+
+        type = new SubscriptionType();
+        type.setName(context.getResources().getString(R.string.bundle_business_title));
+        type.setDescription(context.getResources().getString(R.string.bundle_business_description));
+        type.setCost(Double.parseDouble(context.getResources().getString(R.string.bundle_business_price)));
+        type.setValidity(Integer.parseInt(context.getResources().getString(R.string.bundle_business_validity)));
+        type.setImageInt(R.drawable.bundle_business);
+        types.add(type);
+
+        return types;
 
     }
 

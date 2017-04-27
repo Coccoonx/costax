@@ -36,4 +36,6 @@ public class User implements Serializable {
     private String imageUrl;
 
     private boolean isLogged;
+
+    private SubscriptionType subscriptionType;
 }

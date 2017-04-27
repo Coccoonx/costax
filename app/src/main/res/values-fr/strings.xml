@@ -26,7 +26,7 @@
     <string name="menu_find">Recherche</string>
     <string name="app_slogan">Trouvez le meilleur près de vous!</string>
     <string name="wizard_add_shop_title">Ajouter une boutique</string>
-    <string name="shop">Boutiques</string>
+    <string name="shop">Mes Boutiques</string>
     <string name="nav_home">Accueil</string>
     <string name="wizard_add_product_title">Ajouter Produit</string>
     <string name="nav_product">Produits</string>
@@ -51,7 +51,7 @@
     <string name="wzs_trade_address">Adresse</string>
     <string name="wzs_trade_pick_location">Pointer l\'emplacement geographique</string>
     <string name="dialog_title">Choississez une categorie</string>
-    <string name="btn_reserve" >Reserver</string>
+    <string name="btn_reserve">Reserver</string>
     <string name="label_posted">Pulié le</string>
     <string name="label_productLeft">Produits Restant</string>
     <string name="label_timeleft">Temps Restant</string>
@@ -60,6 +60,27 @@
     <string name="info_tel">Tel:</string>
     <string name="label_goto">Y aller</string>
     <string name="nav_reservation">Mes Reservations</string>
+    <string name="menu_category">Categorie</string>
+    <string name="nav_user_account">Mon Compte</string>
+    <string name="subscritpitons">Abonnement</string>
+    <string name="bundle_free_title">Free</string>
+    <string name="bundle_free_description">Offre basique. Completement gratuite, vous beneficiez de 5 posts gratuits et ceci pendant pendant 3 mois. Ainsi vous avez le temps d\'evaluer votre potentiel sur le marché.</string>
+    <string name="label_price">Prix: </string>
+    <string name="bundle_free_price">0</string>
+    <string name="label_validity">Validité: </string>
+    <string name="bundle_light_title">Light</string>
+    <string name="bundle_light_description">Offre standard. Vous avez utilisé BonWays Free et desormais vous passez à l\'étape superieure. Vous avez droit à 15+1 publications valide un trimestre</string>
+    <string name="bundle_business_title">Business</string>
+    <string name="bundle_business_description">Offre Entreprise. Pour des quantités importantes de publication. Vous avez droit à 65+1 publications. Vous bénéficiez d\'une assistance technique pour la publication de vos articles.</string>
+    <string name="bundle_business_price">25000</string>
+    <string name="bundle_business_validity">90</string>
+    <string name="bundle_free_validity">60</string>
+    <string name="bundle_light_price">5000</string>
+    <string name="bundle_light_validity">60</string>
+    <string name="how_to_subs">How To Subscribe ?</string>
+    <string name="have_a_code">Have an activation Code</string>
+    <string name="have_a_code_description">Enter your code there:</string>
+    <string name="button_submit">Submit</string>
 
 
 </resources>

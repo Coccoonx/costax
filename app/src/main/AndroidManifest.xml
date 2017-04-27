@@ -65,13 +65,41 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mobilesoft.bonways.uis.MainActivity" />
         </activity>
-        <activity android:name=".uis.ReservationsActivity"
-            android:parentActivityName=".uis.MainActivity"
+        <activity
+            android:name=".uis.ReservationsActivity"
             android:label="@string/nav_reservation"
+            android:parentActivityName=".uis.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mobilesoft.bonways.uis.MainActivity" />
+        </activity>
+        <activity
+            android:name=".uis.AccountActivity"
+            android:label="@string/nav_user_account"
+            android:parentActivityName=".uis.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mobilesoft.bonways.uis.MainActivity" />
+        </activity>
+        <activity
+            android:name=".uis.SubscriptionActivity"
+            android:label="@string/subscritpitons"
+            android:parentActivityName=".uis.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mobilesoft.bonways.uis.MainActivity" />
+        </activity>
+        <activity
+            android:name=".uis.SubscriptionDetailActivity"
+            android:label="@string/title_activity_subscription_detail"
+            android:parentActivityName=".uis.SubscriptionActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mobilesoft.bonways.uis.SubscriptionActivity" />
         </activity>
     </application>
 

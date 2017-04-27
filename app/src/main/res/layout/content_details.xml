@@ -49,19 +49,21 @@
                 android:paddingTop="@dimen/margin_short">
 
 
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/container_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/divider"
+                    android:gravity="center_vertical"
                     android:layout_marginBottom="@dimen/margin_middle_short"
-                    android:layout_marginTop="@dimen/margin_middle_short">
+                    android:layout_marginTop="@dimen/margin_middle_short"
+                    android:weightSum="100">
 
                     <LinearLayout
                         android:id="@+id/container_timeleft"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
+                        android:layout_weight="25"
                         android:orientation="vertical">
 
 
@@ -71,7 +73,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/label_posted"
                             android:textColor="@color/textColorGray"
-                            android:textSize="@dimen/text_smallest_size" />
+                            android:textSize="@dimen/text_small_size" />
 
                         <TextView
                             android:id="@+id/timeposted"
@@ -91,12 +93,22 @@
                             android:visibility="gone" />
                     </LinearLayout>
 
+                    <TextView
+                        android:id="@+id/percentage_discount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:text="-60%"
+                        android:textColor="@android:color/holo_red_light"
+                        android:textSize="@dimen/text_percentage_item_h"
+                        android:textStyle="bold" />
+
                     <LinearLayout
                         android:id="@+id/container_prices"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/container_remaining"
+                        android:layout_weight="25"
                         android:gravity="center"
                         android:orientation="vertical">
 
@@ -146,9 +158,7 @@
                         android:id="@+id/container_remaining"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
+                        android:layout_weight="25"
                         android:gravity="center"
                         android:orientation="vertical">
 
@@ -161,7 +171,7 @@
                             android:gravity="center"
                             android:text="@string/label_productLeft"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/item_text_small" />
+                            android:textSize="@dimen/item_text_standard" />
 
 
                         <TextView
@@ -183,7 +193,7 @@
                             android:gravity="center"
                             android:text="@string/label_timeleft"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/item_text_small" />
+                            android:textSize="@dimen/item_text_standard" />
 
 
                         <TextView
@@ -197,20 +207,9 @@
                             android:textColor="@color/colorPanel" />
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/percentage_discount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/container_prices"
-                        android:layout_toRightOf="@+id/container_timeleft"
-                        android:gravity="center"
-                        android:text="-60%"
-                        android:textColor="@android:color/holo_red_light"
-                        android:textSize="@dimen/text_percentage_item_h"
-                        android:textStyle="bold" />
 
-                </RelativeLayout>
+
+                </LinearLayout>
 
 
                 <View
@@ -404,24 +403,25 @@
             <TextView
                 android:id="@+id/shop_phone"
                 android:layout_width="wrap_content"
-                android:paddingLeft="@dimen/margin_short"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/container_shop_name"
                 android:layout_alignLeft="@+id/container_shop_name"
                 android:layout_alignStart="@+id/container_shop_name"
+                android:layout_below="@+id/container_shop_name"
                 android:layout_toRightOf="@+id/shop_logo"
+                android:paddingLeft="@dimen/margin_short"
                 android:text="@string/info_tel"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_small_size" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/shop_phone"
-                android:paddingLeft="@dimen/margin_middle_short_mini"
                 android:layout_alignLeft="@+id/container_shop_name"
                 android:layout_alignStart="@+id/container_shop_name"
+                android:layout_below="@+id/shop_phone"
                 android:layout_toRightOf="@+id/shop_logo"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_middle_short_mini">
 
                 <ImageView
                     android:layout_width="20dp"

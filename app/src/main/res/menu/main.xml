@@ -5,6 +5,6 @@
         android:id="@+id/action_category"
         android:orderInCategory="100"
         android:icon="@drawable/ic_categories"
-        android:title="@string/menu_find"
+        android:title="@string/menu_category"
         app:showAsAction="always" />
 </menu>

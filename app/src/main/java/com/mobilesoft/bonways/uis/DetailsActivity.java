@@ -24,8 +24,11 @@ import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
+import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -75,7 +78,7 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 //
-//     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         reserved = (ImageView) findViewById(R.id.reserved);
 
         imageProduct = (ImageView) findViewById(R.id.productImage);
@@ -160,50 +163,60 @@ public class DetailsActivity extends AppCompatActivity {
                 double promo = mProduct.getPrice() - (mProduct.getPrice() * mProduct.getDiscountPercentage() / 100);
                 promoPrice.setText(nf.format(promo) + "");
 
-                if (new Date(Date.parse(mProduct.getDateTimeOff())).after(new Date())) {
-                 t = new Thread() {
 
-                    @Override
-                    public void run() {
-                        try {
-                            while (!isInterrupted()) {
-                                Thread.sleep(1000);
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        // update TextView here!
+                Calendar calendar = Calendar.getInstance(Locale.FRENCH);
+                Log.d(TAG, "" + calendar.getTime());
+                if (new Date(Date.parse(mProduct.getDateTimeOff())).after(calendar.getTime())) {
+                    t = new Thread() {
+
+                        @Override
+                        public void run() {
+                            try {
+                                while (!isInterrupted()) {
+                                    Thread.sleep(1000);
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            // update TextView here!
 
 
                                             long diff = Date.parse(mProduct.getDateTimeOff()) - new Date().getTime();
                                             Log.d("TIMER", "" + diff);
-                                            int timeInSeconds = (int) diff / 1000;
+                                            int timeInSeconds = Math.abs((int) diff / 1000);
                                             int hours, minutes, seconds;
                                             hours = timeInSeconds / 3600;
-                                        if (hours > 24) {
-                                            int days = hours / 24;
-                                            timeOff.setText(days+ " "+getResources().getString(R.string.label_timeleft_value));
+                                            if (hours > 24) {
+                                                int days = hours / 24;
+                                                timeOff.setText(days + " " + getResources().getString(R.string.label_timeleft_value));
 
-                                        } else {
-                                            timeInSeconds = timeInSeconds - (hours * 3600);
-                                            minutes = timeInSeconds / 60;
-                                            timeInSeconds = timeInSeconds - (minutes * 60);
-                                            seconds = timeInSeconds;
+                                            } else {
+                                                timeInSeconds = timeInSeconds - (hours * 3600);
+//                                                if (timeInSeconds < 0) {
+//
+//                                                    timeInSeconds = (hours * 3600) - timeInSeconds;
+//                                                }
+                                                Log.d(TAG, "timeInSeconds " + timeInSeconds);
 
-                                            String diffTime = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
-                                            timeOff.setText(diffTime);
+                                                minutes = timeInSeconds / 60;
+                                                timeInSeconds = timeInSeconds - (minutes * 60);
+                                                seconds = timeInSeconds;
+
+                                                String diffTime = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+                                                Log.d(TAG, "" + diffTime);
+
+                                                timeOff.setText(diffTime);
+                                            }
+
+
                                         }
-
-
-                                    }
-                                });
+                                    });
+                                }
+                            } catch (InterruptedException e) {
                             }
-                        } catch (InterruptedException e) {
                         }
-                    }
-                };
+                    };
 
-                t.start();
-
+                    t.start();
 
 
                 } else {
@@ -256,7 +269,7 @@ public class DetailsActivity extends AppCompatActivity {
                                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                     @Override
                                     public void onClick(SweetAlertDialog sDialog) {
-                                        Reservation reservation =  new Reservation();
+                                        Reservation reservation = new Reservation();
                                         reservation.setObject(mProduct);
                                         ProfileManager.getCurrentUserProfile().getMyReservations().add(reservation);
                                         new ProfileManager.SaveProfile().execute(ProfileManager.getCurrentUserProfile());
@@ -297,7 +310,8 @@ public class DetailsActivity extends AppCompatActivity {
 
 
         }
-        t.stop();
+        if (!t.isInterrupted())
+            t.interrupt();
         super.onPause();
 
     }

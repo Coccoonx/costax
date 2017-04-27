@@ -65,5 +65,31 @@
     <string name="info_tel">Phone:</string>
     <string name="label_timeleft">Time Left</string>
     <string name="nav_reservation">My Reservations</string>
+    <string name="menu_category">Category</string>
+    <string name="nav_user_account">My Account</string>
+    <string name="title_activity_account">My Account</string>
+    <string name="subscritpitons">Subsciption</string>
+    <string name="title_activity_subscription">SubscriptionActivity</string>
+    <string name="bundle_free_title">Free</string>
+    <string name="bundle_free_description">Offre basique. Completement gratuite, vous beneficiez de 5 posts gratuits et ceci pendant pendant 3 mois. Ainsi vous avez le temps d\'evaluer votre potentiel sur le marché.</string>
+    <string name="label_price">Price:</string>
+    <string name="bundle_free_price">0</string>
+    <string name="label_validity">Validity:</string>
+    <string name="bundle_free_validity">60</string>
+    <string name="bundle_light_title">Light</string>
+    <string name="bundle_light_description">Offre standard. Vous avez utilisé BonWays Free et desormais vous passez à l\'étape superieure. Vous avez droit à 15+1 publications valide un trimestre</string>
+    <string name="bundle_light_validity">60</string>
+    <string name="bundle_light_price">5000</string>
+    <string name="bundle_business_title">Business</string>
+    <string name="bundle_business_description">Offre Entreprise. Pour des quantités importantes de publication. Vous avez droit à 65+1 publications. Vous bénéficiez d\'une assistance technique pour la publication de vos articles.</string>
+    <string name="bundle_business_price">25000</string>
+    <string name="bundle_business_validity">90</string>
+    <string name="title_activity_subscription_detail">SubscriptionDetailActivity</string>
+    <string name="how_to_subs">How To Subscribe ?</string>
+    <string name="how_to_subs_description" translatable="false">To subscribe, you have to send the amount of the offer via MTN Mobile Money to the number showed below. Then submit the transaction ID in the space provided below and submit. Automatically you will receive a text message. Use the code received in the space below to activate your subscription. &lt;b>&lt;br>OM Phone number: +237 6 77 76 04 05&lt;/b></string>
+    <string name="have_a_code">Have an activation Code ?</string>
+    <string name="have_a_code_description">Enter your code there:</string>
+    <string name="button_submit">Submit</string>
+    <string name="code_sample">XBTADOO2N</string>
 
 </resources>

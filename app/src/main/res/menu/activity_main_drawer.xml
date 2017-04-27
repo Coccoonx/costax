@@ -6,19 +6,16 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
             android:title="@string/nav_home" />
-        <item
-            android:id="@+id/nav_shop"
-            android:icon="@drawable/ic_shop"
-            android:title="@string/nav_shop" />
-        <item
-            android:id="@+id/nav_product"
-            android:icon="@drawable/ic_products"
-            android:title="@string/nav_product" />
 
         <item
             android:id="@+id/nav_reservation"
             android:icon="@drawable/ic_reservation"
             android:title="@string/nav_reservation" />
+
+        <item
+            android:id="@+id/nav_account"
+            android:icon="@drawable/ic_user_account"
+            android:title="@string/nav_user_account" />
 
 
 

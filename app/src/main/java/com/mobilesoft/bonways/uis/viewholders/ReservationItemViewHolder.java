@@ -24,6 +24,6 @@ public class ReservationItemViewHolder extends RecyclerView.ViewHolder{
         code = (TextView) itemView.findViewById(R.id.item_label_code_value);
         price = (TextView) itemView.findViewById(R.id.item_label_price_value);
         date = (TextView) itemView.findViewById(R.id.item_label_date_value);
-        productPreview = (ImageView) itemView.findViewById(R.id.item_image);
+        productPreview = (ImageView) itemView.findViewById(R.id.free_image);
     }
 }

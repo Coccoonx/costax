@@ -118,15 +118,9 @@ public class ReservationsActivity extends AppCompatActivity implements Navigatio
         if (profile != null && profile.getUser() != null) {
             if (profile.getUser().isTrader()) {
                 navigationView.getMenu().findItem(R.id.nav_trader).setVisible(false);
-//                navigationView.getMenu().findItem(R.id.nav_shop).setVisible(true);
-//                navigationView.getMenu().findItem(R.id.nav_product).setVisible(true);
             } else {
-                navigationView.getMenu().findItem(R.id.nav_shop).setVisible(false);
-                navigationView.getMenu().findItem(R.id.nav_product).setVisible(false);
-
+                navigationView.getMenu().findItem(R.id.nav_account).setVisible(false);
             }
-
-
         }
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerReservation);
@@ -185,12 +179,8 @@ public class ReservationsActivity extends AppCompatActivity implements Navigatio
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-        } else if (id == R.id.nav_shop) {
-            startActivity(new Intent(this, ShopActivity.class));
-
-        } else if (id == R.id.nav_product) {
-//            startActivity(new Intent(this, ProductActivity.class));
-
+        } else if (id == R.id.nav_account) {
+            startActivity(new Intent(this, AccountActivity.class));
         } else if (id == R.id.nav_trader) {
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
             alertBuilder.setCancelable(true);

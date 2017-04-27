@@ -29,7 +29,7 @@
             android:paddingRight="@dimen/margin_middle_short">
 
             <ImageView
-                android:id="@+id/item_image"
+                android:id="@+id/free_image"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
@@ -40,8 +40,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_toEndOf="@id/item_image"
-                android:layout_toRightOf="@id/item_image"
+                android:layout_toEndOf="@id/free_image"
+                android:layout_toRightOf="@id/free_image"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
                 android:padding="@dimen/margin_middle_short">

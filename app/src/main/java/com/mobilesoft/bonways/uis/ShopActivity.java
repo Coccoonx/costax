@@ -201,15 +201,8 @@ public class ShopActivity extends AppCompatActivity
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-        } else if (id == R.id.nav_shop) {
-//            startActivity(new Intent(this, ShopActivity.class));
-
-        } else if (id == R.id.nav_product) {
-            startActivity(new Intent(this, ProductActivity.class));
-
-        } else if (id == R.id.nav_reservation) {
-            startActivity(new Intent(this, ReservationsActivity.class));
-
+        } else if (id == R.id.nav_account) {
+            startActivity(new Intent(this, AccountActivity.class));
         } else if (id == R.id.nav_trader) {
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
             alertBuilder.setCancelable(true);
