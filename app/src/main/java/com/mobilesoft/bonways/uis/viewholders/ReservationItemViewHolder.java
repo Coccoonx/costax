@@ -13,7 +13,9 @@ public class ReservationItemViewHolder extends RecyclerView.ViewHolder{
     public TextView productName;
     public TextView shopName;
     public TextView code;
-    public TextView price;
+    public TextView promoPrice;
+    public TextView totalPrice;
+    public TextView quantity;
     public TextView date;
     public ImageView productPreview;
 
@@ -22,7 +24,9 @@ public class ReservationItemViewHolder extends RecyclerView.ViewHolder{
         shopName = (TextView) itemView.findViewById(R.id.item_product_trade);
         productName = (TextView) itemView.findViewById(R.id.item_product_name);
         code = (TextView) itemView.findViewById(R.id.item_label_code_value);
-        price = (TextView) itemView.findViewById(R.id.item_label_price_value);
+        promoPrice = (TextView) itemView.findViewById(R.id.item_label_unit_price_value);
+        quantity = (TextView) itemView.findViewById(R.id.item_label_quantity_value);
+        totalPrice = (TextView) itemView.findViewById(R.id.item_label_price_value);
         date = (TextView) itemView.findViewById(R.id.item_label_date_value);
         productPreview = (ImageView) itemView.findViewById(R.id.free_image);
     }

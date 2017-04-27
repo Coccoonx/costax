@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -16,12 +15,8 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
 import android.support.design.widget.NavigationView;
@@ -30,12 +25,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -43,7 +35,6 @@ import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,25 +43,20 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.backend.DummyServer;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
-import com.mobilesoft.bonways.core.models.Category;
 import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Profile;
 import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.core.models.User;
 import com.mobilesoft.bonways.uis.adapters.MainTabAdapter;
 import com.mobilesoft.bonways.uis.adapters.SimpleAdapter;
-import com.mobilesoft.bonways.uis.fragments.HomeFragment;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.GridHolder;
 import com.orhanobut.dialogplus.OnClickListener;
 import com.orhanobut.dialogplus.OnDismissListener;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-
-import lombok.core.Main;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, DetailsActivity.DisplayShop {
@@ -372,8 +358,8 @@ public class MainActivity extends AppCompatActivity
             alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
             alert.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
 
-        } else if (id == R.id.nav_settings) {
-//            startActivity(new Intent(MainActivity.this, AddProductWizardActivity.class));
+        } else if (id == R.id.nav_feedback) {
+            startActivity(new Intent(MainActivity.this, FeedbackActivity.class));
         } else if (id == R.id.nav_share) {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");

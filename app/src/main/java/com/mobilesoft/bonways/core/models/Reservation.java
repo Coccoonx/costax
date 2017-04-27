@@ -17,14 +17,17 @@ import lombok.Data;
 public class Reservation implements Serializable{
     private String id;
     private String code;
+    private int quantity;
     private Product object;
     private String dateOfReservation;
+    private ReservationStatus status;
 
     public Reservation() {
         id = UUID.randomUUID().toString();
         code = RandomStringUtils.randomAlphanumeric(7).toUpperCase();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
         dateOfReservation = sdf.format(new Date());
+        status = ReservationStatus.PENDING;
 
     }
 

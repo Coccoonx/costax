@@ -231,7 +231,7 @@ public class ShopActivity extends AppCompatActivity
             alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
             alert.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
 
-        } else if (id == R.id.nav_settings) {
+        } else if (id == R.id.nav_feedback) {
 
         } else if (id == R.id.nav_share) {
 

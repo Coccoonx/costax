@@ -41,7 +41,10 @@ public class ReservationItemAdapter extends RecyclerView.Adapter<ReservationItem
         holder.productName.setText(reservation.getObject().getDesignation());
         holder.shopName.setText(reservation.getObject().getTrade().getName());
         double promo = reservation.getObject().getPrice() - (reservation.getObject().getPrice() * reservation.getObject().getDiscountPercentage() / 100);
-        holder.price.setText(nf.format(promo)+" F");
+        holder.promoPrice.setText(nf.format(promo)+" F");
+        holder.quantity.setText(""+reservation.getQuantity());
+        double totalP = promo * reservation.getQuantity();
+        holder.totalPrice.setText(nf.format(totalP)+" F");
         holder.code.setText(reservation.getCode());
         holder.date.setText(reservation.getDateOfReservation());
         if (reservation.getObject().getImageUrl().contains("http") || reservation.getObject()

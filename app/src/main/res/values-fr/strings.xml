@@ -77,10 +77,16 @@
     <string name="bundle_free_validity">60</string>
     <string name="bundle_light_price">5000</string>
     <string name="bundle_light_validity">60</string>
-    <string name="how_to_subs">How To Subscribe ?</string>
-    <string name="have_a_code">Have an activation Code</string>
-    <string name="have_a_code_description">Enter your code there:</string>
-    <string name="button_submit">Submit</string>
+    <string name="how_to_subs">Comment souscrire ?</string>
+    <string name="have_a_code">vous avez un code d\'activation ?</string>
+    <string name="have_a_code_description">Entrez votre code ici:</string>
+    <string name="button_submit">Soumettre</string>
+    <string name="dialog_reservation_title">Confirmez Reservation</string>
+    <string name="dialog_reservation_content">Voulez vous reserver ce produit ?</string>
+    <string name="dialog_reservation_confirmed">Confirmé !</string>
+    <string name="feedback_send">Envoyer</string>
+    <string name="feedback_message_hint">Entrez votre requête, idée ou suggestion ici</string>
+    <string name="feedback_title">Titre</string>
 
 
 </resources>

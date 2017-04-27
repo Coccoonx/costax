@@ -1,15 +1,21 @@
 package com.mobilesoft.bonways.uis;
 
+import android.content.DialogInterface;
 import android.graphics.Paint;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -260,34 +266,81 @@ public class DetailsActivity extends AppCompatActivity {
                 reserve.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        new SweetAlertDialog(DetailsActivity.this, SweetAlertDialog.WARNING_TYPE)
-                                .setTitleText("Confirm Reservation")
-                                .setContentText("Would you want to reserve this product ?")
-                                .setConfirmText("Yes!")
-                                .setCancelText("No")
-                                .showCancelButton(true)
-                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                    @Override
-                                    public void onClick(SweetAlertDialog sDialog) {
+
+
+                        LayoutInflater layoutInflaterAndroid = LayoutInflater.from(DetailsActivity.this);
+                        View mView = layoutInflaterAndroid.inflate(R.layout.dialog_reservation, null);
+                        AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(DetailsActivity.this);
+                        alertDialogBuilderUserInput.setView(mView);
+
+                        final EditText quantityET = (EditText) mView.findViewById(R.id.userInputDialog);
+                        final TextView dialogTitle = (TextView) mView.findViewById(R.id.dialogTitle);
+                        final TextView dialogContent = (TextView) mView.findViewById(R.id.dialogContent);
+
+                        dialogTitle.setText(R.string.dialog_reservation_title);
+                        dialogContent.setText(R.string.dialog_reservation_content);
+                        alertDialogBuilderUserInput
+                                .setCancelable(false)
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialogBox, int id) {
+
                                         Reservation reservation = new Reservation();
                                         reservation.setObject(mProduct);
+                                        reservation.setQuantity(Integer.parseInt(quantityET.getText().toString().trim()));
                                         ProfileManager.getCurrentUserProfile().getMyReservations().add(reservation);
                                         new ProfileManager.SaveProfile().execute(ProfileManager.getCurrentUserProfile());
-                                        sDialog.dismiss();
                                         reserved.setVisibility(View.VISIBLE);
+                                        dialogBox.cancel();
+
                                         new SweetAlertDialog(DetailsActivity.this, SweetAlertDialog.SUCCESS_TYPE)
-                                                .setTitleText("Confirm Reservation")
-                                                .setContentText("Confirmed!")
+                                                .setTitleText(getResources().getString(R.string.dialog_reservation_confirmed))
                                                 .show();
                                     }
                                 })
-                                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                    @Override
-                                    public void onClick(SweetAlertDialog sDialog) {
-                                        sDialog.dismissWithAnimation();
-                                    }
-                                })
-                                .show();
+
+                                .setNegativeButton(android.R.string.no,
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialogBox, int id) {
+                                                dialogBox.cancel();
+                                            }
+                                        });
+
+                        AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
+                        alertDialogAndroid.show();
+
+                        alertDialogAndroid.getButton(alertDialogAndroid.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+                        alertDialogAndroid.getButton(alertDialogAndroid.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+
+
+
+//                        new SweetAlertDialog(DetailsActivity.this, SweetAlertDialog.WARNING_TYPE)
+//                                .setTitleText("Confirm Reservation")
+//                                .setContentText("Would you want to reserve this product ?")
+//                                .setConfirmText("Yes!")
+//                                .setCancelText("No")
+//                                .showCancelButton(true)
+//                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+//                                    @Override
+//                                    public void onClick(SweetAlertDialog sDialog) {
+//                                        Reservation reservation = new Reservation();
+//                                        reservation.setObject(mProduct);
+//                                        ProfileManager.getCurrentUserProfile().getMyReservations().add(reservation);
+//                                        new ProfileManager.SaveProfile().execute(ProfileManager.getCurrentUserProfile());
+//                                        sDialog.dismiss();
+//                                        reserved.setVisibility(View.VISIBLE);
+//                                        new SweetAlertDialog(DetailsActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+//                                                .setTitleText("Confirm Reservation")
+//                                                .setContentText("Confirmed!")
+//                                                .show();
+//                                    }
+//                                })
+//                                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+//                                    @Override
+//                                    public void onClick(SweetAlertDialog sDialog) {
+//                                        sDialog.dismissWithAnimation();
+//                                    }
+//                                })
+//                                .show();
                     }
                 });
             }

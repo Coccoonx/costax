@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,7 +12,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -32,11 +30,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
-import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Profile;
 import com.mobilesoft.bonways.core.models.Reservation;
 import com.mobilesoft.bonways.core.models.User;
-import com.mobilesoft.bonways.uis.adapters.ProductItemAdapter;
 import com.mobilesoft.bonways.uis.adapters.ReservationItemAdapter;
 import com.squareup.picasso.Picasso;
 
@@ -209,7 +205,7 @@ public class ReservationsActivity extends AppCompatActivity implements Navigatio
             alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
             alert.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
 
-        } else if (id == R.id.nav_settings) {
+        } else if (id == R.id.nav_feedback) {
 
         } else if (id == R.id.nav_share) {
 
