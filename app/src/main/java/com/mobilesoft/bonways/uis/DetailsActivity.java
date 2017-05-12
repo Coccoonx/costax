@@ -4,13 +4,9 @@ import android.content.DialogInterface;
 import android.graphics.Paint;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,8 +23,6 @@ import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Reservation;
 import com.squareup.picasso.Picasso;
-
-import org.apache.commons.lang3.RandomStringUtils;
 
 import java.text.DateFormat;
 import java.text.NumberFormat;
@@ -113,7 +107,7 @@ public class DetailsActivity extends AppCompatActivity {
             mProduct = b.getParcelable("product");
             if (mProduct != null) {
                 mClone = mProduct.clone();
-                getSupportActionBar().setTitle(mProduct.getDesignation());
+                getSupportActionBar().setTitle(mProduct.getName());
 
                 if (mProduct.getImageUrl().contains("http") || mProduct.getImageUrl().contains("cdn"))
                     Picasso.with(this).load(mProduct.getImageUrl()).into(imageProduct);
@@ -127,11 +121,12 @@ public class DetailsActivity extends AppCompatActivity {
                 }
 
                 Picasso.with(this).load(mProduct.getTrade().getLogoUrl()).into(shopLogo);
-                titleProduct.setText(mProduct.getDesignation());
+                titleProduct.setText(mProduct.getName());
                 descriptionProduct.setText(mProduct.getDescription());
                 shopName.setText(mProduct.getTrade().getName());
-                category.setText(mProduct.getCategory().getTitle());
-                timePosted.setText(mProduct.getCreatedDate());
+                category.setText(mProduct.getCategory().getName());
+                DateFormat format = DateFormat.getDateInstance(DateFormat.MEDIUM);
+                timePosted.setText(format.format(mProduct.getCreatedDate()));
                 productLeft.setText("" + mProduct.getUnitQuantity());
                 tradePhone.setText(mProduct.getTrade().getPhone());
 
@@ -165,7 +160,7 @@ public class DetailsActivity extends AppCompatActivity {
 
                 Calendar calendar = Calendar.getInstance(Locale.FRENCH);
                 Log.d(TAG, "" + calendar.getTime());
-                if (new Date(Date.parse(mProduct.getDateTimeOff())).after(calendar.getTime())) {
+                if (mProduct.getDateTimeOff().after(calendar.getTime())) {
                     t = new Thread() {
 
                         @Override
@@ -179,7 +174,7 @@ public class DetailsActivity extends AppCompatActivity {
                                             // update TextView here!
 
 
-                                            long diff = Date.parse(mProduct.getDateTimeOff()) - new Date().getTime();
+                                            long diff = mProduct.getDateTimeOff().getTime() - new Date().getTime();
                                             Log.d("TIMER", "" + diff);
                                             int timeInSeconds = Math.abs((int) diff / 1000);
                                             int hours, minutes, seconds;
@@ -187,6 +182,8 @@ public class DetailsActivity extends AppCompatActivity {
                                             if (hours > 24) {
                                                 int days = hours / 24;
                                                 timeOff.setText(days + " " + getResources().getString(R.string.label_timeleft_value));
+                                                if (!t.isInterrupted())
+                                                    t.interrupt();
 
                                             } else {
                                                 timeInSeconds = timeInSeconds - (hours * 3600);

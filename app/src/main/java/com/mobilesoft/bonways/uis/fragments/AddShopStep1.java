@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.annotation.BinderThread;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,13 +16,11 @@ import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.mobilesoft.bonways.BonWaysApplication;
 import com.mobilesoft.bonways.BuildConfig;
 import com.mobilesoft.bonways.R;
-import com.mobilesoft.bonways.backend.DummyServer;
-import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Category;
 import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.uis.AddShopWizardActivity;
+import com.mobilesoft.bonways.uis.MainActivity;
 import com.mvc.imagepicker.ImagePicker;
-import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -73,8 +70,8 @@ public class AddShopStep1 extends AbstractStep {
         ImagePicker.setMinQuality(200, 200);
 
         ArrayList<String> items = new ArrayList<>();
-        for (Category category : DummyServer.getCategory()) {
-            items.add(category.getTitle());
+        for (Category category : MainActivity.mCategories) {
+            items.add(category.getName());
         }
         items.remove(0);
 

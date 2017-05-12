@@ -248,16 +248,16 @@ public class SignInActivity extends AppCompatActivity implements
 
     private void startApp() {
         //Online Mode
-//        createUserOnline(appUser);
+        createUserOnline(appUser);
 
         //Offline Mode
-        Profile profile = new Profile();
-        profile.setUser(appUser);
-        new ProfileManager.SaveProfile().execute(profile);
-        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        Profile profile = new Profile();
+//        profile.setUser(appUser);
+//        new ProfileManager.SaveProfile().execute(profile);
+//        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+//        startActivity(intent);
+//        finish();
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
     }
 
@@ -278,15 +278,19 @@ public class SignInActivity extends AppCompatActivity implements
                         Profile profile = new Profile();
                         profile.setUser(savedUser);
                         new ProfileManager.SaveProfile().execute(profile);
+                        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                     } else
                         //// TODO: 02/02/2017 Handle internationalization and message display
-                        Toast.makeText(SignInActivity.this, "Nothing to display", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignInActivity.this, "An Error Occured. Please try again.", Toast.LENGTH_LONG).show();
 
-                    Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+//                    startActivity(intent);
+//                    finish();
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 } else {
                     Toast.makeText(SignInActivity.this, response.message() + "", Toast.LENGTH_SHORT).show();
                     Log.d(TAG, response.message());

@@ -6,7 +6,6 @@ import android.os.Parcelable;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,7 +21,7 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
 
     private String code;
 
-    private String designation;
+    private String name;
 
     private long unit;
 
@@ -42,11 +41,11 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
 
     private String imageUrl;
 
-    private String createdDate;
+    private Date createdDate;
 
-    private String updatedDate;
+    private Date updatedDate;
 
-    private String dateTimeOff;
+    private Date dateTimeOff;
 
     private Category category;
 
@@ -56,20 +55,14 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
 
     private boolean isWatched;
 
+    private ProductStatus status;
+
     public Product() {
-        code = UUID.randomUUID().toString();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        createdDate = sdf.format(new Date());
     }
 
     @Override
     public int compareTo(Product product) {
         return this.code.compareTo(product.code);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
     }
 
 
@@ -100,10 +93,16 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
         return code != null ? code.hashCode() : 0;
     }
 
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.code);
-        dest.writeString(this.designation);
+        dest.writeString(this.name);
         dest.writeLong(this.unit);
         dest.writeLong(this.packing);
         dest.writeDouble(this.price);
@@ -111,24 +110,23 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
         dest.writeString(this.description);
         Bundle b = new Bundle();
         b.putSerializable("likers", (Serializable) likers);
+        b.putSerializable("watchers", (Serializable) watchers);
         dest.writeBundle(b);
-        Bundle b2 = new Bundle();
-        b2.putSerializable("watchers", (Serializable) watchers);
-        dest.writeBundle(b2);
         dest.writeValue(this.unitQuantity);
         dest.writeString(this.imageUrl);
-        dest.writeString(this.createdDate);
-        dest.writeString(this.updatedDate);
-        dest.writeString(this.dateTimeOff);
+        dest.writeLong(this.createdDate != null ? this.createdDate.getTime() : -1);
+        dest.writeLong(this.updatedDate != null ? this.updatedDate.getTime() : -1);
+        dest.writeLong(this.dateTimeOff != null ? this.dateTimeOff.getTime() : -1);
         dest.writeSerializable(this.category);
         dest.writeParcelable(this.trade, flags);
         dest.writeByte(this.isLiked ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isWatched ? (byte) 1 : (byte) 0);
+        dest.writeInt(this.status == null ? -1 : this.status.ordinal());
     }
 
     protected Product(Parcel in) {
         this.code = in.readString();
-        this.designation = in.readString();
+        this.name = in.readString();
         this.unit = in.readLong();
         this.packing = in.readLong();
         this.price = in.readDouble();
@@ -136,17 +134,21 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
         this.description = in.readString();
         Bundle b = in.readBundle();
         likers = (HashSet<String>) b.getSerializable("likers");
-        Bundle b2 = in.readBundle();
-        watchers = (HashSet<String>) b2.getSerializable("watchers");
+        watchers = (HashSet<String>) b.getSerializable("watchers");
         this.unitQuantity = (Long) in.readValue(Long.class.getClassLoader());
         this.imageUrl = in.readString();
-        this.createdDate = in.readString();
-        this.updatedDate = in.readString();
-        this.dateTimeOff = in.readString();
+        long tmpCreatedDate = in.readLong();
+        this.createdDate = tmpCreatedDate == -1 ? null : new Date(tmpCreatedDate);
+        long tmpUpdatedDate = in.readLong();
+        this.updatedDate = tmpUpdatedDate == -1 ? null : new Date(tmpUpdatedDate);
+        long tmpDateTimeOff = in.readLong();
+        this.dateTimeOff = tmpDateTimeOff == -1 ? null : new Date(tmpDateTimeOff);
         this.category = (Category) in.readSerializable();
         this.trade = in.readParcelable(Trade.class.getClassLoader());
         this.isLiked = in.readByte() != 0;
         this.isWatched = in.readByte() != 0;
+        int tmpStatus = in.readInt();
+        this.status = tmpStatus == -1 ? null : ProductStatus.values()[tmpStatus];
     }
 
     public static final Creator<Product> CREATOR = new Creator<Product>() {

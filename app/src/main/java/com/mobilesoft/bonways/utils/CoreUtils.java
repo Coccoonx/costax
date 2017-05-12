@@ -39,7 +39,7 @@ public class CoreUtils {
         } else {
            /* AlertDialog.Builder alertBuilder = new AlertDialog.Builder(LoginActivity.this);
             alertBuilder.setCancelable(true);
-            alertBuilder.setTitle(getResources().getString(R.string.permission_denied));
+            alertBuilder.setName(getResources().getString(R.string.permission_denied));
             alertBuilder.setMessage(getResources().getString(R.string.permission_denied_explanation_login));
             alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 

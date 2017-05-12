@@ -1,9 +1,6 @@
 package com.mobilesoft.bonways.uis.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +11,6 @@ import android.view.ViewGroup;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.mobilesoft.bonways.R;
-import com.mobilesoft.bonways.backend.DummyServer;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Category;
 import com.mobilesoft.bonways.core.models.Product;
@@ -22,8 +18,6 @@ import com.mobilesoft.bonways.core.models.Profile;
 import com.mobilesoft.bonways.uis.MainActivity;
 import com.mobilesoft.bonways.uis.adapters.MainItemAdapter;
 import com.mobilesoft.bonways.uis.adapters.SimpleAdapter;
-import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.OnTabSelectListener;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -144,7 +138,7 @@ public class MainFragment extends Fragment implements SimpleAdapter.FilterByCate
     public void process(Category category) {
         Set<Product> filteredProduct = new HashSet<>();
 
-        if (category.getTitle().equals("Tout")) {
+        if (category.getName().equals("Tout")) {
             filteredProduct.addAll(MainActivity.mProducts);
         } else {
             for (Product product : MainActivity.mProducts) {

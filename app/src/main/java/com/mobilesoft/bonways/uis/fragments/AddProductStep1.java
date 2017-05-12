@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +18,12 @@ import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.mobilesoft.bonways.BonWaysApplication;
 import com.mobilesoft.bonways.BuildConfig;
 import com.mobilesoft.bonways.R;
-import com.mobilesoft.bonways.backend.DummyServer;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Category;
 import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.uis.AddProductWizardActivity;
+import com.mobilesoft.bonways.uis.MainActivity;
 import com.mobilesoft.bonways.uis.adapters.ShopSpinnerAdapter;
 import com.mvc.imagepicker.ImagePicker;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
@@ -31,7 +32,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
@@ -75,8 +80,8 @@ public class AddProductStep1 extends AbstractStep {
 
 
         ArrayList<String> items = new ArrayList<>();
-        for (Category category : DummyServer.getCategory()) {
-            items.add(category.getTitle());
+        for (Category category : MainActivity.mCategories) {
+            items.add(category.getName());
         }
         items.remove(0);
 
@@ -171,20 +176,30 @@ public class AddProductStep1 extends AbstractStep {
     @Override
     public void onNext() {
 
-        mProduct.setDesignation(productName.getText().toString());
+        mProduct.setName(productName.getText().toString());
         mProduct.setDescription(productDescription.getText().toString());
         double price = Double.valueOf(productNormalPrice.getText().toString());
         double promoPrice = Double.valueOf(productPromoPrice.getText().toString());
         mProduct.setPrice(price);
         mProduct.setUnitQuantity(Long.valueOf(productQuantity.getText().toString()));
 
-        double discountper = ((price - promoPrice)/ price) * 100;
+        double discountper = ((price - promoPrice) / price) * 100;
         mProduct.setDiscountPercentage(discountper);
-        mProduct.setDateTimeOff(productTimeOff.getText().toString());
+        DateFormat dateFormat = DateFormat.getDateInstance();
+        try {
+            Date date = dateFormat.parse(productTimeOff.getText().toString());
+            Log.d(TAG, "onNext: Date Off: " + date);
+            mProduct.setDateTimeOff(date);
+
+        } catch (ParseException e) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DAY_OF_MONTH, 14);
+            mProduct.setDateTimeOff(calendar.getTime());
+        }
 
         String cat = (String) productCategory.getSelectedItem();
-        for (Category category : DummyServer.getCategory()) {
-            if (cat.equals(category.getTitle())) {
+        for (Category category : MainActivity.mCategories) {
+            if (cat.equals(category.getName())) {
                 if (mProduct != null) {
                     mProduct.setCategory(category);
                     break;

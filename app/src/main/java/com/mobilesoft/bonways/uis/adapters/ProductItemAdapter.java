@@ -2,18 +2,16 @@ package com.mobilesoft.bonways.uis.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.core.models.Product;
-import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.uis.viewholders.ProductItemViewHolder;
-import com.mobilesoft.bonways.uis.viewholders.ShopItemViewHolder;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 
 /**
@@ -35,10 +33,11 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemViewHold
     @Override
     public void onBindViewHolder(ProductItemViewHolder holder, int position) {
         Product product = mDataSet.get(position);
-        holder.title.setText(product.getDesignation());
+        holder.title.setText(product.getName());
         holder.description.setText(product.getDescription());
         holder.commentCount.setText(""+position);
-        holder.timeOff.setText(product.getDateTimeOff());
+        DateFormat dateFormat = DateFormat.getDateInstance();
+        holder.timeOff.setText(dateFormat.format(product.getDateTimeOff()));
         Picasso.with(mContext).load("file://"+product.getTrade().getLogoUrl()).into(holder.shopLogo);
         Picasso.with(mContext).load("file://"+product.getImageUrl()).into(holder.productImage);
 

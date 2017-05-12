@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.core.models.Category;
@@ -63,12 +62,12 @@ public class SimpleAdapter extends BaseAdapter {
         }
 
         final Category category = (Category) mData.get(position);
-        viewHolder.textView.setText(category.getTitle());
+        viewHolder.textView.setText(category.getName());
         viewHolder.imageView.setImageResource(category.getIconIntUrl());
         viewHolder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(mContext, "Category choosed: " + category.getTitle(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, "Category choosed: " + category.getName(), Toast.LENGTH_SHORT).show();
                 MainFragment.instance.process(category);
                 if (MainActivity.dialog !=null)
                     MainActivity.dialog.dismiss();

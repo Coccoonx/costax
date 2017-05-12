@@ -9,7 +9,7 @@ import lombok.Data;
 public class Category implements Serializable {
 
     Long id;
-    String title;
+    String name;
     Category parent;
     int iconIntUrl;
     String iconStringUrl;
@@ -22,7 +22,7 @@ public class Category implements Serializable {
 
         Category tmp = (Category) o;
 
-        return tmp.getTitle().equals(this.getTitle());
+        return tmp.getName().equals(this.getName());
     }
 
 

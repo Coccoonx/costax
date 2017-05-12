@@ -41,8 +41,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.mobilesoft.bonways.R;
+import com.mobilesoft.bonways.backend.BackEndService;
 import com.mobilesoft.bonways.backend.DummyServer;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
+import com.mobilesoft.bonways.core.models.Category;
 import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Profile;
 import com.mobilesoft.bonways.core.models.Trade;
@@ -55,8 +57,14 @@ import com.orhanobut.dialogplus.OnClickListener;
 import com.orhanobut.dialogplus.OnDismissListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, DetailsActivity.DisplayShop {
@@ -71,6 +79,7 @@ public class MainActivity extends AppCompatActivity
     private String mPhotoUrl;
     public static Location mUserLocation;
     public static Set<Product> mProducts;
+    public static Set<Category> mCategories = new HashSet<>();
     public static Set<Trade> mTrade;
 
     FloatingActionButton addProduct;
@@ -117,6 +126,7 @@ public class MainActivity extends AppCompatActivity
     };
     public static LatLng mShopLocation;
     private Marker marker;
+    private BackEndService backEndService;
 
 
     @Override
@@ -149,7 +159,28 @@ public class MainActivity extends AppCompatActivity
 
         mProducts = new HashSet<>();
         mTrade = new HashSet<>();
-        mProducts.addAll(DummyServer.getAvailableProduct());
+
+        //Online Call
+        backEndService = BackEndService.retrofit.create(BackEndService.class);
+
+        Call<Product[]> call = backEndService.getProduct();
+        call.enqueue(new Callback<Product[]>() {
+            @Override
+            public void onResponse(Call<Product[]> call, Response<Product[]> response) {
+                if (response.body() != null) {
+                    for (Product p : response.body()) {
+                        mProducts.add(p);
+                    }
+                }
+                Log.d(TAG, "onResponse: product:"+mProducts);
+            }
+
+            @Override
+            public void onFailure(Call<Product[]> call, Throwable t) {
+                Log.d(TAG, "onFailure: An Error Occurred -\n"+ Log.getStackTraceString(t));
+            }
+        });
+//        mProducts.addAll(DummyServer.getAvailableProduct());
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
@@ -166,6 +197,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        loadData();
 
         View headerView = navigationView.getHeaderView(0);
         CircularImageView userPic = (CircularImageView) headerView.findViewById(R.id.imageView);
@@ -234,7 +266,7 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-        showCategory();
+//        showCategory();
     }
 
     @Override
@@ -300,6 +332,27 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    private void loadData() {
+        //Online Call
+
+        Call<Category[]> call = backEndService.getCategories();
+        call.enqueue(new Callback<Category[]>() {
+            @Override
+            public void onResponse(Call<Category[]> call, Response<Category[]> response) {
+                if (response.body() != null) {
+                    for (Category p : response.body()) {
+                        mCategories.add(p);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Category[]> call, Throwable t) {
+                Log.d(TAG, "onFailure: An Error Occurred -\n"+ Log.getStackTraceString(t));
+            }
+        });
     }
 
     @Override
@@ -400,7 +453,10 @@ public class MainActivity extends AppCompatActivity
 
     void showCategory() {
 
-        SimpleAdapter sa = new SimpleAdapter(this, DummyServer.getCategory());
+        List<Category> categories = new ArrayList<Category>();
+        categories.addAll(mCategories);
+
+        SimpleAdapter sa = new SimpleAdapter(this, categories);
 
         dialog = DialogPlus.newDialog(this)
                 .setContentHolder(new GridHolder(2))

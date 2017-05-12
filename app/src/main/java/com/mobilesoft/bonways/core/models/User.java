@@ -1,6 +1,7 @@
 package com.mobilesoft.bonways.core.models;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import lombok.Data;
 
@@ -11,7 +12,7 @@ import lombok.Data;
 @Data
 public class User implements Serializable {
 
-    private String dob;
+    private long id;
 
     private String email;
 
@@ -25,13 +26,11 @@ public class User implements Serializable {
 
     private boolean isTrader;
 
-    private String traderType;
-
     private String displayName;
 
-    private String createdDate;
+    private Date createdDate;
 
-    private String updatedDate;
+    private Date updatedDate;
 
     private String imageUrl;
 

@@ -2,16 +2,13 @@ package com.mobilesoft.bonways.uis.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.core.models.Reservation;
-import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.uis.viewholders.ReservationItemViewHolder;
-import com.mobilesoft.bonways.uis.viewholders.ShopItemViewHolder;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
@@ -38,7 +35,7 @@ public class ReservationItemAdapter extends RecyclerView.Adapter<ReservationItem
         NumberFormat nf = NumberFormat.getNumberInstance();
         nf.setMaximumFractionDigits(1);
         Reservation reservation = mDataSet.get(position);
-        holder.productName.setText(reservation.getObject().getDesignation());
+        holder.productName.setText(reservation.getObject().getName());
         holder.shopName.setText(reservation.getObject().getTrade().getName());
         double promo = reservation.getObject().getPrice() - (reservation.getObject().getPrice() * reservation.getObject().getDiscountPercentage() / 100);
         holder.promoPrice.setText(nf.format(promo)+" F");

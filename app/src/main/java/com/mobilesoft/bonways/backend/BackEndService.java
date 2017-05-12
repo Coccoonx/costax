@@ -7,6 +7,8 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
+import com.mobilesoft.bonways.core.models.Category;
+import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.User;
 
 import java.lang.reflect.Type;
@@ -25,12 +27,9 @@ public interface BackEndService {
     int DEFAULT_PAGE = 0;
     int DEFAULT_SIZE = 30;
 
-    int INSTITUTION_PAGE = 0;
-    int INSTITUTION_SIZE = 500;
-
     //    String APP_URL = "http://libre-exchange.awswouri.com";
 //    String APP_URL = "http://192.168.43.228:9898";
-    String APP_URL = "http://192.168.43.97:8080/";
+    String APP_URL = "http://192.168.43.107:8090/";
 //    String APP_URL = "http://34.193.132.208:9898";
 
 
@@ -54,11 +53,17 @@ public interface BackEndService {
             .build();
 
 
-    @GET("users/")
+    @GET("user/")
     Call<User> getUser();
 
-    @POST("users/")
+    @POST("user/")
     Call<User> createUser(@Body User user);
+
+    @GET("product/")
+    Call<Product[]> getProduct();
+
+    @GET("category/")
+    Call<Category[]> getCategories();
 
 
 }

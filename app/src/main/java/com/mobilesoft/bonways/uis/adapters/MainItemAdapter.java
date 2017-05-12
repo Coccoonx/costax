@@ -16,8 +16,8 @@ import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.uis.DetailsActivity;
 import com.mobilesoft.bonways.uis.MainActivity;
 import com.mobilesoft.bonways.uis.viewholders.MainItemViewHolder;
-import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
@@ -42,10 +42,11 @@ public class MainItemAdapter extends RecyclerView.Adapter<MainItemViewHolder> {
         nf.setMaximumFractionDigits(1);
 
         final Product product = mDataSet.get(position);
-        holder.title.setText(product.getDesignation());
-        holder.shopName.setText(product.getTrade().getName());
+        holder.title.setText(product.getName());
+        if (product.getTrade() != null)
+            holder.shopName.setText(product.getTrade().getName());
 
-        if (MainActivity.mUserLocation != null) {
+        if (MainActivity.mUserLocation != null && product.getTrade() != null) {
             Location tradeLoc = new Location(product.getTrade().getName());
             tradeLoc.setLatitude(product.getTrade().getLatitude());
             tradeLoc.setLongitude(product.getTrade().getLongitude());
@@ -58,7 +59,7 @@ public class MainItemAdapter extends RecyclerView.Adapter<MainItemViewHolder> {
             }
         }
 
-        holder.title.setText(product.getDesignation());
+        holder.title.setText(product.getName());
         holder.percentageDiscount.setText("-" + nf.format(product.getDiscountPercentage()) + "%");
         holder.liked.setText("" + product.getLikers().size());
         holder.watched.setText("" + product.getWatchers().size());
@@ -66,9 +67,11 @@ public class MainItemAdapter extends RecyclerView.Adapter<MainItemViewHolder> {
         holder.normalPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         double promo = product.getPrice() - (product.getPrice() * product.getDiscountPercentage() / 100);
         holder.promoPrice.setText(nf.format(promo) + " F");
-        holder.timeOff.setText(product.getDateTimeOff());
-        holder.timePosted.setText(product.getCreatedDate());
-        holder.category.setText(product.getCategory().getTitle());
+        DateFormat dateFormat = DateFormat.getDateInstance();
+        holder.timeOff.setText(dateFormat.format(product.getDateTimeOff()));
+        holder.timePosted.setText(dateFormat.format(product.getCreatedDate()));
+        if (product.getCategory() != null)
+            holder.category.setText(product.getCategory().getName());
 
         if (product.isLiked()) {
             holder.iconLiked.setImageResource(R.drawable.ic_like_filled);
