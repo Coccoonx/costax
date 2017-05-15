@@ -61,8 +61,9 @@ public class MainItemAdapter extends RecyclerView.Adapter<MainItemViewHolder> {
 
         holder.title.setText(product.getName());
         holder.percentageDiscount.setText("-" + nf.format(product.getDiscountPercentage()) + "%");
-        holder.liked.setText("" + product.getLikers().size());
-        holder.watched.setText("" + product.getWatchers().size());
+        holder.liked.setText(String.valueOf(product.getLikers().size()));
+        holder.watched.setText(String.valueOf(product.getWatchers().size()));
+        holder.commented.setText(String.valueOf(product.getComments().size()));
         holder.normalPrice.setText(nf.format(product.getPrice()));
         holder.normalPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         double promo = product.getPrice() - (product.getPrice() * product.getDiscountPercentage() / 100);

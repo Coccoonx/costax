@@ -31,6 +31,7 @@
     <dimen name="account_header_height">96dp</dimen>
     <dimen name="item_icon_size">20dp</dimen>
     <dimen name="item_icon_size_mini">16dp</dimen>
+    <dimen name="item_icon_size_mini2">10dp</dimen>
     <dimen name="details_product_title">14sp</dimen>
     <dimen name="details_product_reserve_height">23dp</dimen>
     <dimen name="details_product_description">11sp</dimen>

@@ -27,6 +27,7 @@ public class MainItemViewHolder extends RecyclerView.ViewHolder {
     public TextView timePosted;
     public TextView liked;
     public TextView watched;
+    public TextView commented;
     public TextView category;
 
     public MainItemViewHolder(View itemView) {
@@ -37,6 +38,7 @@ public class MainItemViewHolder extends RecyclerView.ViewHolder {
         title = (TextView) itemView.findViewById(R.id.item_title);
         liked = (TextView) itemView.findViewById(R.id.item_liked);
         watched = (TextView) itemView.findViewById(R.id.item_watched);
+        commented = (TextView) itemView.findViewById(R.id.item_comments);
         category = (TextView) itemView.findViewById(R.id.category);
         timeOff = (TextView) itemView.findViewById(R.id.timeleft);
         timePosted = (TextView) itemView.findViewById(R.id.timeposted);

@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.UUID;
 
 import lombok.Data;
@@ -38,6 +39,8 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
     private Set<String> likers = new HashSet<>();
 
     private Set<String> watchers = new HashSet<>();
+
+    private Set<Comment> comments = new TreeSet<>();
 
     private Long unitQuantity;
 
@@ -113,6 +116,7 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
         Bundle b = new Bundle();
         b.putSerializable("likers", (Serializable) likers);
         b.putSerializable("watchers", (Serializable) watchers);
+        b.putSerializable("comments", (Serializable) comments);
         dest.writeBundle(b);
         dest.writeValue(this.unitQuantity);
         dest.writeString(this.imageUrl);
@@ -137,6 +141,8 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
         Bundle b = in.readBundle();
         likers = (HashSet<String>) b.getSerializable("likers");
         watchers = (HashSet<String>) b.getSerializable("watchers");
+        HashSet<Comment> com = (HashSet<Comment>) b.getSerializable("comments");
+        comments = new TreeSet<>(com);
         this.unitQuantity = (Long) in.readValue(Long.class.getClassLoader());
         this.imageUrl = in.readString();
         long tmpCreatedDate = in.readLong();

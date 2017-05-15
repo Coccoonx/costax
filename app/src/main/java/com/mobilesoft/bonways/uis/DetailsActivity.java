@@ -52,6 +52,7 @@ public class DetailsActivity extends AppCompatActivity {
     TextView liked;
     TextView productLeft;
     TextView watched;
+    TextView commented;
     TextView category;
     TextView currency;
     TextView labelGoto;
@@ -85,6 +86,7 @@ public class DetailsActivity extends AppCompatActivity {
         percentageDiscount = (TextView) findViewById(R.id.percentage_discount);
         liked = (TextView) findViewById(R.id.item_liked);
         watched = (TextView) findViewById(R.id.item_watched);
+        commented = (TextView) findViewById(R.id.item_comments);
         category = (TextView) findViewById(R.id.category);
         timePosted = (TextView) findViewById(R.id.timeposted);
         timeOff = (TextView) findViewById(R.id.timeleft);
@@ -151,6 +153,7 @@ public class DetailsActivity extends AppCompatActivity {
                     mProduct.getWatchers().add(ProfileManager.getCurrentUserProfile().getUser().getEmail());
                 }
                 watched.setText("" + mProduct.getWatchers().size());
+                commented.setText("" + mProduct.getComments().size());
 
                 normalPrice.setText(nf.format(mProduct.getPrice()) + "");
                 normalPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
