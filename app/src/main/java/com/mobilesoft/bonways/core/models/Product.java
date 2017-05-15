@@ -19,6 +19,8 @@ import lombok.Data;
 @Data
 public class Product implements Serializable, Parcelable, Comparable<Product>, Cloneable {
 
+    private long id;
+
     private String code;
 
     private String name;
@@ -85,7 +87,7 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
 
         Product product = (Product) o;
 
-        return !(code != null ? !code.equals(product.code) : product.code != null);
+        return !(id != -1 ? id!=product.id : product.id != -1);
     }
 
     @Override
