@@ -99,5 +99,6 @@
     <string name="feedback_message_hint">Enter your request, idea or suggestion here</string>
     <string name="feedback_title">Title</string>
     <string name="action_feedback">FeedBack</string>
+    <string name="dialog_comments_title">Comments</string>
 
 </resources>

@@ -6,8 +6,12 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -15,19 +19,33 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.maps.model.LatLng;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
+import com.mobilesoft.bonways.core.models.Category;
+import com.mobilesoft.bonways.core.models.Comment;
 import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Reservation;
+import com.mobilesoft.bonways.uis.adapters.CommentAdapter;
+import com.mobilesoft.bonways.uis.adapters.SimpleAdapter;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.GridHolder;
+import com.orhanobut.dialogplus.OnClickListener;
+import com.orhanobut.dialogplus.OnDismissListener;
+import com.orhanobut.dialogplus.ViewHolder;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -63,6 +81,13 @@ public class DetailsActivity extends AppCompatActivity {
     public static DisplayShop instance;
     private TextView timePosted;
     Thread t;
+    private LinearLayout containerComments;
+    private DialogPlus dialog;
+    private RecyclerView list;
+    private TextView headerText;
+    private ArrayList<Comment> arrayList;
+    private CommentAdapter ca;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +122,7 @@ public class DetailsActivity extends AppCompatActivity {
         currency = (TextView) findViewById(R.id.currency);
 //        currency.setRotation(310);
         containerLiked = (LinearLayout) findViewById(R.id.container_social_liked);
+        containerComments = (LinearLayout) findViewById(R.id.container_social_comments);
         go = (CircularImageView) findViewById(R.id.button_go);
         reserve = (Button) findViewById(R.id.button_reserve);
 
@@ -248,6 +274,14 @@ public class DetailsActivity extends AppCompatActivity {
                     }
                 });
 
+                containerComments.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (mProduct != null)
+                            showComments();
+                    }
+                });
+
                 labelGoto.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -312,35 +346,6 @@ public class DetailsActivity extends AppCompatActivity {
                         alertDialogAndroid.getButton(alertDialogAndroid.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
 
 
-
-//                        new SweetAlertDialog(DetailsActivity.this, SweetAlertDialog.WARNING_TYPE)
-//                                .setTitleText("Confirm Reservation")
-//                                .setContentText("Would you want to reserve this product ?")
-//                                .setConfirmText("Yes!")
-//                                .setCancelText("No")
-//                                .showCancelButton(true)
-//                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-//                                    @Override
-//                                    public void onClick(SweetAlertDialog sDialog) {
-//                                        Reservation reservation = new Reservation();
-//                                        reservation.setObject(mProduct);
-//                                        ProfileManager.getCurrentUserProfile().getMyReservations().add(reservation);
-//                                        new ProfileManager.SaveProfile().execute(ProfileManager.getCurrentUserProfile());
-//                                        sDialog.dismiss();
-//                                        reserved.setVisibility(View.VISIBLE);
-//                                        new SweetAlertDialog(DetailsActivity.this, SweetAlertDialog.SUCCESS_TYPE)
-//                                                .setTitleText("Confirm Reservation")
-//                                                .setContentText("Confirmed!")
-//                                                .show();
-//                                    }
-//                                })
-//                                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-//                                    @Override
-//                                    public void onClick(SweetAlertDialog sDialog) {
-//                                        sDialog.dismissWithAnimation();
-//                                    }
-//                                })
-//                                .show();
                     }
                 });
             }
@@ -368,6 +373,95 @@ public class DetailsActivity extends AppCompatActivity {
         super.onPause();
 
     }
+
+    @Override
+    public void onBackPressed() {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        } else
+            super.onBackPressed();
+    }
+
+    void showComments() {
+
+        View globalDialog = getLayoutInflater().inflate(R.layout.dialog_comments, null);
+
+        final EditText composer = (EditText) globalDialog.findViewById(R.id.messageEditText);
+        headerText = (TextView) globalDialog.findViewById(R.id.headerText);
+        Button sender = (Button) globalDialog.findViewById(R.id.sendButton);
+
+        list = (RecyclerView) globalDialog.findViewById(R.id.commentsRV);
+
+        AdView mAdView = (AdView) globalDialog.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+        RecyclerView.LayoutManager lm = new LinearLayoutManager(this);
+        ((LinearLayoutManager)lm).setStackFromEnd(true);
+        list.setLayoutManager(lm);
+        list.setHasFixedSize(true);
+
+        arrayList = new ArrayList<>(mProduct.getComments());
+        ca = new CommentAdapter(this, arrayList);
+
+        headerText.setText(getResources().getString(R.string.dialog_comments_title) + " (" + mProduct.getComments().size() + ")");
+
+        list.setAdapter(ca);
+
+
+        dialog = DialogPlus.newDialog(this)
+                .setContentHolder(new ViewHolder(globalDialog))
+                .setOnClickListener(dialogListener)
+//                .setHeader(R.layout.dialog_comments_header)
+//                .setAdapter(sa)
+                .setCancelable(true)
+                .setGravity(Gravity.CENTER)
+//                .setExpanded(true)
+                .setOnDismissListener(new OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogPlus dialog) {
+
+                    }
+                })
+                .create();
+        dialog.show();
+    }
+
+    protected OnClickListener dialogListener = new OnClickListener() {
+        @Override
+        public void onClick(DialogPlus dialog, View view) {
+//            if (view.getId() == R.id.dialog_close) {
+//                dialog.dismiss();
+//            }
+            if (view.getId() == R.id.sendButton) {
+                EditText composer = (EditText) dialog.getHolderView().findViewById(R.id.messageEditText);
+                String message = composer.getText().toString().trim();
+                if (!message.isEmpty()) {
+                    Comment comment = new Comment();
+                    comment.setAuthorName(ProfileManager.getCurrentUserProfile().getUser().getDisplayName());
+                    comment.setPictureUrl(ProfileManager.getCurrentUserProfile().getUser().getImageUrl());
+                    comment.setAuthorId(ProfileManager.getCurrentUserProfile().getUser().getEmail());
+                    comment.setContent(message);
+                    comment.setDate(new Date().getTime());
+
+
+                    arrayList.add(comment);
+//                    CommentAdapter ca = new CommentAdapter(DetailsActivity.this, arrayList);
+                    ca.notifyDataSetChanged();
+
+                    Toast.makeText(DetailsActivity.this, "" + message, Toast.LENGTH_SHORT).show();
+                    composer.setText("");
+                    headerText.setText(getResources().getString(R.string.dialog_comments_title) + " (" + arrayList.size() + ")");
+
+
+                    if (list != null)
+                        list.setAdapter(ca);
+                }
+            }
+        }
+
+        ;
+    };
 
     public interface DisplayShop {
         void showShop(LatLng location);

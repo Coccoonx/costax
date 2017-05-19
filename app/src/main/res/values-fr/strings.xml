@@ -87,6 +87,7 @@
     <string name="feedback_send">Envoyer</string>
     <string name="feedback_message_hint">Entrez votre requête, idée ou suggestion ici</string>
     <string name="feedback_title">Titre</string>
+    <string name="dialog_comments_title">Commentaires</string>
 
 
 </resources>

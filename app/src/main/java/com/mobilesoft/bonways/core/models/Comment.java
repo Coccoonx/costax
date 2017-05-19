@@ -17,6 +17,8 @@ public class Comment implements Serializable, Comparable<Comment>{
     private long date;
 
     private String authorId;
+    private String authorName;
+    private String pictureUrl;
 
     private String content;
 

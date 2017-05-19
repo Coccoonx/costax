@@ -29,7 +29,8 @@ public interface BackEndService {
 
     //    String APP_URL = "http://libre-exchange.awswouri.com";
 //    String APP_URL = "http://192.168.43.228:9898";
-    String APP_URL = "http://192.168.43.107:8090/";
+//    String APP_URL = "http://192.168.43.107:8090/";
+    String APP_URL = "http://192.168.137.1:8090/";
 //    String APP_URL = "http://34.193.132.208:9898";
 
 

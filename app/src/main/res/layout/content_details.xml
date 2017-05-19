@@ -313,7 +313,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/details_product_reserve_height"
                     android:layout_alignParentBottom="true"
-                    android:background="@color/colorPanel"
+                    android:background="@color/whiteOther"
                     android:text="@string/btn_reserve"
                     android:textColor="@color/colorPrimary" />
 
@@ -354,7 +354,7 @@
                     android:layout_toStartOf="@+id/button_go"
                     android:gravity="center"
                     android:text="@string/label_goto"
-                    android:textColor="@color/colorPanel"
+                    android:textColor="@color/whiteOther"
                     android:textSize="@dimen/text_normal_size" />
 
 
