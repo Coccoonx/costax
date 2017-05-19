@@ -3,7 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/whiteOther"
+    android:background="@drawable/border_info"
     android:paddingLeft="@dimen/item_text_smallest"
     android:paddingRight="@dimen/item_text_smallest"
     android:orientation="horizontal" >
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:singleLine="true"
+            android:maxLines="1"
             android:text="@string/app_name"
             android:textColor="#ff000000"
             android:textSize="14sp"
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
-            android:textColor="@color/textColorGray"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/text_smallest_size" />
     </LinearLayout>
 

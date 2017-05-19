@@ -61,7 +61,7 @@
                 android:layout_marginTop="@dimen/margin_middle_standard"
                 android:layout_marginLeft="4dp"
                 android:layout_marginStart="4dp"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/textColorDark"
                 android:text="@string/wzs_trade_pick_location" />
 
             <com.google.android.gms.maps.MapView

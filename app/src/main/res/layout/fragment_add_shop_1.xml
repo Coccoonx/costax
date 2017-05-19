@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPanel">
 
     <TextView
@@ -61,19 +61,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_short"
                 android:paddingRight="@dimen/activity_horizontal_margin"
-                app:ms_multiline="false"
-                app:ms_hint="@string/wzs_trade_category"
-                app:ms_enableFloatingLabel="true"
-                app:ms_enableErrorLabel="false"
-                app:ms_floatingLabelText="@string/wzs_trade_category"
-                app:ms_baseColor="@color/colorAccent"
-                app:ms_highlightColor="@color/colorPrimary"
-                app:ms_errorColor="@color/colorPrimary"
-                app:ms_hintColor="@color/colorAccent"
-                app:ms_arrowColor="@color/colorAccent"
-                app:ms_arrowSize="8dp"
                 app:ms_alignLabels="true"
-                app:ms_floatingLabelColor="@color/colorAccent"/>
+                app:ms_arrowSize="8dp"
+                app:ms_enableErrorLabel="false"
+                app:ms_enableFloatingLabel="true"
+                app:ms_floatingLabelText="@string/wzs_trade_category"
+                app:ms_arrowColor="@color/textColorDark"
+                app:ms_baseColor="@color/textColorDark"
+                app:ms_errorColor="@color/colorPrimary"
+                app:ms_floatingLabelColor="@color/colorPrimary"
+                app:ms_highlightColor="@color/colorPrimary"
+                app:ms_hintColor="@color/textColorGray"
+                app:ms_hint="@string/wzs_trade_category"
+                app:ms_multiline="false" />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/shopWebsiteWrapper"
@@ -129,7 +129,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="@dimen/margin_middle_standard"
                 android:text="@string/wzs_trade_trade_logo"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/textColorDark" />
 
             <ImageView
                 android:id="@+id/shopLogo"
