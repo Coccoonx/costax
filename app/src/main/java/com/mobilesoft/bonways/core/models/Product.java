@@ -106,6 +106,7 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.id);
         dest.writeString(this.code);
         dest.writeString(this.name);
         dest.writeLong(this.unit);
@@ -131,6 +132,7 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
     }
 
     protected Product(Parcel in) {
+        this.id = in.readLong();
         this.code = in.readString();
         this.name = in.readString();
         this.unit = in.readLong();

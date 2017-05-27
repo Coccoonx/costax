@@ -13,6 +13,7 @@ import lombok.Data;
 public class Comment implements Serializable, Comparable<Comment>{
 
     private long id;
+    private long productId;
 
     private long date;
 

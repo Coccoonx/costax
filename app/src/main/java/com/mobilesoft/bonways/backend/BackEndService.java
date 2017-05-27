@@ -8,12 +8,14 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.mobilesoft.bonways.core.models.Category;
+import com.mobilesoft.bonways.core.models.Comment;
 import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.User;
 
 import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -21,6 +23,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface BackEndService {
 
@@ -29,8 +33,8 @@ public interface BackEndService {
 
     //    String APP_URL = "http://libre-exchange.awswouri.com";
 //    String APP_URL = "http://192.168.43.228:9898";
-//    String APP_URL = "http://192.168.43.107:8090/";
-    String APP_URL = "http://192.168.137.1:8090/";
+    String APP_URL = "http://192.168.43.107:8090/";
+//    String APP_URL = "http://192.168.137.1:8090/";
 //    String APP_URL = "http://34.193.132.208:9898";
 
 
@@ -62,6 +66,9 @@ public interface BackEndService {
 
     @GET("product/")
     Call<Product[]> getProduct();
+
+    @POST("product/comment")
+    Call<Product> updateProductComment(@Body Comment comment);
 
     @GET("category/")
     Call<Category[]> getCategories();
