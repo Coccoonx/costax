@@ -126,7 +126,7 @@ public class AddShopStep2 extends AbstractStep implements OnMapReadyCallback {
         System.out.println("onNext");
         trade.setAddress(address.getText().toString());
         trade.setNearestShopName(nearestShop.getText().toString());
-        trade.setUser(ProfileManager.getCurrentUserProfile().getUser());
+        trade.setConsumer(ProfileManager.getCurrentUserProfile().getConsumer());
 
         //// TODO: 28/01/2017 Get Shop Location
 

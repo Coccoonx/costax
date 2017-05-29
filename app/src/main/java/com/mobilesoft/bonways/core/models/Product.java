@@ -46,9 +46,9 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
 
     private String imageUrl;
 
-    private Date createdDate;
+    private Date createdDate = new Date();
 
-    private Date updatedDate;
+    private Date updatedDate = new Date();
 
     private Date dateTimeOff;
 
@@ -143,7 +143,7 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
         Bundle b = in.readBundle();
         likers = (HashSet<String>) b.getSerializable("likers");
         watchers = (HashSet<String>) b.getSerializable("watchers");
-        HashSet<Comment> com = (HashSet<Comment>) b.getSerializable("comments");
+        TreeSet<Comment> com = (TreeSet<Comment>) b.getSerializable("comments");
         comments = new TreeSet<>(com);
         this.unitQuantity = (Long) in.readValue(Long.class.getClassLoader());
         this.imageUrl = in.readString();

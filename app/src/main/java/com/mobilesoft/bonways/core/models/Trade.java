@@ -46,11 +46,11 @@ public class Trade implements Serializable, Parcelable {
 
     private String updatedDate;
 
-    private User user;
+    private Consumer consumer;
 
     private String logoUrl;
 
-    private Set<Product> productslist;
+    private Set<Product> productslist = new HashSet<>();
 
     public Trade() {
         id = UUID.randomUUID().toString();
@@ -74,7 +74,7 @@ public class Trade implements Serializable, Parcelable {
         dest.writeString(this.representerName);
         dest.writeString(this.createdDate);
         dest.writeString(this.updatedDate);
-        dest.writeSerializable(this.user);
+        dest.writeSerializable(this.consumer);
         dest.writeString(this.logoUrl);
         Bundle b = new Bundle();
         b.putSerializable("myProducts", (Serializable) productslist);
@@ -93,7 +93,7 @@ public class Trade implements Serializable, Parcelable {
         this.representerName = in.readString();
         this.createdDate = in.readString();
         this.updatedDate = in.readString();
-        this.user = (User) in.readSerializable();
+        this.consumer = (Consumer) in.readSerializable();
         this.logoUrl = in.readString();
         Bundle b = in.readBundle();
         productslist = (Set<Product>) b.getSerializable("myProducts");

@@ -56,8 +56,9 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.backend.BackEndService;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
+import com.mobilesoft.bonways.core.models.Consumer;
 import com.mobilesoft.bonways.core.models.Profile;
-import com.mobilesoft.bonways.core.models.User;
+import com.mobilesoft.bonways.core.models.Consumer;
 import com.mobilesoft.bonways.uis.adapters.MainItemAdapter;
 import com.mobilesoft.bonways.utils.CoreUtils;
 
@@ -78,7 +79,7 @@ public class SignInActivity extends AppCompatActivity implements
     private SignInButton mSignInButton;
 
     private GoogleApiClient mGoogleApiClient;
-    User appUser;
+    Consumer appConsumer;
 
 
     // Firebase instance variables
@@ -126,7 +127,7 @@ public class SignInActivity extends AppCompatActivity implements
 
 
         mLoginButton = (LoginButton) findViewById(R.id.login_button);
-        mLoginButton.setReadPermissions("email", "public_profile");
+        mLoginButton.setReadPermissions("productsNumber", "public_profile");
         mLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -153,11 +154,11 @@ public class SignInActivity extends AppCompatActivity implements
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    appUser = new User();
-                    appUser.setEmail(user.getEmail());
-                    appUser.setDisplayName(user.getDisplayName());
-                    appUser.setImageUrl(user.getPhotoUrl() != null ? user.getPhotoUrl().toString() : null);
-                    appUser.setTrader(false);
+                    appConsumer = new Consumer();
+                    appConsumer.setEmail(user.getEmail());
+                    appConsumer.setDisplayName(user.getDisplayName());
+                    appConsumer.setImageUrl(user.getPhotoUrl() != null ? user.getPhotoUrl().toString() : null);
+                    appConsumer.setTrader(false);
                     Log.d(TAG, "URI: " + user.getPhotoUrl());
 
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
@@ -248,7 +249,7 @@ public class SignInActivity extends AppCompatActivity implements
 
     private void startApp() {
         //Online Mode
-        createUserOnline(appUser);
+        createUserOnline(appConsumer);
 
         //Offline Mode
 //        Profile profile = new Profile();
@@ -261,22 +262,22 @@ public class SignInActivity extends AppCompatActivity implements
 
     }
 
-    private void createUserOnline(User appUser) {
+    private void createUserOnline(Consumer appConsumer) {
         backEndService = BackEndService.retrofit.create(BackEndService.class);
 
-        Call<User> callParish = backEndService.createUser(appUser);
-        callParish.enqueue(new Callback<User>() {
+        Call<Consumer> callParish = backEndService.createUser(appConsumer);
+        callParish.enqueue(new Callback<Consumer>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<Consumer> call, Response<Consumer> response) {
                 if (response.body() != null) {
-                    User savedUser = response.body();
-                    Log.d(TAG, "savedUser = " + savedUser);
+                    Consumer savedConsumer = response.body();
+                    Log.d(TAG, "savedUser = " + savedConsumer);
 
 //                    progressBar.setVisibility(View.GONE);
 
-                    if (savedUser != null) {
+                    if (savedConsumer != null) {
                         Profile profile = new Profile();
-                        profile.setUser(savedUser);
+                        profile.setConsumer(savedConsumer);
                         new ProfileManager.SaveProfile().execute(profile);
                         Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                         startActivity(intent);
@@ -299,7 +300,7 @@ public class SignInActivity extends AppCompatActivity implements
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<Consumer> call, Throwable t) {
                 Log.d(TAG, Log.getStackTraceString(t));
 
             }

@@ -69,8 +69,10 @@ public class MainItemAdapter extends RecyclerView.Adapter<MainItemViewHolder> {
         double promo = product.getPrice() - (product.getPrice() * product.getDiscountPercentage() / 100);
         holder.promoPrice.setText(nf.format(promo) + " F");
         DateFormat dateFormat = DateFormat.getDateInstance();
-        holder.timeOff.setText(dateFormat.format(product.getDateTimeOff()));
-        holder.timePosted.setText(dateFormat.format(product.getCreatedDate()));
+        if (product.getDateTimeOff() != null)
+            holder.timeOff.setText(dateFormat.format(product.getDateTimeOff()));
+        if (product.getCreatedDate() != null)
+            holder.timePosted.setText(dateFormat.format(product.getCreatedDate()));
         if (product.getCategory() != null)
             holder.category.setText(product.getCategory().getName());
 
@@ -81,7 +83,7 @@ public class MainItemAdapter extends RecyclerView.Adapter<MainItemViewHolder> {
         }
 
 
-        if (product.getImageUrl().contains("http") || product.getImageUrl().contains("cdn")) {
+        if (product.getImageUrl()!=null && (product.getImageUrl().contains("http") || product.getImageUrl().contains("cdn"))) {
 
 //            Picasso.with(mContext).load(product.getImageUrl()).placeholder(R.drawable.nopreview).into(holder.productImage);
             Glide

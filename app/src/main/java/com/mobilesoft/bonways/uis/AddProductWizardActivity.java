@@ -36,6 +36,9 @@ public class AddProductWizardActivity extends ProgressStepper {
     protected void onCreate(Bundle savedInstanceState) {
         mProduct = new Product();
 
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
 

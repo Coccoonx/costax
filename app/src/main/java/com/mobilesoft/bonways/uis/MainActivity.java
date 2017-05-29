@@ -48,7 +48,7 @@ import com.mobilesoft.bonways.core.models.Category;
 import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Profile;
 import com.mobilesoft.bonways.core.models.Trade;
-import com.mobilesoft.bonways.core.models.User;
+import com.mobilesoft.bonways.core.models.Consumer;
 import com.mobilesoft.bonways.uis.adapters.MainTabAdapter;
 import com.mobilesoft.bonways.uis.adapters.SimpleAdapter;
 import com.orhanobut.dialogplus.DialogPlus;
@@ -204,10 +204,10 @@ public class MainActivity extends AppCompatActivity
 
         Profile profile = ProfileManager.getCurrentUserProfile();
         try {
-            User currentUser = profile.getUser();
-            if (currentUser != null && currentUser.getImageUrl() != null) {
+            Consumer currentConsumer = profile.getConsumer();
+            if (currentConsumer != null && currentConsumer.getImageUrl() != null) {
                 userPic.setVisibility(View.VISIBLE);
-                Picasso.with(this).load(currentUser.getImageUrl()).into(userPic);
+                Picasso.with(this).load(currentConsumer.getImageUrl()).into(userPic);
             }
         } catch (NullPointerException e) {
             // Not signed in, launch the Sign In activity
@@ -274,7 +274,7 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         Profile profile = ProfileManager.getCurrentUserProfile();
-        if (profile != null && profile.getUser() != null) {
+        /*if (profile != null && profile.getUser() != null) {
             if (profile.getUser().isTrader()) {
                 navigationView.getMenu().findItem(R.id.nav_trader).setVisible(false);
                 mainFab.setVisibility(View.VISIBLE);
@@ -286,7 +286,7 @@ public class MainActivity extends AppCompatActivity
             }
 
 
-        }
+        }*/
 
         if (viewPager != null && tmpCurrentProduct == null) {
             viewPager.setCurrentItem(1);
@@ -383,7 +383,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(this, ReservationsActivity.class));
         } else if (id == R.id.nav_account) {
             startActivity(new Intent(this, AccountActivity.class));
-        } else if (id == R.id.nav_trader) {
+        } /*else if (id == R.id.nav_trader) {
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
             alertBuilder.setCancelable(true);
             alertBuilder.setTitle(getResources().getString(R.string.trader_request_title));
@@ -392,7 +392,6 @@ public class MainActivity extends AppCompatActivity
 
                 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
                 public void onClick(DialogInterface dialog, int which) {
-                    //// TODO: 27/01/2017 Launch Trader Wizard
                     Intent intent = new Intent(MainActivity.this, AddShopWizardActivity.class);
                     startActivityForResult(intent, 1);
                 }
@@ -411,7 +410,7 @@ public class MainActivity extends AppCompatActivity
             alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
             alert.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
 
-        } else if (id == R.id.nav_feedback) {
+        } */else if (id == R.id.nav_feedback) {
             startActivity(new Intent(MainActivity.this, FeedbackActivity.class));
         } else if (id == R.id.nav_share) {
             Intent intent = new Intent(Intent.ACTION_SEND);

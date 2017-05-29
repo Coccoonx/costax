@@ -9,8 +9,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.mobilesoft.bonways.core.models.Category;
 import com.mobilesoft.bonways.core.models.Comment;
+import com.mobilesoft.bonways.core.models.Consumer;
 import com.mobilesoft.bonways.core.models.Product;
-import com.mobilesoft.bonways.core.models.User;
+import com.mobilesoft.bonways.core.models.Consumer;
 
 import java.lang.reflect.Type;
 import java.util.Date;
@@ -33,7 +34,8 @@ public interface BackEndService {
 
     //    String APP_URL = "http://libre-exchange.awswouri.com";
 //    String APP_URL = "http://192.168.43.228:9898";
-    String APP_URL = "http://192.168.43.107:8090/";
+//    String APP_URL = "http://192.168.43.107:8090/";
+    String APP_URL = "http://54.173.74.108:8090/";
 //    String APP_URL = "http://192.168.137.1:8090/";
 //    String APP_URL = "http://34.193.132.208:9898";
 
@@ -59,10 +61,10 @@ public interface BackEndService {
 
 
     @GET("user/")
-    Call<User> getUser();
+    Call<Consumer> getUser();
 
     @POST("user/")
-    Call<User> createUser(@Body User user);
+    Call<Consumer> createUser(@Body Consumer consumer);
 
     @GET("product/")
     Call<Product[]> getProduct();

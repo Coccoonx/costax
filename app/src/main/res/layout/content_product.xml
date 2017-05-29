@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/colorPanel"
     android:fitsSystemWindows="true"
-    tools:context=".uis.ShopActivity">
+    tools:showIn="@layout/activity_product"
+    tools:context=".uis.ProductActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,6 +22,8 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
+
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerShop"

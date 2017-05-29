@@ -43,11 +43,21 @@
         <activity
             android:name=".uis.ShopActivity"
             android:label="@string/shop"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:parentActivityName=".uis.AccountActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mobilesoft.bonways.uis.AccountActivity" />
+        </activity>
         <activity
             android:name=".uis.ProductActivity"
             android:label="@string/products"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:parentActivityName=".uis.ShopActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mobilesoft.bonways.uis.ShopActivity" />
+        </activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -86,11 +96,11 @@
         <activity
             android:name=".uis.SubscriptionActivity"
             android:label="@string/subscritpitons"
-            android:parentActivityName=".uis.MainActivity"
+            android:parentActivityName=".uis.AccountActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mobilesoft.bonways.uis.MainActivity" />
+                android:value="com.mobilesoft.bonways.uis.AccountActivity" />
         </activity>
         <activity
             android:name=".uis.SubscriptionDetailActivity"

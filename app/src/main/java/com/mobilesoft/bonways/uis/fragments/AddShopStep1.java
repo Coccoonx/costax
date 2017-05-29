@@ -16,6 +16,7 @@ import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.mobilesoft.bonways.BonWaysApplication;
 import com.mobilesoft.bonways.BuildConfig;
 import com.mobilesoft.bonways.R;
+import com.mobilesoft.bonways.backend.BackEndService;
 import com.mobilesoft.bonways.core.models.Category;
 import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.uis.AddShopWizardActivity;
@@ -28,8 +29,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class AddShopStep1 extends AbstractStep {
@@ -46,6 +51,8 @@ public class AddShopStep1 extends AbstractStep {
     EditText shopEmail;
     MaterialSpinner shopCategory;
     ImageView shopLogo;
+    private BackEndService backEndService;
+    private List<Category> mCategories = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,11 +76,14 @@ public class AddShopStep1 extends AbstractStep {
 
         ImagePicker.setMinQuality(200, 200);
 
+//        loadData();
+
         ArrayList<String> items = new ArrayList<>();
         for (Category category : MainActivity.mCategories) {
+            if (category.getName().equalsIgnoreCase("Tout"))
+                continue;
             items.add(category.getName());
         }
-        items.remove(0);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -106,6 +116,27 @@ public class AddShopStep1 extends AbstractStep {
 
         return v;
     }
+
+//    private void loadData() {
+//        //Online Call
+//
+//        Call<Category[]> call = backEndService.getCategories();
+//        call.enqueue(new Callback<Category[]>() {
+//            @Override
+//            public void onResponse(Call<Category[]> call, Response<Category[]> response) {
+//                if (response.body() != null) {
+//                    for (Category p : response.body()) {
+//                        mCategories.add(p);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Category[]> call, Throwable t) {
+//                Log.d(TAG, "onFailure: An Error Occurred -\n"+ Log.getStackTraceString(t));
+//            }
+//        });
+//    }
 
     @Override
     public void onSaveInstanceState(Bundle state) {

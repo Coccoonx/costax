@@ -28,8 +28,8 @@ public class AddShopWizardActivity extends ProgressStepper {
         super.onComplete();
         Log.d(TAG, ""+mTrade);
         Profile profile = ProfileManager.getCurrentUserProfile();
-        if (!profile.getUser().isTrader()) {
-            profile.getUser().setTrader(true);
+        if (!profile.getConsumer().isTrader()) {
+            profile.getConsumer().setTrader(true);
         }
         profile.getTrades().add(mTrade);
         new ProfileManager.SaveProfile().execute(profile);

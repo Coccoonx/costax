@@ -1,6 +1,8 @@
 package com.mobilesoft.bonways.uis.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.core.models.Trade;
-import com.mobilesoft.bonways.uis.viewholders.MainItemViewHolder;
+import com.mobilesoft.bonways.uis.ProductActivity;
 import com.mobilesoft.bonways.uis.viewholders.ShopItemViewHolder;
 import com.squareup.picasso.Picasso;
 
@@ -21,7 +23,7 @@ import java.util.ArrayList;
 
 public class ShopItemAdapter extends RecyclerView.Adapter<ShopItemViewHolder> {
 
-    ArrayList<Trade> mDataSet ;
+    ArrayList<Trade> mDataSet;
     Context mContext;
     public static final String TAG = "ShopItemAdapter";
 
@@ -33,14 +35,24 @@ public class ShopItemAdapter extends RecyclerView.Adapter<ShopItemViewHolder> {
 
     @Override
     public void onBindViewHolder(ShopItemViewHolder holder, int position) {
-        Trade trade = mDataSet.get(position);
+        final Trade trade = mDataSet.get(position);
         holder.address.setText(trade.getAddress());
-        holder.email.setText(trade.getEmail());
+        holder.website.setText(trade.getWebsite());
+        if (trade.getProductslist() != null)
+            holder.productsNumber.setText(String.valueOf(trade.getProductslist().size()));
         holder.shopName.setText(trade.getName());
         holder.phone.setText(trade.getPhone());
         holder.representer.setText(trade.getRepresenterName());
-        Log.d(TAG, "URL:"+ trade.getLogoUrl());
-        Picasso.with(mContext).load("file://"+trade.getLogoUrl()).into(holder.shopLogo);
+        Log.d(TAG, "URL:" + trade.getLogoUrl());
+        Picasso.with(mContext).load("file://" + trade.getLogoUrl()).into(holder.shopLogo);
+        holder.container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, ProductActivity.class);
+                intent.putExtra("trade", (Parcelable) trade);
+                mContext.startActivity(intent);
+            }
+        });
 
     }
 
@@ -58,10 +70,6 @@ public class ShopItemAdapter extends RecyclerView.Adapter<ShopItemViewHolder> {
         ShopItemViewHolder vh = new ShopItemViewHolder(v);
         return vh;
     }
-
-
-
-
 
 
 }

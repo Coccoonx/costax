@@ -14,7 +14,7 @@ public class Feedback {
     private Date reportDate;
 
     public Feedback() {
-        userId = ProfileManager.getCurrentUserProfile().getUser().getEmail();
+        userId = ProfileManager.getCurrentUserProfile().getConsumer().getEmail();
     }
 
 }

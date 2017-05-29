@@ -81,9 +81,10 @@ public class AddProductStep1 extends AbstractStep {
 
         ArrayList<String> items = new ArrayList<>();
         for (Category category : MainActivity.mCategories) {
+            if (category.getName().equalsIgnoreCase("Tout"))
+                continue;
             items.add(category.getName());
         }
-        items.remove(0);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -251,11 +252,13 @@ public class AddProductStep1 extends AbstractStep {
                 fo = new FileOutputStream(destination);
                 fo.write(bytes.toByteArray());
                 fo.close();
+                if (mProduct==null)
+                    mProduct = new Product();
+                mProduct.setImageUrl(destination.getAbsolutePath());
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            mProduct.setImageUrl(destination.getAbsolutePath());
 
         }
     }

@@ -36,7 +36,7 @@ import com.mobilesoft.bonways.core.models.Comment;
 import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Profile;
 import com.mobilesoft.bonways.core.models.Reservation;
-import com.mobilesoft.bonways.core.models.User;
+import com.mobilesoft.bonways.core.models.Consumer;
 import com.mobilesoft.bonways.uis.adapters.CommentAdapter;
 import com.mobilesoft.bonways.uis.adapters.SimpleAdapter;
 import com.orhanobut.dialogplus.DialogPlus;
@@ -161,7 +161,7 @@ public class DetailsActivity extends AppCompatActivity {
         NumberFormat nf = NumberFormat.getNumberInstance();
         nf.setMaximumFractionDigits(1);
 
-        if (mProduct.getImageUrl().contains("http") || mProduct.getImageUrl().contains("cdn"))
+        if (mProduct.getImageUrl() != null && (mProduct.getImageUrl().contains("http") || mProduct.getImageUrl().contains("cdn")))
             Picasso.with(this).load(mProduct.getImageUrl()).into(imageProduct);
         else
             Picasso.with(this).load("file://" + mProduct.getImageUrl()).into(imageProduct);
@@ -176,9 +176,11 @@ public class DetailsActivity extends AppCompatActivity {
         titleProduct.setText(mProduct.getName());
         descriptionProduct.setText(mProduct.getDescription());
         shopName.setText(mProduct.getTrade().getName());
-        category.setText(mProduct.getCategory().getName());
+        if (mProduct.getCategory() != null)
+            category.setText(mProduct.getCategory().getName());
         DateFormat format = DateFormat.getDateInstance(DateFormat.MEDIUM);
-        timePosted.setText(format.format(mProduct.getCreatedDate()));
+        if (mProduct.getCreatedDate() != null)
+            timePosted.setText(format.format(mProduct.getCreatedDate()));
         productLeft.setText("" + mProduct.getUnitQuantity());
         tradePhone.setText(mProduct.getTrade().getPhone());
 
@@ -200,7 +202,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         if (!mProduct.isWatched()) {
             mProduct.setWatched(true);
-            mProduct.getWatchers().add(ProfileManager.getCurrentUserProfile().getUser().getEmail());
+            mProduct.getWatchers().add(ProfileManager.getCurrentUserProfile().getConsumer().getEmail());
         }
         watched.setText("" + mProduct.getWatchers().size());
         commented.setText("" + mProduct.getComments().size());
@@ -286,11 +288,11 @@ public class DetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (mProduct.isLiked()) {
                     mProduct.setLiked(false);
-                    mProduct.getLikers().remove(ProfileManager.getCurrentUserProfile().getUser().getEmail());
+                    mProduct.getLikers().remove(ProfileManager.getCurrentUserProfile().getConsumer().getEmail());
                     iconLiked.setImageResource(R.drawable.ic_like);
                 } else {
                     mProduct.setLiked(true);
-                    mProduct.getLikers().add(ProfileManager.getCurrentUserProfile().getUser().getEmail());
+                    mProduct.getLikers().add(ProfileManager.getCurrentUserProfile().getConsumer().getEmail());
                     iconLiked.setImageResource(R.drawable.ic_like_filled);
                 }
                 liked.setText("" + mProduct.getLikers().size());
@@ -419,7 +421,7 @@ public class DetailsActivity extends AppCompatActivity {
         mAdView.loadAd(adRequest);
 
         RecyclerView.LayoutManager lm = new LinearLayoutManager(this);
-        ((LinearLayoutManager)lm).setStackFromEnd(true);
+        ((LinearLayoutManager) lm).setStackFromEnd(true);
         list.setLayoutManager(lm);
         list.setHasFixedSize(true);
 
@@ -462,9 +464,9 @@ public class DetailsActivity extends AppCompatActivity {
 
 
                     Comment comment = new Comment();
-                    comment.setAuthorName(ProfileManager.getCurrentUserProfile().getUser().getDisplayName());
-                    comment.setPictureUrl(ProfileManager.getCurrentUserProfile().getUser().getImageUrl());
-                    comment.setAuthorId(ProfileManager.getCurrentUserProfile().getUser().getEmail());
+                    comment.setAuthorName(ProfileManager.getCurrentUserProfile().getConsumer().getDisplayName());
+                    comment.setPictureUrl(ProfileManager.getCurrentUserProfile().getConsumer().getImageUrl());
+                    comment.setAuthorId(ProfileManager.getCurrentUserProfile().getConsumer().getEmail());
                     comment.setContent(message);
                     comment.setDate(new Date().getTime());
                     comment.setProductId(mProduct.getId());
@@ -484,7 +486,7 @@ public class DetailsActivity extends AppCompatActivity {
     };
 
     public void pushComment(Comment comment) {
-        if (progressComment!=null)
+        if (progressComment != null)
             progressComment.setVisibility(View.VISIBLE);
         Call<Product> callParish = backEndService.updateProductComment(comment);
 
@@ -502,11 +504,11 @@ public class DetailsActivity extends AppCompatActivity {
                     list.setAdapter(ca);
                     headerText.setText(getResources().getString(R.string.dialog_comments_title) + " (" + arrayList.size() + ")");
 
-                    if (progressComment!=null)
+                    if (progressComment != null)
                         progressComment.setVisibility(View.GONE);
 
                 } else {
-                    if (progressComment!=null)
+                    if (progressComment != null)
                         progressComment.setVisibility(View.GONE);
                     Toast.makeText(DetailsActivity.this, response.message() + "", Toast.LENGTH_SHORT).show();
                     Log.d(TAG, response.message());
@@ -517,32 +519,12 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Product> call, Throwable t) {
                 Log.d(TAG, Log.getStackTraceString(t));
-                if (progressComment!=null)
+                if (progressComment != null)
                     progressComment.setVisibility(View.GONE);
 
             }
         });
     }
-
-    private class PushComment extends AsyncTask<Comment, Void, Comment> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onPostExecute(Comment comment) {
-            super.onPostExecute(comment);
-        }
-
-        @Override
-        protected Comment doInBackground(Comment... comments) {
-
-            return null;
-        }
-    }
-
 
     public interface DisplayShop {
         void showShop(LatLng location);

@@ -1,197 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/margin_middle_short"
-    android:paddingEnd="@dimen/margin_middle_short"
-    android:paddingLeft="@dimen/margin_middle_short"
-    android:paddingRight="@dimen/margin_middle_short"
-    android:paddingStart="@dimen/margin_middle_short"
-    android:paddingTop="@dimen/margin_middle_short">
+    android:layout_marginBottom="@dimen/margin_middle_short_mini"
+    android:layout_marginEnd="@dimen/margin_middle_short"
+    android:layout_marginLeft="@dimen/margin_middle_short"
+    android:layout_marginRight="@dimen/margin_middle_short"
+    android:layout_marginStart="@dimen/margin_middle_short"
+    android:layout_marginTop="@dimen/margin_middle_short_mini">
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:orientation="vertical"
-        android:weightSum="100">
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        card_view:cardCornerRadius="0dp"
+        card_view:cardUseCompatPadding="true">
 
-        <ImageView
-            android:id="@+id/shop_image"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="40"
-            android:background="@drawable/border"
-            android:padding="@dimen/margin_middle_standard"
-            android:scaleType="centerInside"
-            android:src="@drawable/logo_carrefour" />
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/margin_middle_short"
+            android:paddingRight="@dimen/margin_middle_short">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="60"
-            android:background="@color/whiteOther"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/margin_middle_short"
-            android:paddingLeft="@dimen/margin_middle_standard"
-            android:paddingRight="@dimen/margin_middle_standard"
-            android:paddingTop="@dimen/margin_middle_short">
+            <ImageView
+                android:id="@+id/shop_image"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_middle_short"
+                android:layout_marginStart="@dimen/margin_middle_short"
+                android:scaleType="fitCenter"
+                android:src="@drawable/nopreview" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:layout_marginTop="2dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/shop_name_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Shop Name:"
-                    android:textColor="@android:color/black"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
+                android:layout_toEndOf="@id/shop_image"
+                android:layout_toRightOf="@id/shop_image"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_middle_short">
 
                 <TextView
                     android:id="@+id/shop_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/margin_middle_standard"
-                    android:layout_marginStart="@dimen/margin_middle_standard"
+                    android:layout_marginLeft="@dimen/margin_middle_short"
+                    android:layout_marginStart="@dimen/margin_middle_short"
                     android:text="Santa Lucia"
                     android:textColor="@android:color/black"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:layout_marginTop="2dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/shop_email_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Email:"
-                    android:textColor="@android:color/black"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/shop_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/margin_middle_standard"
-                    android:layout_marginStart="@dimen/margin_middle_standard"
-                    android:text="example@gmail.com"
-                    android:textColor="@android:color/black"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:layout_marginTop="2dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/shop_phone_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Phone:"
-                    android:textColor="@android:color/black"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/shop_phone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/margin_middle_standard"
-                    android:layout_marginStart="@dimen/margin_middle_standard"
-                    android:text="699 056 668"
-                    android:textColor="@android:color/black"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:layout_marginTop="2dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/shop_representer_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Representer"
-                    android:textColor="@android:color/black"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/shop_representer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/margin_middle_standard"
-                    android:layout_marginStart="@dimen/margin_middle_standard"
-                    android:text="Franck Dubois"
-                    android:textColor="@android:color/black"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:layout_marginTop="2dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/shop_address_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Address:"
-                    android:textColor="@android:color/black"
-                    android:textSize="11sp"
+                    android:textSize="@dimen/text_normal_size"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/shop_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/margin_middle_standard"
-                    android:layout_marginStart="@dimen/margin_middle_standard"
-                    android:text="12 Rue de la Montagne, Akwa"
-                    android:textColor="@android:color/black"
-                    android:textSize="12sp" />
+                    android:layout_marginLeft="@dimen/margin_middle_short"
+                    android:layout_marginStart="@dimen/margin_middle_short"
+                    android:text="Carrefour Ange raphael"
+                    android:textColor="@color/textColorGray"
+                    android:textSize="@dimen/item_text_standard" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_middle_short"
+                    android:layout_marginStart="@dimen/margin_middle_short"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/item_label_website"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Website:"
+                        android:textColor="@color/textColorGray"
+                        android:textSize="@dimen/item_title" />
+
+                    <TextView
+                        android:id="@+id/item_value_website"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_middle_short"
+                        android:layout_marginStart="@dimen/margin_middle_short"
+                        android:text="santalucia.com"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/text_normal_size"
+                        android:textStyle="normal" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_middle_short"
+                    android:layout_marginStart="@dimen/margin_middle_short"
+                    android:layout_marginTop="0dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/item_label_representer_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Representer:"
+                        android:textColor="@color/textColorGray"
+                        android:textSize="@dimen/item_title" />
+
+                    <TextView
+                        android:id="@+id/item_value_representer_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_middle_short"
+                        android:layout_marginStart="@dimen/margin_middle_short"
+                        android:text="Loic De La Salle"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/text_normal_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_middle_short"
+                    android:layout_marginStart="@dimen/margin_middle_short"
+                    android:layout_marginTop="0dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/item_label_number_of_product"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nber of Products:"
+                        android:textColor="@color/textColorGray"
+                        android:textSize="@dimen/item_title" />
+
+                    <TextView
+                        android:id="@+id/item_value_number_of_product"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_middle_short"
+                        android:layout_marginStart="@dimen/margin_middle_short"
+                        android:text="0"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/text_normal_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_middle_short"
+                    android:layout_marginStart="@dimen/margin_middle_short"
+                    android:layout_marginTop="0dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/item_label_phone_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Phone Number"
+                        android:textColor="@color/textColorGray"
+                        android:textSize="@dimen/item_title" />
+
+                    <TextView
+                        android:id="@+id/item_value_phone_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_middle_short"
+                        android:layout_marginStart="@dimen/margin_middle_short"
+                        android:text="+238 699887744"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/text_normal_size"
+                        android:textStyle="normal" />
+                </LinearLayout>
+
             </LinearLayout>
 
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-
-    <ImageView
-        android:id="@+id/shop_selected"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_gravity="top|end"
-        android:layout_marginEnd="@dimen/padding_shop_logo"
-        android:layout_marginRight="@dimen/padding_shop_logo"
-        android:src="@drawable/logo_carrefour"
-        android:visibility="invisible" />
-
-</FrameLayout>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="@dimen/margin_middle_short_mini"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:tint="@color/colorPrimary"
+                android:src="@drawable/ic_right_arrow"
+                />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

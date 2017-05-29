@@ -6,8 +6,9 @@
     android:layout_height="match_parent"
     android:background="@color/colorPanel"
     android:fitsSystemWindows="true"
-    tools:context=".uis.ShopActivity">
-
+    tools:context=".uis.ShopActivity"
+    tools:showIn="@layout/activity_shop"
+    >
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,6 +23,15 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        app:backgroundTint="@color/colorPrimary"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_add" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerShop"
         android:layout_width="match_parent"
@@ -31,15 +41,6 @@
         android:padding="@dimen/margin_middle_standard">
 
     </android.support.v7.widget.RecyclerView>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        app:backgroundTint="@color/colorPrimary"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_add" />
 
 
 </android.support.design.widget.CoordinatorLayout>

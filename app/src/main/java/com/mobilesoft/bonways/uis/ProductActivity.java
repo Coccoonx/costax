@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -33,14 +34,15 @@ import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Profile;
-import com.mobilesoft.bonways.core.models.User;
+import com.mobilesoft.bonways.core.models.Consumer;
+import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.uis.adapters.ProductItemAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class ProductActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
+        implements  GoogleApiClient.OnConnectionFailedListener {
 
     private static final String ANONYMOUS = "Anonymous";
     private static final String TAG = "ProductActivity";
@@ -53,6 +55,7 @@ public class ProductActivity extends AppCompatActivity
     private GoogleApiClient mGoogleApiClient;
     RecyclerView recyclerView;
     ProductItemAdapter mi;
+    private Trade mTrade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,8 @@ public class ProductActivity extends AppCompatActivity
         setContentView(R.layout.activity_shop);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         mUsername = ANONYMOUS;
 
@@ -85,26 +90,12 @@ public class ProductActivity extends AppCompatActivity
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
                 .build();
 
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-
-//        View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
-        View headerView = navigationView.getHeaderView(0);
-        CircularImageView userPic = (CircularImageView) headerView.findViewById(R.id.imageView);
-
-        User currentUser = ProfileManager.getCurrentUserProfile().getUser();
-        if (currentUser != null && currentUser.getImageUrl() != null) {
-            userPic.setVisibility(View.VISIBLE);
-            Picasso.with(this).load(currentUser.getImageUrl()).into(userPic);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+             mTrade = bundle.getParcelable("trade");
         }
+
+
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -119,11 +110,7 @@ public class ProductActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         Profile profile = ProfileManager.getCurrentUserProfile();
-        if (profile != null && profile.getUser() != null && profile.getUser().isTrader()) {
-            navigationView.getMenu().findItem(R.id.nav_trader).setVisible(false);
-        }
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerShop);
         RecyclerView.LayoutManager lm = new GridLayoutManager(this, 2);
@@ -133,6 +120,11 @@ public class ProductActivity extends AppCompatActivity
         ArrayList<Product> dataSet = new ArrayList<>();
         dataSet.addAll(profile.getMyProducts());
 
+        if (mTrade != null && mTrade.getProductslist()!=null) {
+            dataSet.clear();
+            dataSet.addAll(mTrade.getProductslist());
+        }
+
         mi = new ProductItemAdapter(this, dataSet);
         recyclerView.setAdapter(mi);
         mi.notifyDataSetChanged();
@@ -141,12 +133,7 @@ public class ProductActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+        super.onBackPressed();
     }
 
     @Override
@@ -169,65 +156,6 @@ public class ProductActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_home) {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        }else if (id == R.id.nav_reservation) {
-            startActivity(new Intent(this, ReservationsActivity.class));
-
-        } else if (id == R.id.nav_trader) {
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-            alertBuilder.setCancelable(true);
-            alertBuilder.setTitle(getResources().getString(R.string.trader_request_title));
-            alertBuilder.setMessage(Html.fromHtml(getResources().getString(R.string.trader_request_explanation)));
-            alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-                @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-                public void onClick(DialogInterface dialog, int which) {
-                    //// TODO: 27/01/2017 Launch Trader Wizard
-                    Intent intent = new Intent(ProductActivity.this, AddShopWizardActivity.class);
-                    startActivityForResult(intent, 1);
-                }
-            });
-            alertBuilder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-
-                @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-                public void onClick(DialogInterface dialog, int which) {
-                    //// nothing to do
-                }
-            });
-
-            final AlertDialog alert = alertBuilder.create();
-
-            alert.show();
-            alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
-            alert.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
-
-        } else if (id == R.id.nav_feedback) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_logout) {
-            mFirebaseAuth.signOut();
-            Auth.GoogleSignInApi.signOut(mGoogleApiClient);
-            mUsername = ANONYMOUS;
-            startActivity(new Intent(this, SignInActivity.class));
-            finish();
-            return true;
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     @Override

@@ -32,7 +32,7 @@ import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Profile;
 import com.mobilesoft.bonways.core.models.Reservation;
-import com.mobilesoft.bonways.core.models.User;
+import com.mobilesoft.bonways.core.models.Consumer;
 import com.mobilesoft.bonways.uis.adapters.ReservationItemAdapter;
 import com.squareup.picasso.Picasso;
 
@@ -98,10 +98,10 @@ public class ReservationsActivity extends AppCompatActivity implements Navigatio
         View headerView = navigationView.getHeaderView(0);
         CircularImageView userPic = (CircularImageView) headerView.findViewById(R.id.imageView);
 
-        User currentUser = ProfileManager.getCurrentUserProfile().getUser();
-        if (currentUser != null && currentUser.getImageUrl() != null) {
+        Consumer currentConsumer = ProfileManager.getCurrentUserProfile().getConsumer();
+        if (currentConsumer != null && currentConsumer.getImageUrl() != null) {
             userPic.setVisibility(View.VISIBLE);
-            Picasso.with(this).load(currentUser.getImageUrl()).into(userPic);
+            Picasso.with(this).load(currentConsumer.getImageUrl()).into(userPic);
         }
 
     }
@@ -109,16 +109,7 @@ public class ReservationsActivity extends AppCompatActivity implements Navigatio
     @Override
     protected void onResume() {
         super.onResume();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         Profile profile = ProfileManager.getCurrentUserProfile();
-        if (profile != null && profile.getUser() != null) {
-            if (profile.getUser().isTrader()) {
-                navigationView.getMenu().findItem(R.id.nav_trader).setVisible(false);
-            } else {
-                navigationView.getMenu().findItem(R.id.nav_account).setVisible(false);
-            }
-        }
-
         recyclerView = (RecyclerView) findViewById(R.id.recyclerReservation);
         RecyclerView.LayoutManager lm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(lm);

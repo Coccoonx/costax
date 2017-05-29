@@ -62,7 +62,7 @@
     <string name="nav_reservation">Mes Reservations</string>
     <string name="menu_category">Categorie</string>
     <string name="nav_user_account">Mon Compte</string>
-    <string name="subscritpitons">Abonnement</string>
+    <string name="subscritpitons">Payement</string>
     <string name="bundle_free_title">Free</string>
     <string name="bundle_free_description">Offre basique. Completement gratuite, vous beneficiez de 5 posts gratuits et ceci pendant pendant 3 mois. Ainsi vous avez le temps d\'evaluer votre potentiel sur le marché.</string>
     <string name="label_price">Prix: </string>
@@ -88,6 +88,12 @@
     <string name="feedback_message_hint">Entrez votre requête, idée ou suggestion ici</string>
     <string name="feedback_title">Titre</string>
     <string name="dialog_comments_title">Commentaires</string>
+    <string name="title_activity_subscription_detail">Detail de l\'offre</string>
+    <string name="title_activity_subscription">Offre</string>
+    <string name="title_activity_details">Details Produit</string>
+    <string name="title_activity_account">Mon Compte</string>
+    <string name="wizard_publish_product_title">Publié un Produit</string>
+    <string name="need_shop_first">Créez d\'abord une boutique.</string>
 
 
 </resources>

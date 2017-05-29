@@ -10,7 +10,7 @@ import lombok.Data;
  */
 
 @Data
-public class User implements Serializable {
+public class Consumer implements Serializable {
 
     private long id;
 

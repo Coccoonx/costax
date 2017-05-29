@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 public class Profile implements Serializable {
 
-    User user = new User();
+    Consumer consumer = new Consumer();
     List<Trade> trades = new ArrayList();
     Set<Product> myProducts = new HashSet<>();
     Set<Product> products = new HashSet<>();

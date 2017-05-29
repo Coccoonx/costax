@@ -2,19 +2,18 @@ package com.mobilesoft.bonways.uis;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Profile;
-import com.mobilesoft.bonways.core.models.User;
+import com.mobilesoft.bonways.core.models.Consumer;
 import com.squareup.picasso.Picasso;
 
 public class AccountActivity extends AppCompatActivity {
@@ -23,8 +22,8 @@ public class AccountActivity extends AppCompatActivity {
     TextView username;
     TextView email;
     LinearLayout subscription;
-    LinearLayout shops;
-    LinearLayout products;
+    LinearLayout myProducts;
+    LinearLayout publishProducts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +36,16 @@ public class AccountActivity extends AppCompatActivity {
         username = (TextView) findViewById(R.id.account_username);
         email = (TextView) findViewById(R.id.account_email);
         subscription = (LinearLayout) findViewById(R.id.subscription);
-        shops = (LinearLayout) findViewById(R.id.shops);
-        products = (LinearLayout) findViewById(R.id.products);
+        myProducts = (LinearLayout) findViewById(R.id.shops);
+        publishProducts = (LinearLayout) findViewById(R.id.products);
 
-        Profile profile = ProfileManager.getCurrentUserProfile();
+        final Profile profile = ProfileManager.getCurrentUserProfile();
         try {
-            User currentUser = profile.getUser();
-            if (currentUser != null && currentUser.getImageUrl() != null) {
-                Picasso.with(this).load(currentUser.getImageUrl()).into(profilePicture);
-                username.setText(currentUser.getDisplayName());
-                email.setText(currentUser.getEmail());
+            Consumer currentConsumer = profile.getConsumer();
+            if (currentConsumer != null && currentConsumer.getImageUrl() != null) {
+                Picasso.with(this).load(currentConsumer.getImageUrl()).into(profilePicture);
+                username.setText(currentConsumer.getDisplayName());
+                email.setText(currentConsumer.getEmail());
             }
         } catch (NullPointerException e) {
             // Not signed in, launch the Sign In activity
@@ -63,16 +62,21 @@ public class AccountActivity extends AppCompatActivity {
 
             }
         });
-        shops.setOnClickListener(new View.OnClickListener() {
+        myProducts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(AccountActivity.this, ShopActivity.class));
             }
         });
-        products.setOnClickListener(new View.OnClickListener() {
+        publishProducts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AccountActivity.this, ProductActivity.class));
+                if (profile.getTrades().size() != 0)
+                    startActivity(new Intent(AccountActivity.this, AddProductWizardActivity.class));
+                else{
+                    Toast.makeText(AccountActivity.this, getResources().getString(R.string.need_shop_first), Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(AccountActivity.this, AddShopWizardActivity.class));
+                }
 
             }
         });
