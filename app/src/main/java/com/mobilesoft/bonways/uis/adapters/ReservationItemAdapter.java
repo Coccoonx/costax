@@ -7,7 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mobilesoft.bonways.R;
+import com.mobilesoft.bonways.backend.DummyServer;
+import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Reservation;
+import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.uis.viewholders.ReservationItemViewHolder;
 import com.squareup.picasso.Picasso;
 
@@ -22,12 +25,17 @@ public class ReservationItemAdapter extends RecyclerView.Adapter<ReservationItem
 
     ArrayList<Reservation> mDataSet;
     Context mContext;
+    ArrayList<Trade> trades;
     public static final String TAG = "ReservationItemAdapter";
 
     public ReservationItemAdapter(Context context, ArrayList<Reservation> arrayList) {
         super();
         mDataSet = arrayList;
         mContext = context;
+        trades = new ArrayList<>();
+
+        trades.addAll(DummyServer.getTrade());
+        trades.addAll(ProfileManager.getCurrentUserProfile().getTrades());
     }
 
     @Override
@@ -36,7 +44,18 @@ public class ReservationItemAdapter extends RecyclerView.Adapter<ReservationItem
         nf.setMaximumFractionDigits(1);
         Reservation reservation = mDataSet.get(position);
         holder.productName.setText(reservation.getObject().getName());
-        holder.shopName.setText(reservation.getObject().getTrade().getName());
+
+        Trade tradeTmp = new Trade();
+        for (Trade t : trades) {
+            if (reservation.getObject().getTradeId().equals(t.getId())) {
+                tradeTmp = t;
+                break;
+            }
+        }
+        holder.shopName.setText(tradeTmp.getName());
+
+
+
         double promo = reservation.getObject().getPrice() - (reservation.getObject().getPrice() * reservation.getObject().getDiscountPercentage() / 100);
         holder.promoPrice.setText(nf.format(promo)+" F");
         holder.quantity.setText(""+reservation.getQuantity());

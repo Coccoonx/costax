@@ -61,6 +61,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity
     private String mPhotoUrl;
     public static Location mUserLocation;
     public static Set<Product> mProducts;
-    public static Set<Category> mCategories = new HashSet<>();
+    public static Set<Category> mCategories = new TreeSet<>();
     public static Set<Trade> mTrade;
 
     FloatingActionButton addProduct;
@@ -161,7 +162,7 @@ public class MainActivity extends AppCompatActivity
         mTrade = new HashSet<>();
 
         //Online Call
-        backEndService = BackEndService.retrofit.create(BackEndService.class);
+        /*backEndService = BackEndService.retrofit.create(BackEndService.class);
 
         Call<Product[]> call = backEndService.getProduct();
         call.enqueue(new Callback<Product[]>() {
@@ -179,8 +180,8 @@ public class MainActivity extends AppCompatActivity
             public void onFailure(Call<Product[]> call, Throwable t) {
                 Log.d(TAG, "onFailure: An Error Occurred -\n"+ Log.getStackTraceString(t));
             }
-        });
-//        mProducts.addAll(DummyServer.getAvailableProduct());
+        });*/
+        mProducts.addAll(DummyServer.getAvailableProduct());
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
@@ -335,9 +336,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void loadData() {
-        //Online Call
 
-        Call<Category[]> call = backEndService.getCategories();
+        mCategories.addAll(DummyServer.getCategory());
+
+
+        //Online Call
+        /*Call<Category[]> call = backEndService.getCategories();
         call.enqueue(new Callback<Category[]>() {
             @Override
             public void onResponse(Call<Category[]> call, Response<Category[]> response) {
@@ -352,7 +356,7 @@ public class MainActivity extends AppCompatActivity
             public void onFailure(Call<Category[]> call, Throwable t) {
                 Log.d(TAG, "onFailure: An Error Occurred -\n"+ Log.getStackTraceString(t));
             }
-        });
+        });*/
     }
 
     @Override

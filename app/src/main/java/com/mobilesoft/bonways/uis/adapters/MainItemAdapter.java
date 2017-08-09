@@ -12,7 +12,10 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.mobilesoft.bonways.R;
+import com.mobilesoft.bonways.backend.DummyServer;
+import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Product;
+import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.uis.DetailsActivity;
 import com.mobilesoft.bonways.uis.MainActivity;
 import com.mobilesoft.bonways.uis.viewholders.MainItemViewHolder;
@@ -28,28 +31,39 @@ import java.util.ArrayList;
 public class MainItemAdapter extends RecyclerView.Adapter<MainItemViewHolder> {
 
     ArrayList<Product> mDataSet;
+    ArrayList<Trade> trades;
     Context mContext;
 
     public MainItemAdapter(Context context, ArrayList arrayList) {
         super();
         mDataSet = arrayList;
         mContext = context;
+        trades = new ArrayList<>();
+        trades.addAll(DummyServer.getTrade());
+        trades.addAll(ProfileManager.getCurrentUserProfile().getTrades());
     }
 
     @Override
     public void onBindViewHolder(MainItemViewHolder holder, int position) {
         NumberFormat nf = NumberFormat.getNumberInstance();
         nf.setMaximumFractionDigits(1);
-
         final Product product = mDataSet.get(position);
-        holder.title.setText(product.getName());
-        if (product.getTrade() != null)
-            holder.shopName.setText(product.getTrade().getName());
+        Trade tradeTmp = new Trade();
+        for (Trade t : trades) {
+            if (product.getTradeId().equals(t.getId())) {
+                tradeTmp = t;
+                break;
+            }
+        }
 
-        if (MainActivity.mUserLocation != null && product.getTrade() != null) {
-            Location tradeLoc = new Location(product.getTrade().getName());
-            tradeLoc.setLatitude(product.getTrade().getLatitude());
-            tradeLoc.setLongitude(product.getTrade().getLongitude());
+        holder.title.setText(product.getName());
+        if (product.getTradeId() != null)
+            holder.shopName.setText(tradeTmp.getName());
+
+        if (MainActivity.mUserLocation != null && tradeTmp != null) {
+            Location tradeLoc = new Location(tradeTmp.getName());
+            tradeLoc.setLatitude(tradeTmp.getLatitude());
+            tradeLoc.setLongitude(tradeTmp.getLongitude());
             int distance = (int) MainActivity.mUserLocation.distanceTo(tradeLoc);
             if (distance < 1000) {
                 holder.shopDistance.setText(nf.format(distance) + " m");
@@ -83,7 +97,7 @@ public class MainItemAdapter extends RecyclerView.Adapter<MainItemViewHolder> {
         }
 
 
-        if (product.getImageUrl()!=null && (product.getImageUrl().contains("http") || product.getImageUrl().contains("cdn"))) {
+        if (product.getImageUrl() != null && (product.getImageUrl().contains("http") || product.getImageUrl().contains("cdn"))) {
 
 //            Picasso.with(mContext).load(product.getImageUrl()).placeholder(R.drawable.nopreview).into(holder.productImage);
             Glide

@@ -7,7 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mobilesoft.bonways.R;
+import com.mobilesoft.bonways.backend.DummyServer;
+import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Product;
+import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.uis.viewholders.ProductItemViewHolder;
 import com.squareup.picasso.Picasso;
 
@@ -22,23 +25,37 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemViewHold
 
     ArrayList<Product> mDataSet ;
     Context mContext;
+    ArrayList<Trade> trades;
+
     public static final String TAG = "ProductItemAdapter";
 
     public ProductItemAdapter(Context context, ArrayList arrayList) {
         super();
         mDataSet = arrayList;
         mContext = context;
+        trades = new ArrayList<>();
+
+        trades.addAll(DummyServer.getTrade());
+        trades.addAll(ProfileManager.getCurrentUserProfile().getTrades());
     }
 
     @Override
     public void onBindViewHolder(ProductItemViewHolder holder, int position) {
         Product product = mDataSet.get(position);
+
+        Trade tradeTmp = new Trade();
+        for (Trade t : trades) {
+            if (product.getTradeId().equals(t.getId())) {
+                tradeTmp = t;
+                break;
+            }
+        }
         holder.title.setText(product.getName());
         holder.description.setText(product.getDescription());
         holder.commentCount.setText(""+position);
         DateFormat dateFormat = DateFormat.getDateInstance();
         holder.timeOff.setText(dateFormat.format(product.getDateTimeOff()));
-        Picasso.with(mContext).load("file://"+product.getTrade().getLogoUrl()).into(holder.shopLogo);
+        Picasso.with(mContext).load("file://"+tradeTmp.getLogoUrl()).into(holder.shopLogo);
         Picasso.with(mContext).load("file://"+product.getImageUrl()).into(holder.productImage);
 
     }

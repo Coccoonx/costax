@@ -5,12 +5,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.UUID;
 
 import lombok.Data;
 
@@ -54,7 +52,7 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
 
     private Category category;
 
-    private Trade trade;
+    private String tradeId;
 
     private boolean isLiked;
 
@@ -125,7 +123,9 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
         dest.writeLong(this.updatedDate != null ? this.updatedDate.getTime() : -1);
         dest.writeLong(this.dateTimeOff != null ? this.dateTimeOff.getTime() : -1);
         dest.writeSerializable(this.category);
-        dest.writeParcelable(this.trade, flags);
+        dest.writeString(this.tradeId);
+
+//        dest.writeParcelable(this.tradeId, flags);
         dest.writeByte(this.isLiked ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isWatched ? (byte) 1 : (byte) 0);
         dest.writeInt(this.status == null ? -1 : this.status.ordinal());
@@ -154,7 +154,8 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
         long tmpDateTimeOff = in.readLong();
         this.dateTimeOff = tmpDateTimeOff == -1 ? null : new Date(tmpDateTimeOff);
         this.category = (Category) in.readSerializable();
-        this.trade = in.readParcelable(Trade.class.getClassLoader());
+//        this.tradeId = in.readParcelable(Trade.class.getClassLoader());
+        this.tradeId = in.readString();
         this.isLiked = in.readByte() != 0;
         this.isWatched = in.readByte() != 0;
         int tmpStatus = in.readInt();

@@ -118,7 +118,7 @@ public class AddProductStep1 extends AbstractStep {
                 textView.setText(shops.get(position).getAddress());
 
                 if (mProduct != null) {
-                    mProduct.setTrade(shops.get(position));
+                    mProduct.setTradeId(shops.get(position).getId());
                 }
             }
 

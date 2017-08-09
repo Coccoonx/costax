@@ -17,6 +17,7 @@ import com.mobilesoft.bonways.BonWaysApplication;
 import com.mobilesoft.bonways.BuildConfig;
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.backend.BackEndService;
+import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Category;
 import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.uis.AddShopWizardActivity;
@@ -171,16 +172,16 @@ public class AddShopStep1 extends AbstractStep {
     public void onNext() {
         System.out.println("onNext");
 
-//        if (ProfileManager.getCurrentUserProfile().getUser())
-        mTrade.setEmail(shopEmail.getText().toString());
-        mTrade.setName(shopName.getText().toString());
-        mTrade.setPhone(shopPhone.getText().toString());
-        mTrade.setRepresenterName(shopRepresenter.getText().toString());
-        mTrade.setWebsite(shopWebsite.getText().toString());
+//        if (ProfileManager.getCurrentUserProfile().getConsumer())
+        AddShopWizardActivity.mTrade.setEmail(shopEmail.getText().toString());
+        AddShopWizardActivity.mTrade.setName(shopName.getText().toString());
+        AddShopWizardActivity.mTrade.setPhone(shopPhone.getText().toString());
+        AddShopWizardActivity.mTrade.setRepresenterName(shopRepresenter.getText().toString());
+        AddShopWizardActivity.mTrade.setWebsite(shopWebsite.getText().toString());
         String cat = (String) shopCategory.getSelectedItem();
-        mTrade.setMainCategory(cat);
-        Log.d(TAG, "" + mTrade);
-        AddShopWizardActivity.mTrade = mTrade;
+        AddShopWizardActivity.mTrade.setMainCategory(cat);
+        Log.d(TAG, "" + AddShopWizardActivity.mTrade);
+//        AddShopWizardActivity.mTrade = mTrade;
 
 
     }

@@ -6,7 +6,7 @@ import lombok.Data;
 
 
 @Data
-public class Category implements Serializable {
+public class Category implements  Comparable<Category>, Serializable {
 
     Long id;
     String name;
@@ -25,5 +25,8 @@ public class Category implements Serializable {
         return tmp.getName().equals(this.getName());
     }
 
-
+    @Override
+    public int compareTo(Category category) {
+        return id.compareTo(category.id);
+    }
 }

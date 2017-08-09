@@ -66,14 +66,14 @@ public interface BackEndService {
     @POST("user/")
     Call<Consumer> createUser(@Body Consumer consumer);
 
-    @GET("product/")
-    Call<Product[]> getProduct();
+//    @GET("product/")
+//    Call<Product[]> getProduct();
 
-    @POST("product/comment")
-    Call<Product> updateProductComment(@Body Comment comment);
+//    @POST("product/comment")
+//    Call<Product> updateProductComment(@Body Comment comment);
 
-    @GET("category/")
-    Call<Category[]> getCategories();
+//    @GET("category/")
+//    Call<Category[]> getCategories();
 
 
 }

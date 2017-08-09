@@ -1,14 +1,11 @@
 package com.mobilesoft.bonways.uis;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Paint;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -22,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -30,17 +26,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.backend.BackEndService;
+import com.mobilesoft.bonways.backend.DummyServer;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
-import com.mobilesoft.bonways.core.models.Category;
 import com.mobilesoft.bonways.core.models.Comment;
 import com.mobilesoft.bonways.core.models.Product;
-import com.mobilesoft.bonways.core.models.Profile;
 import com.mobilesoft.bonways.core.models.Reservation;
-import com.mobilesoft.bonways.core.models.Consumer;
+import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.uis.adapters.CommentAdapter;
-import com.mobilesoft.bonways.uis.adapters.SimpleAdapter;
 import com.orhanobut.dialogplus.DialogPlus;
-import com.orhanobut.dialogplus.GridHolder;
 import com.orhanobut.dialogplus.OnClickListener;
 import com.orhanobut.dialogplus.OnDismissListener;
 import com.orhanobut.dialogplus.ViewHolder;
@@ -51,15 +44,9 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -100,6 +87,7 @@ public class DetailsActivity extends AppCompatActivity {
     private CommentAdapter ca;
     private ProgressBar progressComment;
     private BackEndService backEndService;
+    Trade tradeTmp = new Trade();
 
 
     @Override
@@ -162,32 +150,42 @@ public class DetailsActivity extends AppCompatActivity {
         nf.setMaximumFractionDigits(1);
 
         if (mProduct.getImageUrl() != null && (mProduct.getImageUrl().contains("http") || mProduct.getImageUrl().contains("cdn")))
-            Picasso.with(this).load(mProduct.getImageUrl()).into(imageProduct);
+            Picasso.with(this).load(mProduct.getImageUrl()).placeholder(R.drawable.nopreview).into(imageProduct);
         else
-            Picasso.with(this).load("file://" + mProduct.getImageUrl()).into(imageProduct);
+            Picasso.with(this).load("file://" + mProduct.getImageUrl()).placeholder(R.drawable.nopreview).into(imageProduct);
 
-        for (Reservation reservation : ProfileManager.getCurrentUserProfile().getMyReservations()) {
-            if (reservation.getObject().getCode().equals(mProduct.getCode())) {
-                reserved.setVisibility(View.VISIBLE);
+//        for (Reservation reservation : ProfileManager.getCurrentUserProfile().getMyReservations()) {
+//            if (reservation.getObject().getCode().equals(mProduct.getCode())) {
+//                reserved.setVisibility(View.VISIBLE);
+//            }
+//        }
+        ArrayList<Trade> trades = new ArrayList<>();
+        trades.addAll(DummyServer.getTrade());
+        trades.addAll(ProfileManager.getCurrentUserProfile().getTrades());
+
+        for (Trade t : trades) {
+            if (mProduct.getTradeId().equals(t.getId())) {
+                tradeTmp = t;
+                break;
             }
         }
 
-        Picasso.with(this).load(mProduct.getTrade().getLogoUrl()).into(shopLogo);
+        Picasso.with(this).load(tradeTmp.getLogoUrl()).into(shopLogo);
         titleProduct.setText(mProduct.getName());
         descriptionProduct.setText(mProduct.getDescription());
-        shopName.setText(mProduct.getTrade().getName());
+        shopName.setText(tradeTmp.getName());
         if (mProduct.getCategory() != null)
             category.setText(mProduct.getCategory().getName());
         DateFormat format = DateFormat.getDateInstance(DateFormat.MEDIUM);
         if (mProduct.getCreatedDate() != null)
             timePosted.setText(format.format(mProduct.getCreatedDate()));
         productLeft.setText("" + mProduct.getUnitQuantity());
-        tradePhone.setText(mProduct.getTrade().getPhone());
+        tradePhone.setText(tradeTmp.getPhone());
 
         if (MainActivity.mUserLocation != null) {
-            Location tradeLoc = new Location(mProduct.getTrade().getName());
-            tradeLoc.setLatitude(mProduct.getTrade().getLatitude());
-            tradeLoc.setLongitude(mProduct.getTrade().getLongitude());
+            Location tradeLoc = new Location(tradeTmp.getName());
+            tradeLoc.setLatitude(tradeTmp.getLatitude());
+            tradeLoc.setLongitude(tradeTmp.getLongitude());
             int distance = (int) MainActivity.mUserLocation.distanceTo(tradeLoc);
             if (distance < 1000) {
                 shopDistance.setText(nf.format(distance) + " m");
@@ -311,14 +309,14 @@ public class DetailsActivity extends AppCompatActivity {
         labelGoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                instance.showShop(new LatLng(mProduct.getTrade().getLatitude(), mProduct.getTrade().getLongitude()));
+                instance.showShop(new LatLng(tradeTmp.getLatitude(), tradeTmp.getLongitude()));
                 finish();
             }
         });
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                instance.showShop(new LatLng(mProduct.getTrade().getLatitude(), mProduct.getTrade().getLongitude()));
+                instance.showShop(new LatLng(tradeTmp.getLatitude(), tradeTmp.getLongitude()));
                 finish();
             }
         });
@@ -488,8 +486,8 @@ public class DetailsActivity extends AppCompatActivity {
     public void pushComment(Comment comment) {
         if (progressComment != null)
             progressComment.setVisibility(View.VISIBLE);
-        Call<Product> callParish = backEndService.updateProductComment(comment);
 
+        /*Call<Product> callParish = backEndService.updateProductComment(comment);
         callParish.enqueue(new Callback<Product>() {
             @Override
             public void onResponse(Call<Product> call, Response<Product> response) {
@@ -523,7 +521,7 @@ public class DetailsActivity extends AppCompatActivity {
                     progressComment.setVisibility(View.GONE);
 
             }
-        });
+        });*/
     }
 
     public interface DisplayShop {

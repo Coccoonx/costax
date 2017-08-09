@@ -94,6 +94,7 @@
     <string name="title_activity_account">Mon Compte</string>
     <string name="wizard_publish_product_title">Publié un Produit</string>
     <string name="need_shop_first">Créez d\'abord une boutique.</string>
+    <string name="label_add">Add</string>
 
 
 </resources>
