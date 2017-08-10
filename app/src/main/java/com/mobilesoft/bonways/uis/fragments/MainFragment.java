@@ -39,9 +39,9 @@ public class MainFragment extends Fragment implements SimpleAdapter.FilterByCate
 
         View v = inflater.inflate(R.layout.fragment_main, container, false);
 
-        mAdView = (AdView) v.findViewById(R.id.adView);
+//        mAdView = (AdView) v.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+//        mAdView.loadAd(adRequest);
 
         instance = this;
 

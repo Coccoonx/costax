@@ -32,10 +32,10 @@ public interface BackEndService {
     int DEFAULT_PAGE = 0;
     int DEFAULT_SIZE = 30;
 
-    //    String APP_URL = "http://libre-exchange.awswouri.com";
 //    String APP_URL = "http://192.168.43.228:9898";
 //    String APP_URL = "http://192.168.43.107:8090/";
-    String APP_URL = "http://54.173.74.108:8090/";
+    String APP_URL = "http://192.168.1.5:8090/";
+//    String APP_URL = "http://54.173.74.108:8090/";
 //    String APP_URL = "http://192.168.137.1:8090/";
 //    String APP_URL = "http://34.193.132.208:9898";
 
