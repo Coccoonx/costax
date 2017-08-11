@@ -40,7 +40,7 @@ public class MainFragment extends Fragment implements SimpleAdapter.FilterByCate
         View v = inflater.inflate(R.layout.fragment_main, container, false);
 
 //        mAdView = (AdView) v.findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
+//        AdRequest adRequest = new AdRequest.Builder().build();
 //        mAdView.loadAd(adRequest);
 
         instance = this;
@@ -56,41 +56,16 @@ public class MainFragment extends Fragment implements SimpleAdapter.FilterByCate
 //            }
 //        });
 
-        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerMain);
+        recyclerView = v.findViewById(R.id.recyclerMain);
         RecyclerView.LayoutManager lm = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(lm);
         recyclerView.setHasFixedSize(true);
-
-        Profile profile = ProfileManager.getCurrentUserProfile();
-//        if (profile != null) {
-//            if (profile.getProducts().size() == 0) {
-//                profile.getProducts().addAll(DummyServer.getAvailableProduct());
-//            }
-//            dataSet.addAll(profile.getMyProducts());
-//            dataSet.addAll(profile.getProducts());
-//        } else {
-//
-//            dataSet.addAll(DummyServer.getAvailableProduct());
-//        }
-        //Dummy Data
 
 
         ArrayList<Product> dataSet = new ArrayList<>();
         dataSet.addAll(MainActivity.mProducts);
 
 
-        mi = new MainItemAdapter(getActivity(), dataSet);
-        recyclerView.setAdapter(mi);
-//        mi = new MainItemAdapter(getActivity(), dataSet);
-//        recyclerView.setAdapter(mi);
-//        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         return v;
     }
@@ -158,8 +133,10 @@ public class MainFragment extends Fragment implements SimpleAdapter.FilterByCate
         ArrayList<Product> dataSet = new ArrayList<>();
         dataSet.addAll(filteredProduct);
 
-        mi = new MainItemAdapter(getActivity(), dataSet);
-        recyclerView.setAdapter(mi);
+        mi.notifyDataSetChanged();
+
+//        mi = new MainItemAdapter(getActivity(), dataSet);
+//        recyclerView.setAdapter(mi);
 //                }
     }
 }

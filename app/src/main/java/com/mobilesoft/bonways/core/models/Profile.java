@@ -13,9 +13,10 @@ import lombok.Data;
 public class Profile implements Serializable {
 
     Consumer consumer = new Consumer();
-    List<Trade> trades = new ArrayList();
+    Set<Trade> trades = new HashSet<>();
     Set<Product> myProducts = new HashSet<>();
     Set<Product> products = new HashSet<>();
     Set<Reservation> myReservations = new HashSet<>();
+    Set<Category> categories = new HashSet<>();
 
 }

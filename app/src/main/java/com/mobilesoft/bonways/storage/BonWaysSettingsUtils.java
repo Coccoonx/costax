@@ -20,6 +20,7 @@ public class BonWaysSettingsUtils {
     public static final String MAX_AMOUNT_TRANSFERABLE = "MAX_AMOUNT_TRANSFERABLE";
     public static final String MIN_AMOUNT_TRANSFERABLE = "MIN_AMOUNT_TRANSFERABLE";
     public static final String APP_RATE_LAUNCH_TIME = "APP_RATE_LAUNCH_TIME";
+    public static final String LAST_PULL = "LAST_PULL";
 
     public static void logOut() {
         setIsLoggedIn(false);
@@ -35,12 +36,12 @@ public class BonWaysSettingsUtils {
         storageInterface.save(USER_EMAIL, b);
     }
 
-    public static void setAppRateLaunchTime(int appRateLaunchTime){
+    public static void setAppRateLaunchTime(int appRateLaunchTime) {
         PreferencesStorage storageInterface = BonWaysApplication.getPreferencesStorageInterface();
         storageInterface.save(APP_RATE_LAUNCH_TIME, appRateLaunchTime);
     }
 
-    public static int getAppRateLaunchTime(){
+    public static int getAppRateLaunchTime() {
         PreferencesStorage storageInterface = BonWaysApplication.getPreferencesStorageInterface();
         return storageInterface.load(APP_RATE_LAUNCH_TIME, 0);
     }
@@ -93,7 +94,7 @@ public class BonWaysSettingsUtils {
 
     public static void setAppAlreadyConfigured(boolean value) {
         PreferencesStorage storageInterface = BonWaysApplication.getPreferencesStorageInterface();
-        storageInterface.save(APP_ALREADY_CONFIGURED, value,  true);
+        storageInterface.save(APP_ALREADY_CONFIGURED, value, true);
     }
 
     public static void setAccountAlreadyConfigured(boolean value) {
@@ -120,11 +121,22 @@ public class BonWaysSettingsUtils {
         storageInterface.save(BonWaysSettingsUtils.NOTIFICATION_VIBRATE, value);
     }
 
+    public static Long getLastPull() {
+        boolean notificationEnabled;
+        PreferencesStorage storageInterface = BonWaysApplication.getPreferencesStorageInterface();
+        Long defaultV = 0l;
+        return  storageInterface.load(LAST_PULL, defaultV);
+    }
+
+    public static void setLastPull(long value) {
+        PreferencesStorage storageInterface = BonWaysApplication.getPreferencesStorageInterface();
+        storageInterface.save(LAST_PULL, value);
+    }
+
     public static boolean canPlayNotificationSound() {
         // TODO Implement this method, in order to load the sound the customer want to play. Since now, we just return true
         return true;
     }
-
 
 
     public static void setMaxAmountTransferable(Float value) {

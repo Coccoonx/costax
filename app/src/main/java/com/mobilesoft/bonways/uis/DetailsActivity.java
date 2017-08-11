@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.github.curioustechizen.ago.RelativeTimeTextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.maps.model.LatLng;
@@ -77,7 +78,7 @@ public class DetailsActivity extends AppCompatActivity {
     CircularImageView go;
     Button reserve;
     public static DisplayShop instance;
-    private TextView timePosted;
+    private RelativeTimeTextView timePosted;
     Thread t;
     private LinearLayout containerComments;
     private DialogPlus dialog;
@@ -114,7 +115,7 @@ public class DetailsActivity extends AppCompatActivity {
         watched = (TextView) findViewById(R.id.item_watched);
         commented = (TextView) findViewById(R.id.item_comments);
         category = (TextView) findViewById(R.id.category);
-        timePosted = (TextView) findViewById(R.id.timeposted);
+        timePosted = findViewById(R.id.timeposted);
         timeOff = (TextView) findViewById(R.id.timeleft);
         productLeft = (TextView) findViewById(R.id.productleft);
         shopName = (TextView) findViewById(R.id.shop_name);
@@ -160,7 +161,7 @@ public class DetailsActivity extends AppCompatActivity {
 //            }
 //        }
         ArrayList<Trade> trades = new ArrayList<>();
-        trades.addAll(DummyServer.getTrade());
+//        trades.addAll(DummyServer.getTrade());
         trades.addAll(ProfileManager.getCurrentUserProfile().getTrades());
 
         for (Trade t : trades) {
@@ -178,7 +179,8 @@ public class DetailsActivity extends AppCompatActivity {
             category.setText(mProduct.getCategory().getName());
         DateFormat format = DateFormat.getDateInstance(DateFormat.MEDIUM);
         if (mProduct.getCreatedDate() != null)
-            timePosted.setText(format.format(mProduct.getCreatedDate()));
+//            timePosted.setText(format.format(mProduct.getCreatedDate()));
+            timePosted.setReferenceTime(new Date().getTime());
         productLeft.setText("" + mProduct.getUnitQuantity());
         tradePhone.setText(tradeTmp.getPhone());
 
@@ -379,6 +381,7 @@ public class DetailsActivity extends AppCompatActivity {
         if (mProduct != null && mClone != null) {
 //            if (alreadyRemoved){
 
+            // todo :: Handle for likes, views and comments
             MainActivity.mProducts.remove(mClone);
             MainActivity.mProducts.add(mProduct);
 //            }
@@ -393,6 +396,14 @@ public class DetailsActivity extends AppCompatActivity {
             t.interrupt();
         super.onPause();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (t != null && t.isInterrupted()) {
+            t.start();
+        }
     }
 
     @Override

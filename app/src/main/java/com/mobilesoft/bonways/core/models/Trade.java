@@ -53,7 +53,7 @@ public class Trade implements Serializable, Parcelable {
     private Set<Product> productslist = new HashSet<>();
 
     public Trade() {
-        id = UUID.randomUUID().toString();
+
     }
 
     @Override
@@ -63,6 +63,7 @@ public class Trade implements Serializable, Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
         dest.writeString(this.name);
         dest.writeString(this.address);
         dest.writeDouble(this.latitude);
@@ -82,6 +83,7 @@ public class Trade implements Serializable, Parcelable {
     }
 
     protected Trade(Parcel in) {
+        this.id = in.readString();
         this.name = in.readString();
         this.address = in.readString();
         this.latitude = in.readDouble();

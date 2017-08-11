@@ -120,6 +120,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mobilesoft.bonways.uis.MainActivity" />
         </activity>
+
+        <receiver
+            android:name=".service.ScheduleReceiver"
+            android:process=":remote" >
+        </receiver>
+
+        <service
+            android:name=".service.PullService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

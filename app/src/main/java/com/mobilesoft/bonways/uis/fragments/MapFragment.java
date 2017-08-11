@@ -118,7 +118,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private void loadShop() {
         MarkerOptions options = new MarkerOptions();
 
-        MainActivity.mTrade.addAll(DummyServer.getTrade());
+//        MainActivity.mTrade.addAll(DummyServer.getInstance().getTrades());
         MainActivity.mTrade.addAll(ProfileManager.getCurrentUserProfile().getTrades());
 
         for (Trade trade : MainActivity.mTrade) {

@@ -12,6 +12,7 @@ import com.mobilesoft.bonways.core.models.Trade;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Lyonnel Dzotang on 07/02/2017.
@@ -19,7 +20,39 @@ import java.util.List;
 
 public class DummyServer {
 
-    public static List<Product> getAvailableProduct() {
+    private List<Product> products;
+    private List<Trade> trades;
+    private List<Category> categories;
+
+    private static DummyServer instance;
+
+    private DummyServer(){
+        categories = getCategory();
+        trades = getTrade();
+        products =  getAvailableProduct();
+
+    };
+
+    public static DummyServer getInstance(){
+        if (instance==null)
+            instance =new DummyServer();
+        return instance;
+    }
+
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public List<Trade> getTrades() {
+        return trades;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    private   List<Product> getAvailableProduct() {
         ArrayList<Product> products = new ArrayList<>();
 
         Calendar calendar = Calendar.getInstance();
@@ -44,7 +77,7 @@ public class DummyServer {
 
         }
         product.setImageUrl("http://magicien.ch/magasin-magie/images/jeux-cartes-bicycle-pack-bridge.jpg");
-        product.setTradeId(getTrade().get(0).getId());
+        product.setTradeId(trades.get(0).getId());
         product.setCategory(getCategory().get(5));
         products.add(product);
 
@@ -79,7 +112,7 @@ public class DummyServer {
 
 
         product.setImageUrl("http://www.renaud-bray.com/ImagesEditeurs/PG/1446/1446905-gf.jpg");
-        product.setTradeId(getTrade().get(0).getId());
+        product.setTradeId(trades.get(0).getId());
         product.setCategory(getCategory().get(5));
 
         products.add(product);
@@ -125,7 +158,7 @@ public class DummyServer {
 //        comment = commentService.create(comment);
         product.getComments().add(comment);
         product.setImageUrl("https://img1.dlmcdn.fr/a/1254/MSA1254399-0403-0300-p00-table-basse-rectangulaire-chene-massif-aboute-huile-l115xl100xh73cm-hawke.jpg");
-        product.setTradeId(getTrade().get(1).getId());
+        product.setTradeId(trades.get(1).getId());
         product.setCategory(getCategory().get(2));
 
         products.add(product);
@@ -170,7 +203,7 @@ public class DummyServer {
         product.getComments().add(comment);
 
         product.setImageUrl("http://cdn.villatech.fr/media/catalog/product/cache/4/image/580x/9df78eab33525d08d6e5fb8d27136e95/1/0/1000040967_UE_55_F_6100-2.jpg");
-        product.setTradeId(getTrade().get(2).getId());
+        product.setTradeId(trades.get(2).getId());
         product.setCategory(getCategory().get(5));
 
         products.add(product);
@@ -207,7 +240,7 @@ public class DummyServer {
         product.getComments().add(comment);
 
         product.setImageUrl("http://i2.cdscdn.com/pdt2/6/2/7/1/700x700/leg3245060500627/rw/legrand-rallonge-multiprise-electrique-std-6-prise.jpg");
-        product.setTradeId(getTrade().get(4).getId());
+        product.setTradeId(trades.get(4).getId());
         product.setCategory(getCategory().get(2));
 
         products.add(product);
@@ -251,7 +284,7 @@ public class DummyServer {
         product.getComments().add(comment);
 
         product.setImageUrl("http://www.notebookcheck.biz/uploads/tx_nbc2/978509.jpg");
-        product.setTradeId(getTrade().get(1).getId());
+        product.setTradeId(trades.get(1).getId());
         product.setCategory(getCategory().get(5));
 
         products.add(product);
@@ -298,7 +331,7 @@ public class DummyServer {
         product.getComments().add(comment);
 
         product.setImageUrl("https://content.rolex.com/is/image/Rolex/?src=is%7BRolex%2Fshadow_oyster_perpetual_39%3Flayer%3D1%26src%3D50683%26layer%3D2%26src%3D50684_g_39%26layer%3D3%26src%3D50682%7D&$rv55-watch-grid$");
-        product.setTradeId(getTrade().get(3).getId());
+        product.setTradeId(trades.get(3).getId());
         product.setCategory(getCategory().get(5));
 
         products.add(product);
@@ -316,11 +349,12 @@ public class DummyServer {
     }
 
 
-    public static List<Trade> getTrade(){
+    private List<Trade> getTrade(){
 
         List<Trade> trades = new ArrayList<>();
 
         Trade trade = new Trade();
+        trade.setId(UUID.randomUUID().toString());
         trade.setName("Santa Lucia");
         trade.setRepresenterName("Moussa");
         trade.setAddress("33 Marie Salomon, Ange Raphael, Douala");
@@ -337,6 +371,7 @@ public class DummyServer {
 
 
         trade = new Trade();
+        trade.setId(UUID.randomUUID().toString());
         trade.setName("Super U");
         trade.setRepresenterName("Jacob");
         trade.setAddress("1377 Rue Michel Brunet, Bali, Douala");
@@ -353,6 +388,7 @@ public class DummyServer {
 
 
         trade = new Trade();
+        trade.setId(UUID.randomUUID().toString());
         trade.setName("Dovv");
         trade.setRepresenterName("Aboubakar");
         trade.setAddress("43 Rue Amidou, Bonapriso, Douala");
@@ -369,6 +405,7 @@ public class DummyServer {
 
 
         trade = new Trade();
+        trade.setId(UUID.randomUUID().toString());
         trade.setName("Zara");
         trade.setRepresenterName("Felix");
         trade.setAddress("34 Boulevard de la Reunification, Akwa, Douala");
@@ -385,6 +422,7 @@ public class DummyServer {
 
 
         trade = new Trade();
+        trade.setId(UUID.randomUUID().toString());
         trade.setName("Castorama");
         trade.setRepresenterName("Frederic");
         trade.setAddress("12 Rue Foch, Akwa, Douala");
@@ -435,7 +473,7 @@ public class DummyServer {
 
     }
 
-    public static List<Category> getCategory() {
+    private List<Category> getCategory() {
         List<Category> categories = new ArrayList<>();
 
         Category category = new Category();

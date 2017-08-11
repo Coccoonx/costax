@@ -34,7 +34,7 @@ public class ReservationItemAdapter extends RecyclerView.Adapter<ReservationItem
         mContext = context;
         trades = new ArrayList<>();
 
-        trades.addAll(DummyServer.getTrade());
+//        trades.addAll(DummyServer.getTrade());
         trades.addAll(ProfileManager.getCurrentUserProfile().getTrades());
     }
 

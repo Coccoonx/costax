@@ -1,12 +1,13 @@
 package com.mobilesoft.bonways;
 
 import android.app.Application;
+import android.content.Intent;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.mobilesoft.bonways.service.PullService;
 import com.mobilesoft.bonways.storage.PreferencesStorage;
 
-import net.danlew.android.joda.JodaTimeAndroid;
 
 
 public class BonWaysApplication extends Application {
@@ -19,9 +20,15 @@ public class BonWaysApplication extends Application {
         super.onCreate();
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
-        JodaTimeAndroid.init(this);
         instance=this;
         preferencesStorageInterface = new PreferencesStorage(this);
+
+        //pullData();
+    }
+
+    private void pullData() {
+        Intent intent = new Intent(this, PullService.class);
+        startService(intent);
     }
 
     public static PreferencesStorage getPreferencesStorageInterface() {

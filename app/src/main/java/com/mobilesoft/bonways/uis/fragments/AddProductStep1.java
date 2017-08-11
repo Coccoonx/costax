@@ -99,7 +99,9 @@ public class AddProductStep1 extends AbstractStep {
         shopItems.setPositiveButton("OK");
 
 
-        final List<Trade> shops = ProfileManager.getCurrentUserProfile().getTrades();
+
+        final List<Trade> shops = new ArrayList<>();
+        shops.addAll(ProfileManager.getCurrentUserProfile().getTrades());
         ArrayList<String> shopsList = new ArrayList<>();
         for (Trade trade : shops) {
             shopsList.add(trade.getName());

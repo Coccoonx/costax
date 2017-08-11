@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.mikhaellopez.circularimageview.CircularImageView;
 import com.mobilesoft.bonways.R;
 
 /**
@@ -17,14 +18,15 @@ public class MainItemViewHolder extends RecyclerView.ViewHolder {
     public LinearLayout container;
     public ImageView productImage;
     public ImageView iconLiked;
+    public CircularImageView shopLogo;
     public TextView normalPrice;
     public TextView promoPrice;
     public TextView shopName;
     public TextView shopDistance;
     public TextView percentageDiscount;
     public TextView title;
-    public TextView timeOff;
-    public TextView timePosted;
+//    public TextView timeOff;
+//    public TextView timePosted;
     public TextView liked;
     public TextView watched;
     public TextView commented;
@@ -40,12 +42,13 @@ public class MainItemViewHolder extends RecyclerView.ViewHolder {
         watched = (TextView) itemView.findViewById(R.id.item_watched);
         commented = (TextView) itemView.findViewById(R.id.item_comments);
         category = (TextView) itemView.findViewById(R.id.category);
-        timeOff = (TextView) itemView.findViewById(R.id.timeleft);
-        timePosted = (TextView) itemView.findViewById(R.id.timeposted);
+//        timeOff = (TextView) itemView.findViewById(R.id.timeleft);
+//        timePosted = (TextView) itemView.findViewById(R.id.timeposted);
         shopName = (TextView) itemView.findViewById(R.id.shop_name);
         shopDistance = (TextView) itemView.findViewById(R.id.shop_distance);
         productImage = (ImageView) itemView.findViewById(R.id.product_image);
         iconLiked = (ImageView) itemView.findViewById(R.id.icon_liked);
+        shopLogo =  itemView.findViewById(R.id.shop_logo);
         container = (LinearLayout) itemView.findViewById(R.id.item_container);
     }
 }

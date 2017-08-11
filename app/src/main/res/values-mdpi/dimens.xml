@@ -22,11 +22,11 @@
 
     <dimen name="item_title">11sp</dimen>
     <dimen name="item_text_standard">9sp</dimen>
-    <dimen name="item_text_small">8sp</dimen>
-    <dimen name="item_text_smallest">7sp</dimen>
+    <dimen name="item_text_small">9sp</dimen>
+    <dimen name="item_text_smallest">8sp</dimen>
 
 
-    <dimen name="text_percentage_item">14sp</dimen>
+    <dimen name="text_percentage_item">16sp</dimen>
     <dimen name="text_percentage_item_h">22sp</dimen>
     <dimen name="account_header_height">96dp</dimen>
     <dimen name="item_icon_size">20dp</dimen>

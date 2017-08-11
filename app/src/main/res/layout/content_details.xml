@@ -75,11 +75,18 @@
                             android:textColor="@color/textColorGray"
                             android:textSize="@dimen/text_small_size" />
 
-                        <TextView
+                        <!--<TextView-->
+                            <!--android:id="@+id/timeposted"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="41 min"-->
+                            <!--android:textColor="@color/textColorGray"-->
+                            <!--android:textSize="@dimen/text_smallest_size" />-->
+
+                        <com.github.curioustechizen.ago.RelativeTimeTextView
                             android:id="@+id/timeposted"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="41 min"
                             android:textColor="@color/textColorGray"
                             android:textSize="@dimen/text_smallest_size" />
 
@@ -207,6 +214,15 @@
                             android:text=""
                             android:textColor="@color/colorPanel"
                             android:textSize="@dimen/text_normal_size" />
+                        <!--<com.github.curioustechizen.ago.RelativeTimeTextView-->
+                            <!--android:id="@+id/timeleft"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginLeft="@dimen/margin_middle_short_mini"-->
+                            <!--android:layout_marginStart="@dimen/margin_middle_short_mini"-->
+                            <!--android:gravity="center"-->
+                            <!--android:textColor="@color/colorPanel"-->
+                            <!--android:textSize="@dimen/text_normal_size"  />-->
                     </LinearLayout>
 
 

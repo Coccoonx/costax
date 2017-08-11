@@ -2,6 +2,8 @@ package com.mobilesoft.bonways.uis;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -28,6 +31,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -49,6 +53,8 @@ import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Profile;
 import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.core.models.Consumer;
+import com.mobilesoft.bonways.service.ScheduleReceiver;
+import com.mobilesoft.bonways.storage.BonWaysSettingsUtils;
 import com.mobilesoft.bonways.uis.adapters.MainTabAdapter;
 import com.mobilesoft.bonways.uis.adapters.SimpleAdapter;
 import com.orhanobut.dialogplus.DialogPlus;
@@ -58,6 +64,7 @@ import com.orhanobut.dialogplus.OnDismissListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -87,6 +94,7 @@ public class MainActivity extends AppCompatActivity
     FloatingActionButton addShop;
     FloatingActionMenu mainFab;
 
+    ProgressBar progressBar;
     private GoogleApiClient mGoogleApiClient;
 
     public static DialogPlus dialog;
@@ -160,6 +168,8 @@ public class MainActivity extends AppCompatActivity
 
         mProducts = new HashSet<>();
         mTrade = new HashSet<>();
+        progressBar = findViewById(R.id.progress_bar);
+
 
         //Online Call
         /*backEndService = BackEndService.retrofit.create(BackEndService.class);
@@ -181,7 +191,6 @@ public class MainActivity extends AppCompatActivity
                 Log.d(TAG, "onFailure: An Error Occurred -\n"+ Log.getStackTraceString(t));
             }
         });*/
-        mProducts.addAll(DummyServer.getAvailableProduct());
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
@@ -247,6 +256,7 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
 
         mainFab = (FloatingActionMenu) findViewById(R.id.mainFab);
         addProduct = (FloatingActionButton) findViewById(R.id.fab_add_product);
@@ -336,27 +346,38 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void loadData() {
+        long min30 = 30 * 60 * 1000;
+        long now = new Date().getTime();
+        long diff = now - BonWaysSettingsUtils.getLastPull();
 
-        mCategories.addAll(DummyServer.getCategory());
+        if (diff >= min30) {
+            new FetchData().execute();
+            scheduleAlarm();
+            Log.d(TAG, "loadData: retrieving data");
+        } else {
+            Profile profile = ProfileManager.getCurrentUserProfile();
+            mProducts = profile.getProducts();
+            mCategories = profile.getCategories();
+            mTrade = profile.getTrades();
+            Log.d(TAG, "loadData: Up-to-date :)");
+        }
+    }
 
-
-        //Online Call
-        /*Call<Category[]> call = backEndService.getCategories();
-        call.enqueue(new Callback<Category[]>() {
-            @Override
-            public void onResponse(Call<Category[]> call, Response<Category[]> response) {
-                if (response.body() != null) {
-                    for (Category p : response.body()) {
-                        mCategories.add(p);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Category[]> call, Throwable t) {
-                Log.d(TAG, "onFailure: An Error Occurred -\n"+ Log.getStackTraceString(t));
-            }
-        });*/
+    // Setup a recurring alarm every half hour
+    public void scheduleAlarm() {
+        Toast.makeText(this, "Scheduled", Toast.LENGTH_SHORT).show();
+        // Construct an intent that will execute the AlarmReceiver
+        Intent intent = new Intent(getApplicationContext(), ScheduleReceiver.class);
+        // Create a PendingIntent to be triggered when the alarm goes off
+        final PendingIntent pIntent = PendingIntent.getBroadcast(this, ScheduleReceiver.REQUEST_CODE,
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        // Setup periodic alarm every every half hour from this point onwards
+        long firstMillis = System.currentTimeMillis(); // alarm is set right away
+        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        // First parameter is the type: ELAPSED_REALTIME, ELAPSED_REALTIME_WAKEUP, RTC_WAKEUP
+        // Interval can be INTERVAL_FIFTEEN_MINUTES, INTERVAL_HALF_HOUR, INTERVAL_HOUR, INTERVAL_DAY
+        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, firstMillis,
+                AlarmManager.INTERVAL_FIFTEEN_MINUTES, pIntent);
     }
 
     @Override
@@ -487,6 +508,78 @@ public class MainActivity extends AppCompatActivity
 
         }
 
+    }
+
+    public class FetchData extends AsyncTask<Void, Void, Void>{
+
+        Set<Trade> allTrades;
+        Set<Product> products;
+        Set<Category> categories;
+
+        public FetchData() {
+            super();
+            allTrades = new HashSet<>();
+            products = new HashSet<>();
+            categories = new HashSet<>();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            allTrades = new HashSet<>();
+            allTrades.addAll(DummyServer.getInstance().getTrades());
+
+            //get Products using user Location, and radius.
+            products = new HashSet<>();
+            products.addAll(DummyServer.getInstance().getProducts());
+
+            categories = new HashSet<>();
+            categories.addAll(DummyServer.getInstance().getCategories());
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            Profile profile = ProfileManager.getCurrentUserProfile();
+
+            if (products != null) {
+                mProducts.clear();
+                mProducts.addAll(products);
+                profile.setProducts(products);
+
+            }
+            if (allTrades != null) {
+                mTrade.clear();
+                mTrade.addAll(allTrades);
+                profile.setTrades(allTrades);
+            }
+
+            if (categories != null) {
+                mCategories.clear();
+                mCategories.addAll(categories);
+                profile.setCategories(categories);
+            }
+
+            progressBar.setVisibility(View.GONE);
+
+            Log.d(TAG, "onPostExecute: Profile: "+ profile+", at "+ new Date().getTime());
+            BonWaysSettingsUtils.setLastPull(new Date().getTime());
+            new ProfileManager.SaveProfile().execute(profile);
+
+
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+
+        }
     }
 
 

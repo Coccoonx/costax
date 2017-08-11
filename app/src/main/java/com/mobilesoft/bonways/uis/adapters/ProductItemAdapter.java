@@ -35,7 +35,7 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemViewHold
         mContext = context;
         trades = new ArrayList<>();
 
-        trades.addAll(DummyServer.getTrade());
+//        trades.addAll(DummyServer.getTrade());
         trades.addAll(ProfileManager.getCurrentUserProfile().getTrades());
     }
 
