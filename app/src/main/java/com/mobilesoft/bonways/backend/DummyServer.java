@@ -54,16 +54,19 @@ public class DummyServer {
 
     private   List<Product> getAvailableProduct() {
         ArrayList<Product> products = new ArrayList<>();
+        Calendar calendar;
 
-        Calendar calendar = Calendar.getInstance();
         Product product = new Product();
         product.setId(1);
         product.setName("Jeu de Carte");
         product.setDescription("Jeu de carte qui vous permettra de vous de detendre en famille");
         product.setUnitQuantity((long) 78);
 
+
+        calendar = Calendar.getInstance();
+        product.setTimeStart(calendar.getTimeInMillis());
         calendar.add(Calendar.DAY_OF_MONTH, 7);
-        product.setDateTimeOff(calendar.getTime());
+        product.setTimeEnd(calendar.getTimeInMillis());
         product.setPrice(2000L);
         product.setDiscountPercentage(20L);
         for (int i = 1; i <= 32; i++) {
@@ -87,8 +90,10 @@ public class DummyServer {
         product.setDescription("Relaxez vous en famille ou entre collègue avec une partie de Babyfoot ");
         product.setUnitQuantity((long) 87);
 
+        calendar = Calendar.getInstance();
+        product.setTimeStart(calendar.getTimeInMillis());
         calendar.add(Calendar.DAY_OF_MONTH, 7);
-        product.setDateTimeOff(calendar.getTime());
+        product.setTimeEnd(calendar.getTimeInMillis());
         product.setPrice(8000L);
         product.setDiscountPercentage(32L);
         for (int i = 1; i <= 44; i++) {
@@ -124,8 +129,10 @@ public class DummyServer {
         product.setDescription("Donnez vie à votre salon avec cette magnifique table basse");
         product.setUnitQuantity((long) 2);
 
+        calendar = Calendar.getInstance();
+        product.setTimeStart(calendar.getTimeInMillis());
         calendar.add(Calendar.DAY_OF_MONTH, 7);
-        product.setDateTimeOff(calendar.getTime());
+        product.setTimeEnd(calendar.getTimeInMillis());
 
         product.setPrice(25500L);
         product.setDiscountPercentage(45L);
@@ -170,8 +177,10 @@ public class DummyServer {
         product.setDescription("La télévision en très haute dimension ");
         product.setUnitQuantity((long) 6);
 
+        calendar = Calendar.getInstance();
+        product.setTimeStart(calendar.getTimeInMillis());
         calendar.add(Calendar.DAY_OF_MONTH, 7);
-        product.setDateTimeOff(calendar.getTime());
+        product.setTimeEnd(calendar.getTimeInMillis());
 
         product.setPrice(322000l);
         product.setDiscountPercentage(12L);
@@ -215,8 +224,10 @@ public class DummyServer {
         product.setDescription("Branchez plus d'equipement dans votre salon grace à cette equipement discret et resistant.");
         product.setUnitQuantity((long) 11);
 
+        calendar = Calendar.getInstance();
+        product.setTimeStart(calendar.getTimeInMillis());
         calendar.add(Calendar.DAY_OF_MONTH, 7);
-        product.setDateTimeOff(calendar.getTime());
+        product.setTimeEnd(calendar.getTimeInMillis());
         product.setPrice(2000l);
         product.setDiscountPercentage(33L);
         for (int i = 1; i <= 26; i++) {
@@ -252,8 +263,10 @@ public class DummyServer {
         product.setDescription("Core i5, 8GB Ram, 1To DD. La puissance au bout des doigts");
         product.setUnitQuantity((long) 9);
 
+        calendar = Calendar.getInstance();
+        product.setTimeStart(calendar.getTimeInMillis());
         calendar.add(Calendar.DAY_OF_MONTH, 7);
-        product.setDateTimeOff(calendar.getTime());
+        product.setTimeEnd(calendar.getTimeInMillis());
         product.setPrice(212000l);
         product.setDiscountPercentage(5.5);
         for (int i = 1; i <= 78; i++) {
@@ -296,8 +309,10 @@ public class DummyServer {
         product.setDescription("Montre de luxe, Pour un homme qui se respecte.");
         product.setUnitQuantity((long) 23);
 
+        calendar = Calendar.getInstance();
+        product.setTimeStart(calendar.getTimeInMillis());
         calendar.add(Calendar.DAY_OF_MONTH, 7);
-        product.setDateTimeOff(calendar.getTime());
+        product.setTimeEnd(calendar.getTimeInMillis());
 
         product.setPrice(22000L);
         product.setDiscountPercentage(21.0);

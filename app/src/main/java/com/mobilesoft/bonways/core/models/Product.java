@@ -48,7 +48,9 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
 
     private Date updatedDate = new Date();
 
-    private Date dateTimeOff;
+    private long timeStart;
+
+    private long timeEnd;
 
     private Category category;
 
@@ -58,7 +60,7 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
 
     private boolean isWatched;
 
-    private ProductStatus status;
+    private ProductStatus status = ProductStatus.PUBLISHED;
 
     public Product() {
     }
@@ -121,14 +123,15 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
         dest.writeString(this.imageUrl);
         dest.writeLong(this.createdDate != null ? this.createdDate.getTime() : -1);
         dest.writeLong(this.updatedDate != null ? this.updatedDate.getTime() : -1);
-        dest.writeLong(this.dateTimeOff != null ? this.dateTimeOff.getTime() : -1);
+        dest.writeLong(this.timeStart);
+        dest.writeLong(this.timeEnd);
         dest.writeSerializable(this.category);
         dest.writeString(this.tradeId);
 
 //        dest.writeParcelable(this.tradeId, flags);
         dest.writeByte(this.isLiked ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isWatched ? (byte) 1 : (byte) 0);
-        dest.writeInt(this.status == null ? -1 : this.status.ordinal());
+        dest.writeInt(this.status == null ? 0 : this.status.ordinal());
     }
 
     protected Product(Parcel in) {
@@ -152,14 +155,20 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
         long tmpUpdatedDate = in.readLong();
         this.updatedDate = tmpUpdatedDate == -1 ? null : new Date(tmpUpdatedDate);
         long tmpDateTimeOff = in.readLong();
-        this.dateTimeOff = tmpDateTimeOff == -1 ? null : new Date(tmpDateTimeOff);
+        this.timeStart = in.readLong();
+        this.timeEnd = in.readLong();
         this.category = (Category) in.readSerializable();
-//        this.tradeId = in.readParcelable(Trade.class.getClassLoader());
         this.tradeId = in.readString();
         this.isLiked = in.readByte() != 0;
         this.isWatched = in.readByte() != 0;
         int tmpStatus = in.readInt();
-        this.status = tmpStatus == -1 ? null : ProductStatus.values()[tmpStatus];
+
+        if (tmpStatus == 0 || tmpStatus == 7274611) {
+            this.status = ProductStatus.PUBLISHED;
+        } else {
+            this.status = ProductStatus.values()[tmpStatus];
+
+        }
     }
 
     public static final Creator<Product> CREATOR = new Creator<Product>() {

@@ -27,7 +27,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.backend.BackEndService;
-import com.mobilesoft.bonways.backend.DummyServer;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Comment;
 import com.mobilesoft.bonways.core.models.Product;
@@ -215,7 +214,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         Calendar calendar = Calendar.getInstance(Locale.FRENCH);
         Log.d(TAG, "" + calendar.getTime());
-        if (mProduct.getDateTimeOff().after(calendar.getTime())) {
+        if (new Date(mProduct.getTimeStart()).after(calendar.getTime())) {
             t = new Thread() {
 
                 @Override
@@ -229,7 +228,7 @@ public class DetailsActivity extends AppCompatActivity {
                                     // update TextView here!
 
 
-                                    long diff = mProduct.getDateTimeOff().getTime() - new Date().getTime();
+                                    long diff = mProduct.getTimeEnd() - new Date().getTime();
                                     Log.d("TIMER", "" + diff);
                                     int timeInSeconds = Math.abs((int) diff / 1000);
                                     int hours, minutes, seconds;

@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mobilesoft.bonways.R;
-import com.mobilesoft.bonways.backend.DummyServer;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Trade;
@@ -54,7 +53,7 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemViewHold
         holder.description.setText(product.getDescription());
         holder.commentCount.setText(""+position);
         DateFormat dateFormat = DateFormat.getDateInstance();
-        holder.timeOff.setText(dateFormat.format(product.getDateTimeOff()));
+        holder.timeOff.setText(dateFormat.format(product.getTimeStart()));
         Picasso.with(mContext).load("file://"+tradeTmp.getLogoUrl()).into(holder.shopLogo);
         Picasso.with(mContext).load("file://"+product.getImageUrl()).into(holder.productImage);
 

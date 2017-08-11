@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.mobilesoft.bonways.BonWaysApplication;
@@ -27,6 +28,8 @@ import com.mobilesoft.bonways.uis.MainActivity;
 import com.mobilesoft.bonways.uis.adapters.ShopSpinnerAdapter;
 import com.mvc.imagepicker.ImagePicker;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -34,15 +37,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 
 
-public class AddProductStep1 extends AbstractStep {
+public class AddProductStep1 extends AbstractStep implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
 
     private static final String TAG = "AddProductStep1";
     protected static File OUTPUT_DIR = BonWaysApplication.getInstance().getDir(BuildConfig.APPLICATION_ID + BuildConfig.VERSION_CODE, Context.MODE_PRIVATE);
@@ -51,25 +56,31 @@ public class AddProductStep1 extends AbstractStep {
     EditText productPromoPrice;
     EditText productQuantity;
     EditText productTimeOff;
+    EditText productTimeStart;
     MaterialSpinner productCategory;
     EditText productDescription;
     ImageView productImage;
     SearchableSpinner shopItems;
 
+    long dateStart;
+    long dateEnd;
+
     Product mProduct;
+    SimpleDateFormat dateFormat;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_add_product_1, container, false);
-        productName = (EditText) v.findViewById(R.id.productName);
-        productNormalPrice = (EditText) v.findViewById(R.id.productNormalPrice);
-        productPromoPrice = (EditText) v.findViewById(R.id.productPromoPrice);
-        productQuantity = (EditText) v.findViewById(R.id.productQuantity);
-        productTimeOff = (EditText) v.findViewById(R.id.productTimeOff);
-        productCategory = (MaterialSpinner) v.findViewById(R.id.productCategory);
-        productDescription = (EditText) v.findViewById(R.id.productDescription);
-        productImage = (ImageView) v.findViewById(R.id.productImage);
+        productName = v.findViewById(R.id.productName);
+        productNormalPrice = v.findViewById(R.id.productNormalPrice);
+        productPromoPrice = v.findViewById(R.id.productPromoPrice);
+        productQuantity = v.findViewById(R.id.productQuantity);
+        productTimeOff = v.findViewById(R.id.productTimeOff);
+        productTimeStart = v.findViewById(R.id.productTimeStart);
+        productCategory = v.findViewById(R.id.productCategory);
+        productDescription = v.findViewById(R.id.productDescription);
+        productImage = v.findViewById(R.id.productImage);
 
         productImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,11 +104,10 @@ public class AddProductStep1 extends AbstractStep {
 
         ImagePicker.setMinQuality(250, 200);
 
-        shopItems = (SearchableSpinner) v.findViewById(R.id.available_shops);
+        shopItems = v.findViewById(R.id.available_shops);
 
         shopItems.setTitle("Select Shop");
         shopItems.setPositiveButton("OK");
-
 
 
         final List<Trade> shops = new ArrayList<>();
@@ -108,6 +118,59 @@ public class AddProductStep1 extends AbstractStep {
 
         }
 
+        final Calendar now = Calendar.getInstance(Locale.getDefault());
+
+        Date date = new Date();
+
+        //// TODO: 11/08/2017 Manage date warning
+        Log.d(TAG, "onCreateView: " + Locale.getDefault().getISO3Language());
+        String lan = Locale.getDefault().toString();
+        Log.d(TAG, "onCreateView: Lan : " + lan);
+        if (lan.contains("fr"))
+            dateFormat = new SimpleDateFormat("dd/MM/yyyy dd HH:mm");
+        else
+            dateFormat = new SimpleDateFormat("yyyy/dd/MM hh:mm a");
+
+
+        dateStart = now.getTimeInMillis();
+        productTimeStart.setText(dateFormat.format(date));
+
+        productTimeStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog dpd = DatePickerDialog.newInstance(
+                        AddProductStep1.this,
+                        now.get(Calendar.YEAR),
+                        now.get(Calendar.MONTH),
+                        now.get(Calendar.DAY_OF_MONTH)
+                );
+                dpd.setAccentColor(getResources().getColor(R.color.colorPrimary));
+                dpd.setTitle(getResources().getString(R.string.wzp_product_start_on));
+                dpd.show(getActivity().getFragmentManager(), "START_DATE");
+            }
+        });
+
+        now.add(Calendar.DAY_OF_MONTH, 7);
+
+        dateEnd = now.getTimeInMillis();
+
+        productTimeOff.setText(dateFormat.format(now.getTime()));
+
+        productTimeOff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog dpd = DatePickerDialog.newInstance(
+                        AddProductStep1.this,
+                        now.get(Calendar.YEAR),
+                        now.get(Calendar.MONTH),
+                        now.get(Calendar.DAY_OF_MONTH)
+                );
+                dpd.setTitle(getResources().getString(R.string.wzp_product_end_on));
+                dpd.setAccentColor(getResources().getColor(R.color.colorPrimary));
+                dpd.show(getActivity().getFragmentManager(), "END_DATE");
+            }
+        });
+
 
         ShopSpinnerAdapter shopSpinnerAdapter = new ShopSpinnerAdapter(getActivity(), R.layout.spinner_shop_layout, R.id.text_title, shopsList);
 
@@ -116,7 +179,7 @@ public class AddProductStep1 extends AbstractStep {
         shopItems.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                TextView textView = ((TextView) view.findViewById(R.id.text_subtitle));
+                TextView textView =  view.findViewById(R.id.text_subtitle);
                 textView.setText(shops.get(position).getAddress());
 
                 if (mProduct != null) {
@@ -134,17 +197,6 @@ public class AddProductStep1 extends AbstractStep {
         if (savedInstanceState != null) {
 
         }
-
-
-//        button.setText(Html.fromHtml("Tap <b>" + i + "</b>"));
-//
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                ((Button) view).setText(Html.fromHtml("Tap <b>" + (++i) + "</b>"));
-//                mStepper.getExtras().putInt(TRADE, i);
-//            }
-//        });
 
         return v;
     }
@@ -176,6 +228,123 @@ public class AddProductStep1 extends AbstractStep {
 
     }
 
+    String incomingDate;
+    SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        Toast.makeText(mStepper, view.getTag() + " : " + year + "/" + dayOfMonth + "/" + (monthOfYear + 1), Toast.LENGTH_SHORT).show();
+
+        String month = (monthOfYear+1)<10 ? "0"+(monthOfYear+1) : ""+(monthOfYear+1);
+        incomingDate = year + "/" + month + "/" + dayOfMonth;
+
+        long tmp;
+
+        switch (view.getTag()) {
+            case "START_DATE":
+                tmp  = dateStart;
+                try {
+                    Date date = format.parse(incomingDate);
+                    Log.d(TAG, "onDateSet: Date: " + date);
+                    dateStart = date.getTime();
+                    Log.d(TAG, "onDateSet: start: " + dateStart);
+
+                    Calendar now = Calendar.getInstance();
+                    TimePickerDialog tpd = TimePickerDialog.newInstance(AddProductStep1.this,
+                            now.get(Calendar.HOUR_OF_DAY),
+                            now.get(Calendar.MINUTE),
+                            true
+                    );
+                    tpd.setAccentColor(getResources().getColor(R.color.colorPrimary));
+                    tpd.show(getActivity().getFragmentManager(), "START_TIME");
+
+                } catch (ParseException e) {
+                    dateStart = tmp;
+                    e.printStackTrace();
+                }
+                break;
+            case "END_DATE":
+                tmp  = dateEnd;
+
+                try {
+                    Date date = format.parse(incomingDate);
+                    Log.d(TAG, "onDateSet: Date: " + date);
+                    dateEnd = date.getTime();
+                    Log.d(TAG, "onDateSet: start: " + dateEnd);
+
+                    Calendar now = Calendar.getInstance();
+                    TimePickerDialog tpd = TimePickerDialog.newInstance(AddProductStep1.this,
+                            now.get(Calendar.HOUR_OF_DAY),
+                            now.get(Calendar.MINUTE),
+                            true
+                    );
+                    tpd.setAccentColor(getResources().getColor(R.color.colorPrimary));
+                    tpd.show(getActivity().getFragmentManager(), "END_TIME");
+
+                } catch (ParseException e) {
+                    dateEnd = tmp;
+                    e.printStackTrace();
+                }
+                break;
+        }
+
+    }
+
+    SimpleDateFormat format2 = new SimpleDateFormat("yyyy/MM/dd hh:mm");
+    @Override
+    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+        Toast.makeText(mStepper, "" + hourOfDay + "h " + minute + "m" + second, Toast.LENGTH_SHORT).show();
+
+        if (!incomingDate.isEmpty()) {
+            incomingDate += " "+hourOfDay+":"+minute;
+            Log.d(TAG, "onTimeSet: incoming: " + incomingDate);
+        } else
+            return;
+        long tmp;
+        switch (view.getTag()) {
+            case "START_TIME":
+                tmp = dateStart;
+                try {
+                    Date date = format2.parse(incomingDate);
+                    Log.d(TAG, "onTimeSet: Date: " + date);
+                    dateStart = date.getTime();
+                    Log.d(TAG, "onTimeSet: start: " + dateStart);
+
+                } catch (ParseException e) {
+                    dateStart = tmp;
+                    Log.getStackTraceString(e);
+                }finally {
+                    // TODO: 11/08/2017 remove log
+                    Date date = new Date(dateStart);
+                    Log.d(TAG, "onTimeSet: Date Fin: " +date );
+                    mProduct.setTimeStart(dateStart);
+                    productTimeStart.setText(dateFormat.format(date));
+                }
+
+                break;
+            case "END_TIME":
+                 tmp = dateEnd;
+                try {
+                    Date date = format2.parse(incomingDate);
+                    Log.d(TAG, "onTimeSet: Date: " + date);
+                    dateEnd = date.getTime();
+                    Log.d(TAG, "onTimeSet: start: " + dateEnd);
+
+                } catch (ParseException e) {
+                    dateEnd = tmp;
+                    Log.getStackTraceString(e);
+                }finally {
+                    // TODO: 11/08/2017 remove log
+                    Date date = new Date(dateEnd);
+                    Log.d(TAG, "onTimeSet: Date Fin: " +date );
+                    mProduct.setTimeEnd(dateEnd);
+                    productTimeOff.setText(dateFormat.format(date));
+                }
+                break;
+        }
+
+    }
+
     @Override
     public void onNext() {
 
@@ -188,17 +357,8 @@ public class AddProductStep1 extends AbstractStep {
 
         double discountper = ((price - promoPrice) / price) * 100;
         mProduct.setDiscountPercentage(discountper);
-        DateFormat dateFormat = DateFormat.getDateInstance();
-        try {
-            Date date = dateFormat.parse(productTimeOff.getText().toString());
-            Log.d(TAG, "onNext: Date Off: " + date);
-            mProduct.setDateTimeOff(date);
-
-        } catch (ParseException e) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.DAY_OF_MONTH, 14);
-            mProduct.setDateTimeOff(calendar.getTime());
-        }
+        mProduct.setTimeEnd(dateEnd);
+        mProduct.setTimeStart(dateStart);
 
         String cat = (String) productCategory.getSelectedItem();
         for (Category category : MainActivity.mCategories) {
@@ -254,7 +414,7 @@ public class AddProductStep1 extends AbstractStep {
                 fo = new FileOutputStream(destination);
                 fo.write(bytes.toByteArray());
                 fo.close();
-                if (mProduct==null)
+                if (mProduct == null)
                     mProduct = new Product();
                 mProduct.setImageUrl(destination.getAbsolutePath());
             } catch (IOException e) {

@@ -9,7 +9,7 @@
     <string name="sign_in">Connexion</string>
     <string name="tab_map">Carte</string>
     <string name="tab_hot">Hot</string>
-    <string name="tab_favorite">Favoris</string>
+    <string name="tab_favorite">Catégories</string>
     <string name="facebook_app_id">1701860226772831</string>
     <string name="welcome">Bienvenue</string>
     <string name="permission_necessary">Permission requise</string>
@@ -38,6 +38,7 @@
     <string name="wzp_product_normal_price">Prix Normal</string>
     <string name="wzp_product_quantity">Quantité</string>
     <string name="wzp_product_end_on">Fin Promo</string>
+    <string name="wzp_product_start_on">Début Promo</string>
     <string name="wzp_product_promo_price">Prix Promotionnel</string>
     <string name="wzp_product_category">Categorie</string>
     <string name="wzp_product_shop">Selectionner Boutique</string>

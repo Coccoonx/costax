@@ -10,7 +10,7 @@
     <string name="facebook_app_id">1701860226772831</string>
     <string name="tab_map">Map</string>
     <string name="tab_hot">Hot</string>
-    <string name="tab_favorite">Favorite</string>
+    <string name="tab_favorite">Categories</string>
     <string name="welcome">Welcome</string>
     <string name="permission_necessary">Permission necessary</string>
     <string name="permission_explanation">We need some &lt;b>mandatories&lt;/b> permissions to provide you with a great experience. Please accept all following requests.</string>
@@ -37,7 +37,8 @@
     <string name="wzp_product_description">Description *</string>
     <string name="wzp_product_normal_price">Normal Price *</string>
     <string name="wzp_product_quantity">Quantity *</string>
-    <string name="wzp_product_end_on">Promo Ends On *</string>
+    <string name="wzp_product_end_on">Promo ends on *</string>
+    <string name="wzp_product_start_on">Promo starts on *</string>
     <string name="wzp_product_promo_price">Promo Price *</string>
     <string name="wzp_product_category">Category *</string>
     <string name="wzp_product_shop">Choose Shop *</string>

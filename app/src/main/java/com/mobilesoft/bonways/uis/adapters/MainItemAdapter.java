@@ -85,8 +85,8 @@ public class MainItemAdapter extends RecyclerView.Adapter<MainItemViewHolder> {
         double promo = product.getPrice() - (product.getPrice() * product.getDiscountPercentage() / 100);
         holder.promoPrice.setText(nf.format(promo) + " F");
 //        DateFormat dateFormat = DateFormat.getDateInstance();
-//        if (product.getDateTimeOff() != null)
-//            holder.timeOff.setText(dateFormat.format(product.getDateTimeOff()));
+//        if (product.getTimeStart() != null)
+//            holder.timeOff.setText(dateFormat.format(product.getTimeStart()));
 //        if (product.getCreatedDate() != null)
 //            holder.timePosted.setText(dateFormat.format(product.getCreatedDate()));
         if (product.getCategory() != null)

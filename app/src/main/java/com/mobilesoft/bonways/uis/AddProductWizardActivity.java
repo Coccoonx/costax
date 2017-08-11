@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.github.fcannizzaro.materialstepper.style.ProgressStepper;
@@ -34,6 +35,7 @@ public class AddProductWizardActivity extends ProgressStepper {
         }
         profile.getMyProducts().add(mProduct);
         new ProfileManager.SaveProfile().execute(profile);
+        Toast.makeText(this, "Promo Added!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, ""+mProduct);
         finish();
     }
