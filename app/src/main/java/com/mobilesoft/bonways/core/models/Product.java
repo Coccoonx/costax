@@ -127,11 +127,9 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
         dest.writeLong(this.timeEnd);
         dest.writeSerializable(this.category);
         dest.writeString(this.tradeId);
-
-//        dest.writeParcelable(this.tradeId, flags);
         dest.writeByte(this.isLiked ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isWatched ? (byte) 1 : (byte) 0);
-        dest.writeInt(this.status == null ? 0 : this.status.ordinal());
+        dest.writeInt(this.status == null ? -1 : this.status.ordinal());
     }
 
     protected Product(Parcel in) {
@@ -154,7 +152,6 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
         this.createdDate = tmpCreatedDate == -1 ? null : new Date(tmpCreatedDate);
         long tmpUpdatedDate = in.readLong();
         this.updatedDate = tmpUpdatedDate == -1 ? null : new Date(tmpUpdatedDate);
-        long tmpDateTimeOff = in.readLong();
         this.timeStart = in.readLong();
         this.timeEnd = in.readLong();
         this.category = (Category) in.readSerializable();
@@ -162,13 +159,7 @@ public class Product implements Serializable, Parcelable, Comparable<Product>, C
         this.isLiked = in.readByte() != 0;
         this.isWatched = in.readByte() != 0;
         int tmpStatus = in.readInt();
-
-        if (tmpStatus == 0 || tmpStatus == 7274611) {
-            this.status = ProductStatus.PUBLISHED;
-        } else {
-            this.status = ProductStatus.values()[tmpStatus];
-
-        }
+        this.status = (tmpStatus == -1 || tmpStatus == 7274611 )? ProductStatus.PUBLISHED : ProductStatus.values()[tmpStatus];
     }
 
     public static final Creator<Product> CREATOR = new Creator<Product>() {

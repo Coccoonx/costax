@@ -233,7 +233,7 @@ public class AddProductStep1 extends AbstractStep implements TimePickerDialog.On
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        Toast.makeText(mStepper, view.getTag() + " : " + year + "/" + dayOfMonth + "/" + (monthOfYear + 1), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mStepper, view.getTag() + " : " + year + "/" + dayOfMonth + "/" + (monthOfYear + 1), Toast.LENGTH_SHORT).show();
 
         String month = (monthOfYear+1)<10 ? "0"+(monthOfYear+1) : ""+(monthOfYear+1);
         incomingDate = year + "/" + month + "/" + dayOfMonth;
@@ -293,7 +293,7 @@ public class AddProductStep1 extends AbstractStep implements TimePickerDialog.On
     SimpleDateFormat format2 = new SimpleDateFormat("yyyy/MM/dd hh:mm");
     @Override
     public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
-        Toast.makeText(mStepper, "" + hourOfDay + "h " + minute + "m" + second, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mStepper, "" + hourOfDay + "h " + minute + "m" + second, Toast.LENGTH_SHORT).show();
 
         if (!incomingDate.isEmpty()) {
             incomingDate += " "+hourOfDay+":"+minute;
@@ -369,6 +369,8 @@ public class AddProductStep1 extends AbstractStep implements TimePickerDialog.On
                 }
             }
         }
+
+        //// TODO: 11/08/2017 Start date and some element gets null after choosing shop
 
 //        mStepper.getExtras().putParcelable("product", mProduct);
         AddProductWizardActivity.mProduct = mProduct;

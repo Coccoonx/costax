@@ -1,12 +1,15 @@
 package com.mobilesoft.bonways.uis.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -14,9 +17,9 @@ import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Category;
 import com.mobilesoft.bonways.core.models.Product;
-import com.mobilesoft.bonways.core.models.Profile;
 import com.mobilesoft.bonways.uis.MainActivity;
 import com.mobilesoft.bonways.uis.adapters.MainItemAdapter;
+import com.mobilesoft.bonways.uis.adapters.OnLoadMoreListener;
 import com.mobilesoft.bonways.uis.adapters.SimpleAdapter;
 
 import java.util.ArrayList;
@@ -33,6 +36,7 @@ public class MainFragment extends Fragment implements SimpleAdapter.FilterByCate
     MainItemAdapter mi;
     RecyclerView recyclerView;
     public static SimpleAdapter.FilterByCategory instance;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,27 +49,10 @@ public class MainFragment extends Fragment implements SimpleAdapter.FilterByCate
 
         instance = this;
 
-//        BottomBar bottomBar = (BottomBar) v.findViewById(R.id.bottomBar);
-//        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
-//            @Override
-//            public void onTabSelected(@IdRes int tabId) {
-////                if (tabId == R.id.tab_favorites) {
-////                    // The tab with id R.id.tab_favorites was selected,
-////                    // change your content accordingly.
-////                }
-//            }
-//        });
-
         recyclerView = v.findViewById(R.id.recyclerMain);
         RecyclerView.LayoutManager lm = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(lm);
         recyclerView.setHasFixedSize(true);
-
-
-        ArrayList<Product> dataSet = new ArrayList<>();
-        dataSet.addAll(MainActivity.mProducts);
-
-
 
         return v;
     }
@@ -88,15 +75,57 @@ public class MainFragment extends Fragment implements SimpleAdapter.FilterByCate
         if (mAdView != null) {
             mAdView.resume();
         }
-        ArrayList<Product> dataSet = new ArrayList<>();
+        final ArrayList<Product> dataSet = new ArrayList<>();
         dataSet.addAll(MainActivity.mProducts);
         dataSet.addAll(ProfileManager.getCurrentUserProfile().getMyProducts());
 
 
-        mi = new MainItemAdapter(getActivity(), dataSet);
+        mi = new MainItemAdapter(getActivity(), recyclerView, dataSet);
         recyclerView.setAdapter(mi);
+
+        mi.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                if (dataSet.size() <= 20) {
+                    dataSet.add(null);
+                    mi.notifyItemInserted(dataSet.size() - 1);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dataSet.remove(dataSet.size() - 1);
+
+                            mi.notifyItemRemoved(dataSet.size());
+
+                            dataSet.addAll(ProfileManager.getCurrentUserProfile().getProducts());
+                            mi.notifyDataSetChanged();
+                            mi.setLoaded();
+                        }
+                    }, 5000);
+                } else {
+//                    Toast.makeText(getActivity(), "Loading data completed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
+//    @Override
+//    public void onRefresh() {
+//        reLoadData();
+//    }
+
+    void reLoadData() {
+        // Update the adapter and notify data set changed
+
+        MainActivity.mProducts = ProfileManager.getCurrentUserProfile().getProducts();
+
+        ArrayList<Product> dataSet = new ArrayList<>();
+        dataSet.addAll(MainActivity.mProducts);
+        mi = new MainItemAdapter(getActivity(), recyclerView, dataSet);
+        recyclerView.setAdapter(mi);
+
+        // Stop refresh animation
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
 
     /**
      * Called before the activity is destroyed

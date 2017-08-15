@@ -44,7 +44,13 @@ public class ShopItemAdapter extends RecyclerView.Adapter<ShopItemViewHolder> {
         holder.phone.setText(trade.getPhone());
         holder.representer.setText(trade.getRepresenterName());
         Log.d(TAG, "URL:" + trade.getLogoUrl());
-        Picasso.with(mContext).load("file://" + trade.getLogoUrl()).into(holder.shopLogo);
+        if (trade.getLogoUrl().contains("http") || trade.getLogoUrl().contains("http")) {
+
+            Picasso.with(mContext).load(trade.getLogoUrl()).into(holder.shopLogo);
+        } else {
+            Picasso.with(mContext).load("file://" + trade.getLogoUrl()).into(holder.shopLogo);
+        }
+
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

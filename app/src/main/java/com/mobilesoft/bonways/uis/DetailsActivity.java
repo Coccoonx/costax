@@ -391,7 +391,7 @@ public class DetailsActivity extends AppCompatActivity {
 
 
         }
-        if (!t.isInterrupted())
+        if (t!=null && !t.isInterrupted())
             t.interrupt();
         super.onPause();
 
