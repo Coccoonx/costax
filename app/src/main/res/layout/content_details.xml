@@ -455,6 +455,7 @@
                 android:layout_below="@+id/container_shop_name"
                 android:layout_toRightOf="@+id/shop_logo"
                 android:paddingLeft="@dimen/margin_short"
+                android:visibility="gone"
                 android:text="@string/info_tel"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_small_size" />
