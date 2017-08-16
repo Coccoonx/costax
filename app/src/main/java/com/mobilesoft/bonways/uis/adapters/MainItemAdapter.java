@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.bumptech.glide.Glide;
+//import com.bumptech.glide.Glide;
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.backend.DummyServer;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
@@ -141,23 +141,23 @@ public class MainItemAdapter extends RecyclerView.Adapter {
 
             if (product.getImageUrl() != null && (product.getImageUrl().contains("http") || product.getImageUrl().contains("cdn"))) {
 
-//            Picasso.with(mContext).load(product.getImageUrl()).placeholder(R.drawable.nopreview).into(holder.productImage);
-                Glide
-                        .with(mContext)
-                        .load(product.getImageUrl())
-//                    .centerCrop()
-                        .placeholder(R.drawable.nopreview)
-                        .crossFade()
-                        .into(holder.productImage);
+            Picasso.with(mContext).load(product.getImageUrl()).placeholder(R.drawable.nopreview).into(holder.productImage);
+//                Glide
+//                        .with(mContext)
+//                        .load(product.getImageUrl())
+////                    .centerCrop()
+//                        .placeholder(R.drawable.nopreview)
+//                        .crossFade()
+//                        .into(holder.productImage);
             } else {
-//            Picasso.with(mContext).load("file://" + product.getImageUrl()).placeholder(R.drawable.nopreview).into(holder.productImage);
-                Glide
-                        .with(mContext)
-                        .load("file://" + product.getImageUrl())
-//                    .centerCrop()
-                        .placeholder(R.drawable.nopreview)
-                        .crossFade()
-                        .into(holder.productImage);
+            Picasso.with(mContext).load("file://" + product.getImageUrl()).placeholder(R.drawable.nopreview).into(holder.productImage);
+//                Glide
+//                        .with(mContext)
+//                        .load("file://" + product.getImageUrl())
+////                    .centerCrop()
+//                        .placeholder(R.drawable.nopreview)
+//                        .crossFade()
+//                        .into(holder.productImage);
             }
 
             holder.container.setOnClickListener(new View.OnClickListener() {

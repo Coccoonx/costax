@@ -3,15 +3,19 @@ package com.mobilesoft.bonways.uis.fragments;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
+import com.daimajia.slider.library.Animations.DescriptionAnimation;
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.google.android.gms.ads.AdView;
 import com.mobilesoft.bonways.R;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
@@ -23,6 +27,7 @@ import com.mobilesoft.bonways.uis.adapters.OnLoadMoreListener;
 import com.mobilesoft.bonways.uis.adapters.SimpleAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,13 +35,13 @@ import java.util.Set;
  * Created by Lyonnel Dzotang on 24/01/2017.
  */
 
-public class MainFragment extends Fragment implements SimpleAdapter.FilterByCategory {
+public class MainFragment extends Fragment implements SimpleAdapter.FilterByCategory, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
     private AdView mAdView;
     MainItemAdapter mi;
     RecyclerView recyclerView;
     public static SimpleAdapter.FilterByCategory instance;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private SliderLayout mSlider;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,6 +53,10 @@ public class MainFragment extends Fragment implements SimpleAdapter.FilterByCate
 //        mAdView.loadAd(adRequest);
 
         instance = this;
+
+        mSlider = v.findViewById(R.id.slider);
+
+        buildSlider();
 
         recyclerView = v.findViewById(R.id.recyclerMain);
         RecyclerView.LayoutManager lm = new GridLayoutManager(getActivity(), 2);
@@ -113,18 +122,37 @@ public class MainFragment extends Fragment implements SimpleAdapter.FilterByCate
 //        reLoadData();
 //    }
 
-    void reLoadData() {
-        // Update the adapter and notify data set changed
+    void buildSlider() {
 
-        MainActivity.mProducts = ProfileManager.getCurrentUserProfile().getProducts();
+        HashMap<String,String> url_maps = new HashMap<String, String>();
+        url_maps.put("50% discount ...", "http://images.all-free-download.com/images/graphicthumb/discount_banner_vector_graphic_557134.jpg");
+        url_maps.put("Surely saving.", "http://www.bienbacsecurity.com.vn/upload_images/sales-off-2016.jpg");
+        url_maps.put("Honor to Women!", "http://images.cdn2.stockunlimited.net/preview1300/women-s-day-discount-banner_1989644.jpg");
+        url_maps.put("Long Live Discount!", "http://blogs.biztalk360.com/wp-content/uploads/2015/06/Blog-banner.jpg");
 
-        ArrayList<Product> dataSet = new ArrayList<>();
-        dataSet.addAll(MainActivity.mProducts);
-        mi = new MainItemAdapter(getActivity(), recyclerView, dataSet);
-        recyclerView.setAdapter(mi);
 
-        // Stop refresh animation
-        mSwipeRefreshLayout.setRefreshing(false);
+        for(String name : url_maps.keySet()){
+            TextSliderView textSliderView = new TextSliderView(getActivity());
+            // initialize a SliderLayout
+            textSliderView
+                    .description(name)
+                    .image(url_maps.get(name))
+                    .setScaleType(BaseSliderView.ScaleType.Fit)
+                    .setOnSliderClickListener(this);
+
+            //add your extra information
+            textSliderView.bundle(new Bundle());
+            textSliderView.getBundle()
+                    .putString("extra",name);
+
+            mSlider.addSlider(textSliderView);
+        }
+        mSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+        mSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+        mSlider.setCustomAnimation(new DescriptionAnimation());
+        mSlider.setDuration(4000);
+        mSlider.addOnPageChangeListener(this);
+
     }
 
     /**
@@ -136,6 +164,27 @@ public class MainFragment extends Fragment implements SimpleAdapter.FilterByCate
             mAdView.destroy();
         }
         super.onDestroy();
+    }
+
+    @Override
+    public void onSliderClick(BaseSliderView slider) {
+        Toast.makeText(getActivity(), slider.getDescription(), Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        Log.d("Slider Demo", "Page Changed: " + position);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 
     @Override
