@@ -94,38 +94,38 @@ public class DetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        reserved = (ImageView) findViewById(R.id.reserved);
+        reserved =  findViewById(R.id.reserved);
 
-        imageProduct = (ImageView) findViewById(R.id.productImage);
-        shopLogo = (ImageView) findViewById(R.id.shop_logo);
-        iconLiked = (ImageView) findViewById(R.id.icon_liked);
-        titleProduct = (TextView) findViewById(R.id.productTitle);
-        descriptionProduct = (TextView) findViewById(R.id.product_description);
-        labelGoto = (TextView) findViewById(R.id.label_goto);
+        imageProduct =  findViewById(R.id.productImage);
+        shopLogo = findViewById(R.id.shop_logo);
+        iconLiked =  findViewById(R.id.icon_liked);
+        titleProduct =  findViewById(R.id.productTitle);
+        descriptionProduct =  findViewById(R.id.product_description);
+        labelGoto =  findViewById(R.id.label_goto);
 
-        normalPrice = (TextView) findViewById(R.id.normal_price);
-        promoPrice = (TextView) findViewById(R.id.promo_price);
-        percentageDiscount = (TextView) findViewById(R.id.percentage_discount);
-        liked = (TextView) findViewById(R.id.item_liked);
-        watched = (TextView) findViewById(R.id.item_watched);
-        commented = (TextView) findViewById(R.id.item_comments);
-        category = (TextView) findViewById(R.id.category);
+        normalPrice =  findViewById(R.id.normal_price);
+        promoPrice =  findViewById(R.id.promo_price);
+        percentageDiscount =  findViewById(R.id.percentage_discount);
+        liked =  findViewById(R.id.item_liked);
+        watched =  findViewById(R.id.item_watched);
+        commented =  findViewById(R.id.item_comments);
+        category =  findViewById(R.id.category);
         timePosted = findViewById(R.id.timeposted);
-        timeOff = (TextView) findViewById(R.id.timeleft);
-        productLeft = (TextView) findViewById(R.id.productleft);
-        shopName = (TextView) findViewById(R.id.shop_name);
-        shopDistance = (TextView) findViewById(R.id.shop_distance);
-        tradePhone = (TextView) findViewById(R.id.shop_phone);
-        currency = (TextView) findViewById(R.id.currency);
+        timeOff =  findViewById(R.id.timeleft);
+        productLeft =  findViewById(R.id.productleft);
+        shopName =  findViewById(R.id.shop_name);
+        shopDistance =  findViewById(R.id.shop_distance);
+        tradePhone =  findViewById(R.id.shop_phone);
+        currency =  findViewById(R.id.currency);
 //        currency.setRotation(310);
-        containerLiked = (LinearLayout) findViewById(R.id.container_social_liked);
-        containerComments = (LinearLayout) findViewById(R.id.container_social_comments);
-        go = (CircularImageView) findViewById(R.id.button_go);
-        reserve = (Button) findViewById(R.id.button_reserve);
+        containerLiked =  findViewById(R.id.container_social_liked);
+        containerComments =  findViewById(R.id.container_social_comments);
+        go = findViewById(R.id.button_go);
+        reserve = findViewById(R.id.button_reserve);
 
 
         Bundle b = getIntent().getExtras();
@@ -333,8 +333,8 @@ public class DetailsActivity extends AppCompatActivity {
                 alertDialogBuilderUserInput.setView(mView);
 
                 final EditText quantityET = (EditText) mView.findViewById(R.id.userInputDialog);
-                final TextView dialogTitle = (TextView) mView.findViewById(R.id.dialogTitle);
-                final TextView dialogContent = (TextView) mView.findViewById(R.id.dialogContent);
+                final TextView dialogTitle =  mView.findViewById(R.id.dialogTitle);
+                final TextView dialogContent =  mView.findViewById(R.id.dialogContent);
 
                 dialogTitle.setText(R.string.dialog_reservation_title);
                 dialogContent.setText(R.string.dialog_reservation_content);
@@ -418,7 +418,7 @@ public class DetailsActivity extends AppCompatActivity {
         View globalDialog = getLayoutInflater().inflate(R.layout.dialog_comments, null);
 
         final EditText composer = (EditText) globalDialog.findViewById(R.id.messageEditText);
-        headerText = (TextView) globalDialog.findViewById(R.id.headerText);
+        headerText =  globalDialog.findViewById(R.id.headerText);
         Button sender = (Button) globalDialog.findViewById(R.id.sendButton);
         progressComment = (ProgressBar) globalDialog.findViewById(R.id.progressBarComment);
 

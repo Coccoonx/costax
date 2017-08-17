@@ -24,9 +24,11 @@ import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Product;
 import com.mobilesoft.bonways.core.models.Profile;
 import com.mobilesoft.bonways.core.models.Trade;
+import com.mobilesoft.bonways.uis.adapters.MainItemAdapter;
 import com.mobilesoft.bonways.uis.adapters.ProductItemAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductActivity extends AppCompatActivity
         implements  GoogleApiClient.OnConnectionFailedListener {
@@ -41,14 +43,14 @@ public class ProductActivity extends AppCompatActivity
 
     private GoogleApiClient mGoogleApiClient;
     RecyclerView recyclerView;
-    ProductItemAdapter mi;
+    MainItemAdapter mi;
     private Trade mTrade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -95,7 +97,7 @@ public class ProductActivity extends AppCompatActivity
         super.onResume();
         Profile profile = ProfileManager.getCurrentUserProfile();
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerShop);
+        recyclerView = findViewById(R.id.recyclerShop);
         RecyclerView.LayoutManager lm = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(lm);
         recyclerView.setHasFixedSize(true);
@@ -105,10 +107,17 @@ public class ProductActivity extends AppCompatActivity
 
         if (mTrade != null && mTrade.getProductslist()!=null) {
             dataSet.clear();
-            dataSet.addAll(mTrade.getProductslist());
+//            dataSet.addAll(mTrade.getProductslist());
+            getSupportActionBar().setTitle(mTrade.getName());
+
+            for (Product p : profile.getProducts()) {
+                if (p.getTradeId().equals(mTrade.getId())) {
+                    dataSet.add(p);
+                }
+            }
         }
 
-        mi = new ProductItemAdapter(this, dataSet);
+        mi = new MainItemAdapter(this,recyclerView, dataSet);
         recyclerView.setAdapter(mi);
         mi.notifyDataSetChanged();
 
@@ -116,6 +125,7 @@ public class ProductActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+
         super.onBackPressed();
     }
 

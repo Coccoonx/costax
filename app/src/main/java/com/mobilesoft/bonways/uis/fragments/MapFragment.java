@@ -2,11 +2,13 @@ package com.mobilesoft.bonways.uis.fragments;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -34,6 +36,7 @@ import com.mobilesoft.bonways.backend.DummyServer;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.uis.MainActivity;
+import com.mobilesoft.bonways.uis.ProductActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -51,7 +54,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_map, container, false);
 
-        mapView = (MapView) v.findViewById(R.id.mapView);
+        mapView = v.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         if (mapView != null) {
             mapView.getMapAsync(this);
@@ -111,6 +114,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mGoogleMap.setMyLocationEnabled(true);
         mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
         mGoogleMap.getUiSettings().setZoomGesturesEnabled(true);
+        mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+
+                for (Trade trade : MainActivity.mTrade) {
+                    if (marker.getTitle().equals(trade.getId())) {
+                        Intent intent = new Intent(getActivity(), ProductActivity.class);
+                        intent.putExtra("trade", (Parcelable) trade);
+                        MainActivity.tmpCurrentTrade = trade;
+                        getActivity().startActivity(intent);
+                    }
+                }
+
+            }
+        });
         centerMapToUserLocation();
         loadShop();
     }
@@ -125,6 +143,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             options.title(trade.getId());
             options.draggable(false);
             options.position(new LatLng(trade.getLatitude(), trade.getLongitude()));
+
             if (trade.getMainCategory().equalsIgnoreCase("Beauté"))
                 options.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_cat_beaute));
             else if (trade.getMainCategory().equalsIgnoreCase("Brico/Deco"))
@@ -139,6 +158,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 options.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_cat_service));
             else
                 options.icon(BitmapDescriptorFactory.fromResource(R.drawable.bon_ways_shop));
+
             mGoogleMap.addMarker(options);
         }
     }
@@ -185,19 +205,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
             for (Trade trade : MainActivity.mTrade) {
                 if (marker.getTitle().equals(trade.getId())) {
-                    final ImageView image = ((ImageView) view.findViewById(R.id.badge));
+                    final ImageView image = (view.findViewById(R.id.badge));
                     Picasso.with(getActivity()).load(trade.getLogoUrl()).placeholder(R.mipmap.ic_launcher).into(image);
 
                     final String title = trade.getName();
-                    final TextView titleUi = ((TextView) view.findViewById(R.id.title));
+                    final TextView titleUi = (view.findViewById(R.id.title));
                     if (title != null) {
                         titleUi.setText(title);
                     } else {
                         titleUi.setText("");
                     }
 
-                    final String snippet = trade.getAddress() ;
-                    final TextView snippetUi = ((TextView) view
+                    final String snippet = trade.getAddress();
+                    final TextView snippetUi = (view
                             .findViewById(R.id.snippet));
                     if (snippet != null) {
                         snippetUi.setText(snippet);
@@ -206,7 +226,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     }
                 }
             }
-
 
 
             return view;

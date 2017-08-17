@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity
     private static final String ANONYMOUS = "Anonymous";
     private static final String TAG = "MainActivity";
     public static Product tmpCurrentProduct;
+    public static Trade tmpCurrentTrade;
     // Firebase instance variables
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
@@ -283,7 +284,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView =  findViewById(R.id.nav_view);
         Profile profile = ProfileManager.getCurrentUserProfile();
         /*if (profile != null && profile.getUser() != null) {
             if (profile.getUser().isTrader()) {
@@ -301,6 +302,11 @@ public class MainActivity extends AppCompatActivity
 
         if (viewPager != null && tmpCurrentProduct == null) {
             viewPager.setCurrentItem(1);
+        }
+        if (viewPager != null && tmpCurrentTrade != null) {
+            viewPager.setCurrentItem(0);
+            tmpCurrentTrade = null;
+
         }
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -346,6 +352,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void loadData() {
+        progressBar.setVisibility(View.VISIBLE);
+
         long min30 = 30 * 60 * 1000;
         long now = new Date().getTime();
         long diff = now - BonWaysSettingsUtils.getLastPull();
@@ -360,6 +368,8 @@ public class MainActivity extends AppCompatActivity
             mCategories = profile.getCategories();
             mTrade = profile.getTrades();
             Log.d(TAG, "loadData: Up-to-date :)");
+            progressBar.setVisibility(View.GONE);
+
         }
     }
 
@@ -577,7 +587,6 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressBar.setVisibility(View.VISIBLE);
 
         }
     }

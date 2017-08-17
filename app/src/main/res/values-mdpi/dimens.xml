@@ -21,7 +21,7 @@
 
 
     <dimen name="item_title">11sp</dimen>
-    <dimen name="item_text_standard">9sp</dimen>
+    <dimen name="item_text_standard">10sp</dimen>
     <dimen name="item_text_small">9sp</dimen>
     <dimen name="item_text_smallest">8sp</dimen>
 

@@ -16,6 +16,8 @@ import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.uis.fragments.AddShopStep1;
 import com.mobilesoft.bonways.uis.fragments.AddShopStep2;
 
+import java.util.UUID;
+
 public class AddShopWizardActivity extends ProgressStepper {
 
     private static final String TAG = "AddShopWizardActivity";
@@ -26,6 +28,7 @@ public class AddShopWizardActivity extends ProgressStepper {
     public void onComplete() {
 
         super.onComplete();
+        mTrade.setId(UUID.randomUUID().toString());
         Log.d(TAG, ""+mTrade);
         Profile profile = ProfileManager.getCurrentUserProfile();
         if (!profile.getConsumer().isTrader()) {
@@ -44,6 +47,7 @@ public class AddShopWizardActivity extends ProgressStepper {
 
 
         mTrade = new Trade();
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
 
