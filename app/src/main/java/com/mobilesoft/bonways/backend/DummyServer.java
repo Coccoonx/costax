@@ -26,16 +26,16 @@ public class DummyServer {
 
     private static DummyServer instance;
 
-    private DummyServer(){
-        categories = getCategory();
-        trades = getTrade();
-        products =  getAvailableProduct();
+    private DummyServer() {
+        categories = buildCategories();
+        trades = buildTrades();
+        products = buildProduct();
 
-    };
+    }
 
-    public static DummyServer getInstance(){
-        if (instance==null)
-            instance =new DummyServer();
+    public static DummyServer getInstance() {
+        if (instance == null)
+            instance = new DummyServer();
         return instance;
     }
 
@@ -52,7 +52,7 @@ public class DummyServer {
         return categories;
     }
 
-    private   List<Product> getAvailableProduct() {
+    private List<Product> buildProduct() {
         ArrayList<Product> products = new ArrayList<>();
         Calendar calendar;
 
@@ -81,7 +81,7 @@ public class DummyServer {
         }
         product.setImageUrl("http://magicien.ch/magasin-magie/images/jeux-cartes-bicycle-pack-bridge.jpg");
         product.setTradeId(trades.get(0).getId());
-        product.setCategory(getCategory().get(5));
+        product.setCategory(buildCategories().get(5));
         products.add(product);
 
         product = new Product();
@@ -118,7 +118,7 @@ public class DummyServer {
 
         product.setImageUrl("http://www.renaud-bray.com/ImagesEditeurs/PG/1446/1446905-gf.jpg");
         product.setTradeId(trades.get(0).getId());
-        product.setCategory(getCategory().get(5));
+        product.setCategory(buildCategories().get(5));
 
         products.add(product);
 
@@ -166,7 +166,7 @@ public class DummyServer {
         product.getComments().add(comment);
         product.setImageUrl("https://img1.dlmcdn.fr/a/1254/MSA1254399-0403-0300-p00-table-basse-rectangulaire-chene-massif-aboute-huile-l115xl100xh73cm-hawke.jpg");
         product.setTradeId(trades.get(1).getId());
-        product.setCategory(getCategory().get(2));
+        product.setCategory(buildCategories().get(2));
 
         products.add(product);
 
@@ -213,7 +213,7 @@ public class DummyServer {
 
         product.setImageUrl("http://cdn.villatech.fr/media/catalog/product/cache/4/image/580x/9df78eab33525d08d6e5fb8d27136e95/1/0/1000040967_UE_55_F_6100-2.jpg");
         product.setTradeId(trades.get(2).getId());
-        product.setCategory(getCategory().get(5));
+        product.setCategory(buildCategories().get(5));
 
         products.add(product);
 
@@ -252,7 +252,7 @@ public class DummyServer {
 
         product.setImageUrl("http://i2.cdscdn.com/pdt2/6/2/7/1/700x700/leg3245060500627/rw/legrand-rallonge-multiprise-electrique-std-6-prise.jpg");
         product.setTradeId(trades.get(4).getId());
-        product.setCategory(getCategory().get(2));
+        product.setCategory(buildCategories().get(2));
 
         products.add(product);
 
@@ -298,7 +298,7 @@ public class DummyServer {
 
         product.setImageUrl("http://www.notebookcheck.biz/uploads/tx_nbc2/978509.jpg");
         product.setTradeId(trades.get(1).getId());
-        product.setCategory(getCategory().get(5));
+        product.setCategory(buildCategories().get(5));
 
         products.add(product);
 
@@ -347,7 +347,7 @@ public class DummyServer {
 
         product.setImageUrl("https://content.rolex.com/is/image/Rolex/?src=is%7BRolex%2Fshadow_oyster_perpetual_39%3Flayer%3D1%26src%3D50683%26layer%3D2%26src%3D50684_g_39%26layer%3D3%26src%3D50682%7D&$rv55-watch-grid$");
         product.setTradeId(trades.get(3).getId());
-        product.setCategory(getCategory().get(5));
+        product.setCategory(buildCategories().get(5));
 
         products.add(product);
 
@@ -355,7 +355,7 @@ public class DummyServer {
         for (Product productd : products) {
             Product product1 = productd.clone();
 
-            product1.setId(productd.getId()+10);
+            product1.setId(productd.getId() + 10);
             tmp.add(productd);
         }
         products.addAll(tmp);
@@ -363,8 +363,7 @@ public class DummyServer {
 
     }
 
-
-    private List<Trade> getTrade(){
+    private List<Trade> buildTrades() {
 
         List<Trade> trades = new ArrayList<>();
 
@@ -380,7 +379,7 @@ public class DummyServer {
         trade.setLogoUrl("http://hotel.complexesantalucia.com/wp-content/uploads/sites/16/2012/09/itl-300x179.png");
         trade.setLatitude(4.051782);
         trade.setLongitude(9.737898);
-        trade.setMainCategory(getCategory().get(5).getName());
+        trade.setMainCategory(buildCategories().get(5).getName());
 
         trades.add(trade);
 
@@ -397,7 +396,7 @@ public class DummyServer {
         trade.setLogoUrl("https://www.labresse.net/medias/images/prestataires/super-u-la-bresse-795.jpg");
         trade.setLatitude(4.035187);
         trade.setLongitude(9.691819);
-        trade.setMainCategory(getCategory().get(5).getName());
+        trade.setMainCategory(buildCategories().get(5).getName());
 
         trades.add(trade);
 
@@ -414,7 +413,7 @@ public class DummyServer {
         trade.setLogoUrl("http://www.wasamundi.com/farm/access/var/watermark/wtmk_5460cc1a6d02614156298501397903_821082011257158_5658290838562498125_o.jpg");
         trade.setLatitude(4.028123);
         trade.setLongitude(9.698278);
-        trade.setMainCategory(getCategory().get(5).getName());
+        trade.setMainCategory(buildCategories().get(5).getName());
 
         trades.add(trade);
 
@@ -431,7 +430,7 @@ public class DummyServer {
         trade.setLogoUrl("https://lh4.ggpht.com/a-C0pps0yjA4gp7TeEg2mFaDAef13cPHDGJtd2Tigbln-EeFCA6KlMySqNXgEt2J38E=w300");
         trade.setLatitude(4.049218);
         trade.setLongitude(9.694730);
-        trade.setMainCategory(getCategory().get(5).getName());
+        trade.setMainCategory(buildCategories().get(5).getName());
 
         trades.add(trade);
 
@@ -448,15 +447,268 @@ public class DummyServer {
         trade.setLogoUrl("http://www.services-reclamation.com/wp-content/uploads/2016/04/reclamation-castorama.png");
         trade.setLatitude(4.052715);
         trade.setLongitude(9.697073);
-        trade.setMainCategory(getCategory().get(2).getName());
+        trade.setMainCategory(buildCategories().get(2).getName());
+
+        trades.add(trade);
+
+
+        trade = new Trade();
+        trade.setId(UUID.randomUUID().toString());
+        trade.setName("Santa Lucia");
+        trade.setRepresenterName("Frederic");
+        trade.setAddress("12 Rue Foch, Akwa, Douala");
+        trade.setNearestShopName("MTN Shop");
+        trade.setEmail("info@Castorama.com");
+        trade.setWebsite("santalucia.org");
+        trade.setPhone("677998866");
+        trade.setLogoUrl("http://hotel.complexesantalucia.com/wp-content/uploads/sites/16/2012/09/itl-300x179.png");
+        trade.setLatitude(4.024206);
+        trade.setLongitude(9.699330);
+        trade.setMainCategory(buildCategories().get(2).getName());
+
+        trades.add(trade);
+
+
+        trade = new Trade();
+        trade.setId(UUID.randomUUID().toString());
+        trade.setName("Castorama");
+        trade.setRepresenterName("Frederic");
+        trade.setAddress("12 Rue Foch, Akwa, Douala");
+        trade.setNearestShopName("MTN Shop");
+        trade.setEmail("info@Castorama.com");
+        trade.setWebsite("santalucia.org");
+        trade.setPhone("677998866");
+        trade.setLogoUrl("http://www.services-reclamation.com/wp-content/uploads/2016/04/reclamation-castorama.png");
+        trade.setLatitude(4.052715);
+        trade.setLongitude(9.697073);
+        trade.setMainCategory(buildCategories().get(2).getName());
+
+        trades.add(trade);
+
+
+        trade = new Trade();
+        trade.setId(UUID.randomUUID().toString());
+        trade.setName("Dovv");
+        trade.setRepresenterName("Frederic");
+        trade.setAddress("12 Rue Foch, Akwa, Douala");
+        trade.setNearestShopName("MTN Shop");
+        trade.setEmail("info@Castorama.com");
+        trade.setWebsite("santalucia.org");
+        trade.setPhone("677998866");
+        trade.setLogoUrl("http://www.wasamundi.com/farm/access/var/watermark/wtmk_5460cc1a6d02614156298501397903_821082011257158_5658290838562498125_o.jpg");
+        trade.setLatitude(4.025704);
+        trade.setLongitude(9.698343);
+        trade.setMainCategory(buildCategories().get(14).getName());
+
+        trades.add(trade);
+
+
+        trade = new Trade();
+        trade.setId(UUID.randomUUID().toString());
+        trade.setName("Dovv");
+        trade.setRepresenterName("Frederic");
+        trade.setAddress("12 Rue Foch, Akwa, Douala");
+        trade.setNearestShopName("MTN Shop");
+        trade.setEmail("info@Castorama.com");
+        trade.setWebsite("santalucia.org");
+        trade.setPhone("677998866");
+        trade.setLogoUrl("http://www.wasamundi.com/farm/access/var/watermark/wtmk_5460cc1a6d02614156298501397903_821082011257158_5658290838562498125_o.jpg");
+        trade.setLatitude(4.032853);
+        trade.setLongitude(9.699759);
+        trade.setMainCategory(buildCategories().get(13).getName());
+
+        trades.add(trade);
+
+
+        trade = new Trade();
+        trade.setId(UUID.randomUUID().toString());
+        trade.setName("Castorama");
+        trade.setRepresenterName("Frederic");
+        trade.setAddress("12 Rue Foch, Akwa, Douala");
+        trade.setNearestShopName("MTN Shop");
+        trade.setEmail("info@Castorama.com");
+        trade.setWebsite("santalucia.org");
+        trade.setPhone("677998866");
+        trade.setLogoUrl("http://www.services-reclamation.com/wp-content/uploads/2016/04/reclamation-castorama.png");
+        trade.setLatitude(4.028572);
+        trade.setLongitude(9.698000);
+        trade.setMainCategory(buildCategories().get(12).getName());
+
+        trades.add(trade);
+
+
+        trade = new Trade();
+        trade.setId(UUID.randomUUID().toString());
+        trade.setName("Super U");
+        trade.setRepresenterName("Frederic");
+        trade.setAddress("12 Rue Foch, Akwa, Douala");
+        trade.setNearestShopName("MTN Shop");
+        trade.setEmail("info@Castorama.com");
+        trade.setWebsite("santalucia.org");
+        trade.setPhone("677998866");
+        trade.setLogoUrl("https://www.labresse.net/medias/images/prestataires/super-u-la-bresse-795.jpg");
+        trade.setLatitude(4.024933);
+        trade.setLongitude(9.692603);
+        trade.setMainCategory(buildCategories().get(11).getName());
+
+        trades.add(trade);
+
+
+        trade = new Trade();
+        trade.setId(UUID.randomUUID().toString());
+        trade.setName("Zara");
+        trade.setRepresenterName("Frederic");
+        trade.setAddress("12 Rue Foch, Akwa, Douala");
+        trade.setNearestShopName("MTN Shop");
+        trade.setEmail("info@Castorama.com");
+        trade.setWebsite("santalucia.org");
+        trade.setPhone("677998866");
+        trade.setLogoUrl("https://lh4.ggpht.com/a-C0pps0yjA4gp7TeEg2mFaDAef13cPHDGJtd2Tigbln-EeFCA6KlMySqNXgEt2J38E=w300");
+        trade.setLatitude(4.052715);
+        trade.setLongitude(9.697073);
+        trade.setMainCategory(buildCategories().get(10).getName());
+
+        trades.add(trade);
+
+
+        trade = new Trade();
+        trade.setId(UUID.randomUUID().toString());
+        trade.setName("Super U");
+        trade.setRepresenterName("Frederic");
+        trade.setAddress("12 Rue Foch, Akwa, Douala");
+        trade.setNearestShopName("MTN Shop");
+        trade.setEmail("info@Castorama.com");
+        trade.setWebsite("santalucia.org");
+        trade.setPhone("677998866");
+        trade.setLogoUrl("https://www.labresse.net/medias/images/prestataires/super-u-la-bresse-795.jpg");
+        trade.setLatitude(4.036834);
+        trade.setLongitude(9.707195);
+        trade.setMainCategory(buildCategories().get(9).getName());
+
+        trades.add(trade);
+
+
+        trade = new Trade();
+        trade.setId(UUID.randomUUID().toString());
+        trade.setName("Zara");
+        trade.setRepresenterName("Frederic");
+        trade.setAddress("12 Rue Foch, Akwa, Douala");
+        trade.setNearestShopName("MTN Shop");
+        trade.setEmail("info@Castorama.com");
+        trade.setWebsite("santalucia.org");
+        trade.setPhone("677998866");
+        trade.setLogoUrl("https://lh4.ggpht.com/a-C0pps0yjA4gp7TeEg2mFaDAef13cPHDGJtd2Tigbln-EeFCA6KlMySqNXgEt2J38E=w300");
+        trade.setLatitude(4.039124);
+        trade.setLongitude(9.703193);
+        trade.setMainCategory(buildCategories().get(8).getName());
+
+        trades.add(trade);
+
+
+        trade = new Trade();
+        trade.setId(UUID.randomUUID().toString());
+        trade.setName("Santa Lucia");
+        trade.setRepresenterName("Frederic");
+        trade.setAddress("12 Rue Foch, Akwa, Douala");
+        trade.setNearestShopName("MTN Shop");
+        trade.setEmail("info@Castorama.com");
+        trade.setWebsite("santalucia.org");
+        trade.setPhone("677998866");
+        trade.setLogoUrl("http://hotel.complexesantalucia.com/wp-content/uploads/sites/16/2012/09/itl-300x179.png");
+        trade.setLatitude(4.052715);
+        trade.setLongitude(9.697073);
+        trade.setMainCategory(buildCategories().get(7).getName());
+
+        trades.add(trade);
+
+
+        trade = new Trade();
+        trade.setId(UUID.randomUUID().toString());
+        trade.setName("Super U");
+        trade.setRepresenterName("Frederic");
+        trade.setAddress("12 Rue Foch, Akwa, Douala");
+        trade.setNearestShopName("MTN Shop");
+        trade.setEmail("info@Castorama.com");
+        trade.setWebsite("santalucia.org");
+        trade.setPhone("677998866");
+        trade.setLogoUrl("https://www.labresse.net/medias/images/prestataires/super-u-la-bresse-795.jpg");
+        trade.setLatitude(4.012229);
+        trade.setLongitude(9.724361);
+        trade.setMainCategory(buildCategories().get(6).getName());
+
+        trades.add(trade);
+
+
+        trade = new Trade();
+        trade.setId(UUID.randomUUID().toString());
+        trade.setName("Santa Lucia");
+        trade.setRepresenterName("Frederic");
+        trade.setAddress("12 Rue Foch, Akwa, Douala");
+        trade.setNearestShopName("MTN Shop");
+        trade.setEmail("info@Castorama.com");
+        trade.setWebsite("santalucia.org");
+        trade.setPhone("677998866");
+        trade.setLogoUrl("http://hotel.complexesantalucia.com/wp-content/uploads/sites/16/2012/09/itl-300x179.png");
+        trade.setLatitude(4.051925);
+        trade.setLongitude(9.722414);
+        trade.setMainCategory(buildCategories().get(4).getName());
+
+        trades.add(trade);
+
+
+        trade = new Trade();
+        trade.setId(UUID.randomUUID().toString());
+        trade.setName("Zara");
+        trade.setRepresenterName("Frederic");
+        trade.setAddress("12 Rue Foch, Akwa, Douala");
+        trade.setNearestShopName("MTN Shop");
+        trade.setEmail("info@Castorama.com");
+        trade.setWebsite("santalucia.org");
+        trade.setPhone("677998866");
+        trade.setLogoUrl("https://lh4.ggpht.com/a-C0pps0yjA4gp7TeEg2mFaDAef13cPHDGJtd2Tigbln-EeFCA6KlMySqNXgEt2J38E=w300");
+        trade.setLatitude(4.033422);
+        trade.setLongitude(9.704804);
+        trade.setMainCategory(buildCategories().get(3).getName());
+
+        trades.add(trade);
+
+
+        trade = new Trade();
+        trade.setId(UUID.randomUUID().toString());
+        trade.setName("Zara");
+        trade.setRepresenterName("Frederic");
+        trade.setAddress("12 Rue Foch, Akwa, Douala");
+        trade.setNearestShopName("MTN Shop");
+        trade.setEmail("info@Castorama.com");
+        trade.setWebsite("santalucia.org");
+        trade.setPhone("677998866");
+        trade.setLogoUrl("https://lh4.ggpht.com/a-C0pps0yjA4gp7TeEg2mFaDAef13cPHDGJtd2Tigbln-EeFCA6KlMySqNXgEt2J38E=w300");
+        trade.setLatitude(4.056964);
+        trade.setLongitude(9.712238);
+        trade.setMainCategory(buildCategories().get(1).getName());
+
+        trades.add(trade);
+
+        trade = new Trade();
+        trade.setId(UUID.randomUUID().toString());
+        trade.setName("Santa Lucia");
+        trade.setRepresenterName("Frederic");
+        trade.setAddress("12 Rue Foch, Akwa, Douala");
+        trade.setNearestShopName("MTN Shop");
+        trade.setEmail("info@Castorama.com");
+        trade.setWebsite("santalucia.org");
+        trade.setPhone("677998866");
+        trade.setLogoUrl("http://hotel.complexesantalucia.com/wp-content/uploads/sites/16/2012/09/itl-300x179.png");
+        trade.setLatitude(4.066302);
+        trade.setLongitude(9.709736);
+        trade.setMainCategory(buildCategories().get(0).getName());
 
         trades.add(trade);
 
         return trades;
     }
 
-
-    public static List<SubscriptionType> getBundle(Context context) {
+    public static List<SubscriptionType> buildBundles(Context context) {
 
         List<SubscriptionType> types = new ArrayList<>();
 
@@ -488,7 +740,7 @@ public class DummyServer {
 
     }
 
-    private List<Category> getCategory() {
+    private List<Category> buildCategories() {
         List<Category> categories = new ArrayList<>();
 
         Category category = new Category();
@@ -499,24 +751,24 @@ public class DummyServer {
         categories.add(category);
 
 
-         category = new Category();
+        category = new Category();
         category.setName("Beauté");
-        category.setIconIntUrl(R.drawable.cat_beaute);
+        category.setIconIntUrl(R.drawable.cat_beauty);
         category.setId(1l);
 
         categories.add(category);
 
         category = new Category();
         category.setName("Brico/Deco");
-        category.setIconIntUrl(R.drawable.cat_bricolage);
+        category.setIconIntUrl(R.drawable.cat_diy);
         category.setId(2l);
 
         categories.add(category);
 
 
         category = new Category();
-        category.setName("Kdo");
-        category.setIconIntUrl(R.drawable.cat_cadeau);
+        category.setName("Cadeaux");
+        category.setIconIntUrl(R.drawable.cat_gift);
         category.setId(3l);
 
         categories.add(category);
@@ -531,21 +783,70 @@ public class DummyServer {
 
         category = new Category();
         category.setName("Supermarché");
-        category.setIconIntUrl(R.drawable.cat_epicerie);
+        category.setIconIntUrl(R.drawable.cat_supermarket);
         category.setId(5l);
 
         categories.add(category);
 
         category = new Category();
         category.setName("Banque/Service");
-        category.setIconIntUrl(R.drawable.cat_service);
+        category.setIconIntUrl(R.drawable.cat_bank);
         category.setId(6l);
 
         categories.add(category);
 
         category = new Category();
         category.setName("Sortie");
-        category.setIconIntUrl(R.drawable.cat_divertissement);
+        category.setIconIntUrl(R.drawable.cat_restaurant);
+        category.setId(7l);
+
+        categories.add(category);
+
+        category = new Category();
+        category.setName("Mode");
+        category.setIconIntUrl(R.drawable.cat_mode);
+        category.setId(7l);
+
+        categories.add(category);
+
+        category = new Category();
+        category.setName("Hotel");
+        category.setIconIntUrl(R.drawable.cat_hostel);
+        category.setId(7l);
+
+        categories.add(category);
+
+        category = new Category();
+        category.setName("Sante/Bien-Etre");
+        category.setIconIntUrl(R.drawable.cat_health);
+        category.setId(7l);
+
+        categories.add(category);
+
+        category = new Category();
+        category.setName("Location/Service");
+        category.setIconIntUrl(R.drawable.cat_service);
+        category.setId(7l);
+
+        categories.add(category);
+
+        category = new Category();
+        category.setName("Boulangerie");
+        category.setIconIntUrl(R.drawable.cat_bakery);
+        category.setId(7l);
+
+        categories.add(category);
+
+        category = new Category();
+        category.setName("Tourisme");
+        category.setIconIntUrl(R.drawable.cat_tourism);
+        category.setId(7l);
+
+        categories.add(category);
+
+        category = new Category();
+        category.setName("Enfants");
+        category.setIconIntUrl(R.drawable.cat_kid);
         category.setId(7l);
 
         categories.add(category);

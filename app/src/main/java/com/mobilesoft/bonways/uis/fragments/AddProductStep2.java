@@ -70,7 +70,7 @@ public class AddProductStep2 extends AbstractStep {
 //                shopEmail.setText(mTrade.getEmail());
 //                shopWebsite.setText(mTrade.getWebsite());
 //                shopRepresenter.setText(mTrade.getRepresenterName());
-//                Picasso.with(getActivity()).load("file://"+mTrade.getLogoUrl()).into(shopLogo);
+//                Picasso.with(getActivity()).load("file://"+mTrade.getLogoUrl()).into(catLogo);
             }
 
         }

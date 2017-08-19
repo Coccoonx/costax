@@ -103,5 +103,6 @@
     <string name="wizard_publish_product_title">Publish Product</string>
     <string name="need_shop_first">You need to create a Shop first.</string>
     <string name="label_add">Add</string>
+    <string name="menu_search">Find a BonWays</string>
 
 </resources>

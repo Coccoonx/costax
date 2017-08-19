@@ -212,6 +212,9 @@ public class MainFragment extends Fragment implements SimpleAdapter.FilterByCate
         dataSet.addAll(filteredProduct);
 
         mi.notifyDataSetChanged();
+        MainActivity.instance.setViewPager(1);
+
+//        MainFragment.instance.s
 
 //        mi = new MainItemAdapter(getActivity(), dataSet);
 //        recyclerView.setAdapter(mi);

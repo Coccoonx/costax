@@ -1,26 +1,21 @@
 package com.mobilesoft.bonways.uis;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
-import android.text.Html;
 import android.util.Log;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -70,10 +65,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, DetailsActivity.DisplayShop {
 
@@ -100,7 +91,15 @@ public class MainActivity extends AppCompatActivity
 
     public static DialogPlus dialog;
 
+    public void setViewPager(int position) {
+        if (viewPager != null) {
+            viewPager.setCurrentItem(position);
+        }
+    }
+
     ViewPager viewPager;
+
+    public static MainActivity instance;
 
     protected OnClickListener dialogListener = new OnClickListener() {
         @Override
@@ -229,13 +228,13 @@ public class MainActivity extends AppCompatActivity
         }
 
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_map)));
         tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_hot)));
         tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_favorite)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager = findViewById(R.id.pager);
         final MainTabAdapter adapter = new MainTabAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
@@ -259,9 +258,9 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-        mainFab = (FloatingActionMenu) findViewById(R.id.mainFab);
-        addProduct = (FloatingActionButton) findViewById(R.id.fab_add_product);
-        addShop = (FloatingActionButton) findViewById(R.id.fab_add_shop);
+        mainFab =  findViewById(R.id.mainFab);
+        addProduct = findViewById(R.id.fab_add_product);
+        addShop = findViewById(R.id.fab_add_shop);
 
         addProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -285,6 +284,7 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         NavigationView navigationView =  findViewById(R.id.nav_view);
+        instance = this;
         Profile profile = ProfileManager.getCurrentUserProfile();
         /*if (profile != null && profile.getUser() != null) {
             if (profile.getUser().isTrader()) {
@@ -304,7 +304,7 @@ public class MainActivity extends AppCompatActivity
             viewPager.setCurrentItem(1);
         }
         if (viewPager != null && tmpCurrentTrade != null) {
-            viewPager.setCurrentItem(0);
+            viewPager.setCurrentItem(2);
             tmpCurrentTrade = null;
 
         }
@@ -398,8 +398,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_category) {
-            showCategory();
+        if (id == R.id.action_search) {
+//            showCategory();
             return true;
         }
 

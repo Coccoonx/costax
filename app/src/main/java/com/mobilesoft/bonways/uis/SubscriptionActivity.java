@@ -2,7 +2,6 @@ package com.mobilesoft.bonways.uis;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -29,7 +28,7 @@ public class SubscriptionActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(lm);
         recyclerView.setHasFixedSize(true);
 
-        adapter = new BundleItemAdapter(this, DummyServer.getBundle(this));
+        adapter = new BundleItemAdapter(this, DummyServer.buildBundles(this));
 
         recyclerView.setAdapter(adapter);
 

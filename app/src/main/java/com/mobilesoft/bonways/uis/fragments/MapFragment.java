@@ -11,37 +11,26 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mobilesoft.bonways.R;
-import com.mobilesoft.bonways.backend.DummyServer;
 import com.mobilesoft.bonways.core.managers.ProfileManager;
 import com.mobilesoft.bonways.core.models.Trade;
 import com.mobilesoft.bonways.uis.MainActivity;
 import com.mobilesoft.bonways.uis.ProductActivity;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
@@ -145,19 +134,33 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             options.position(new LatLng(trade.getLatitude(), trade.getLongitude()));
 
             if (trade.getMainCategory().equalsIgnoreCase("Beauté"))
-                options.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_cat_beaute));
+                options.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_cat_beauty));
             else if (trade.getMainCategory().equalsIgnoreCase("Brico/Deco"))
-                options.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_cat_bricolage));
-            else if (trade.getMainCategory().equalsIgnoreCase("Kdo"))
-                options.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_cat_cadeau));
+                options.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_cat_diy));
+            else if (trade.getMainCategory().equalsIgnoreCase("Cadeaux"))
+                options.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_cat_gift));
             else if (trade.getMainCategory().equalsIgnoreCase("Transport"))
                 options.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_cat_transport));
             else if (trade.getMainCategory().equalsIgnoreCase("Supermarché"))
-                options.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_cat_epicerie));
+                options.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_cat_supermarket));
             else if (trade.getMainCategory().equalsIgnoreCase("Banque/Service"))
+                options.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_cat_bank));
+            else if (trade.getMainCategory().equalsIgnoreCase("Sortie"))
+                options.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_cat_restaurant));
+            else if (trade.getMainCategory().equalsIgnoreCase("Mode"))
+                options.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_cat_mode));
+            else if (trade.getMainCategory().equalsIgnoreCase("Hotel"))
+                options.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_cat_hostel));
+            else if (trade.getMainCategory().equalsIgnoreCase("Sante/Bien-Etre"))
+                options.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_cat_health));
+            else if (trade.getMainCategory().equalsIgnoreCase("Boulangerie"))
+                options.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_cat_bakery));
+            else if (trade.getMainCategory().equalsIgnoreCase("Location/Service"))
                 options.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_cat_service));
+            else if (trade.getMainCategory().equalsIgnoreCase("Enfants"))
+                options.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_cat_kid));
             else
-                options.icon(BitmapDescriptorFactory.fromResource(R.drawable.bon_ways_shop));
+                options.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_cat_all));
 
             mGoogleMap.addMarker(options);
         }
