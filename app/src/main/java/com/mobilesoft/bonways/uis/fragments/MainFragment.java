@@ -193,7 +193,9 @@ public class MainFragment extends Fragment implements SimpleAdapter.FilterByCate
 
         if (category.getName().equals("Tout")) {
             filteredProduct.addAll(MainActivity.mProducts);
+            Log.d("Categrory","Tout");
         } else {
+            Log.d("Categrory",category.getName());
             for (Product product : MainActivity.mProducts) {
                 if (product.getCategory().equals(category)) {
                     filteredProduct.add(product);
